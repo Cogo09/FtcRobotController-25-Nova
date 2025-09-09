@@ -1,5 +1,9 @@
 repositories {
     mavenCentral()
+    maven {
+        url = 'https://maven.brott.dev/'}
+    maven {url = 'https://jitpack.io'}
+    jcenter()
     google() // Needed for androidx
 }
 
