@@ -17,11 +17,11 @@ public class HARDWARECONFIG {
     LinearOpMode opMode = null;
     public CLAWSUB clawsub = null;
     public org.firstinspires.ftc.teamcode.SUBS.ARMSUB armSub = null;
-    //DcMotor frontLeftMotor = null;
-    //DcMotor backLeftMotor = null;
-    //DcMotor frontRightMotor = null;
-    //DcMotor backRightMotor = null;
-    //Limelight3A limelight = null;
+    DcMotor frontLeftMotor = null;
+    DcMotor backLeftMotor = null;
+    DcMotor frontRightMotor = null;
+    DcMotor backRightMotor = null;
+    Limelight3A limelight = null;
     DcMotor gunmotor = null;
     DcMotor gunmotorL = null;
 
@@ -36,16 +36,16 @@ public class HARDWARECONFIG {
         telemetry = om.telemetry;
         clawsub = new CLAWSUB(hwmap);
         armSub = new org.firstinspires.ftc.teamcode.SUBS.ARMSUB(hwmap, auto);
-        //frontLeftMotor = hwmap.dcMotor.get("frontLeftMotor");
-        //backLeftMotor = hwmap.dcMotor.get("backLeftMotor");
-        //frontRightMotor = hwmap.dcMotor.get("frontRightMotor");
-        //backRightMotor = hwmap.dcMotor.get("backRightMotor");
+        frontLeftMotor = hwmap.dcMotor.get("frontLeftMotor");
+        backLeftMotor = hwmap.dcMotor.get("backLeftMotor");
+        frontRightMotor = hwmap.dcMotor.get("frontRightMotor");
+        backRightMotor = hwmap.dcMotor.get("backRightMotor");
         gunmotor = hwmap.dcMotor.get("gunmotor");
         gunmotorL = hwmap.dcMotor.get("gunmotorL");
 
-        // limelight = hwmap.get(Limelight3A.class, "limelight");
-        //backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        //frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+         limelight = hwmap.get(Limelight3A.class, "limelight");
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 //
 //
 
@@ -143,12 +143,13 @@ public class HARDWARECONFIG {
             armSub.setUptarget(280);
             clawsub.setHangMIDDLE();
         }
-        if (opMode.gamepad2.right_trigger > 0) {
+        if (opMode.gamepad1.right_trigger > 0) {
             gunmotor.setPower(1);
             gunmotorL.setPower(1);
         }
-        if (opMode.gamepad2.left_trigger > 0) {
-            clawsub.setSwitchPrime();
+        if (opMode.gamepad1.left_trigger > 0) {
+            gunmotor.setPower(0);
+            gunmotorL.setPower(0);
         }
         if (opMode.gamepad2.x) {
             clawsub.setFREAKY();
