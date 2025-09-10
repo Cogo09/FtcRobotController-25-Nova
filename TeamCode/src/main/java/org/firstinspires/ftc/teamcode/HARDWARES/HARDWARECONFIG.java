@@ -17,11 +17,11 @@ public class HARDWARECONFIG {
     LinearOpMode opMode = null;
     public CLAWSUB clawsub = null;
     public org.firstinspires.ftc.teamcode.SUBS.ARMSUB armSub = null;
-    DcMotor frontLeftMotor = null;
-    DcMotor backLeftMotor = null;
-    DcMotor frontRightMotor = null;
-    DcMotor backRightMotor = null;
-    Limelight3A limelight = null;
+//    DcMotor frontLeftMotor = null;
+//    DcMotor backLeftMotor = null;
+//    DcMotor frontRightMotor = null;
+//    DcMotor backRightMotor = null;
+   // Limelight3A limelight = null;
     DcMotor gunmotor = null;
     DcMotor gunmotorL = null;
 
@@ -34,18 +34,18 @@ public class HARDWARECONFIG {
     void initrobot(HardwareMap hwmap, LinearOpMode om, Boolean auto) {
         opMode = om;//
         telemetry = om.telemetry;
-        clawsub = new CLAWSUB(hwmap);
+        //clawsub = new CLAWSUB(hwmap);
         armSub = new org.firstinspires.ftc.teamcode.SUBS.ARMSUB(hwmap, auto);
-        frontLeftMotor = hwmap.dcMotor.get("frontLeftMotor");
-        backLeftMotor = hwmap.dcMotor.get("backLeftMotor");
-        frontRightMotor = hwmap.dcMotor.get("frontRightMotor");
-        backRightMotor = hwmap.dcMotor.get("backRightMotor");
+//        frontLeftMotor = hwmap.dcMotor.get("frontLeftMotor");
+//        backLeftMotor = hwmap.dcMotor.get("backLeftMotor");
+//        frontRightMotor = hwmap.dcMotor.get("frontRightMotor");
+//        backRightMotor = hwmap.dcMotor.get("backRightMotor");
         gunmotor = hwmap.dcMotor.get("gunmotor");
         gunmotorL = hwmap.dcMotor.get("gunmotorL");
 
-         limelight = hwmap.get(Limelight3A.class, "limelight");
-        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//         limelight = hwmap.get(Limelight3A.class, "limelight");
+//        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 //
 //
 
@@ -163,7 +163,7 @@ public class HARDWARECONFIG {
         gunmotor.setPower(gunmotorPower);
         gunmotorL.setPower(gunmotorPowerL);
 
-        clawsub.update();
+        //clawsub.update();
         armSub.update();
         buildtelemetry();
 
