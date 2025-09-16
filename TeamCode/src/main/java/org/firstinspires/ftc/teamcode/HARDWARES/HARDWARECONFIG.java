@@ -9,14 +9,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.SUBS.CLAWSUB;
+//import org.firstinspires.ftc.teamcode.SUBS.CLAWSUB;
 
 public class HARDWARECONFIG {
     boolean slowmode = false;
     Telemetry telemetry = null;
     LinearOpMode opMode = null;
-    public CLAWSUB clawsub = null;
-    public org.firstinspires.ftc.teamcode.SUBS.ARMSUB armSub = null;
+   // public CLAWSUB clawsub = null;
+    //public org.firstinspires.ftc.teamcode.SUBS.ARMSUB armSub = null;
 //    DcMotor frontLeftMotor = null;
 //    DcMotor backLeftMotor = null;
 //    DcMotor frontRightMotor = null;
@@ -35,7 +35,7 @@ public class HARDWARECONFIG {
         opMode = om;//
         telemetry = om.telemetry;
         //clawsub = new CLAWSUB(hwmap);
-        armSub = new org.firstinspires.ftc.teamcode.SUBS.ARMSUB(hwmap, auto);
+       // armSub = new org.firstinspires.ftc.teamcode.SUBS.ARMSUB(hwmap, auto);
 //        frontLeftMotor = hwmap.dcMotor.get("frontLeftMotor");
 //        backLeftMotor = hwmap.dcMotor.get("backLeftMotor");
 //        frontRightMotor = hwmap.dcMotor.get("frontRightMotor");
@@ -58,7 +58,7 @@ public class HARDWARECONFIG {
         telemetry.addData("b", opMode.gamepad1.b);
         telemetry.addData("up", opMode.gamepad1.dpad_up);
         telemetry.addData("rightstick", opMode.gamepad2.right_stick_y);
-        armSub.telemetry(telemetry);
+       // armSub.telemetry(telemetry);
         telemetry.update();
     }
 
@@ -97,52 +97,52 @@ public class HARDWARECONFIG {
 
 
 //           double clawpower = 0.5;
-        if (opMode.gamepad1.right_bumper) {
-            clawsub.setClawCLOSE();   // keep 90 always
-        } else if (opMode.gamepad1.left_bumper) {
-            clawsub.setClawOPEN();  //  keep at 60 increase  to open less
-        }
-        if (opMode.gamepad1.y) {
-            clawsub.setPrimeTOP();// press b first ALWAYS.
-        } else if (opMode.gamepad1.a) {
-            clawsub.setPrimeBOTTOM();//change degrees in small increments.
-        } else if (opMode.gamepad1.b) {
-            clawsub.setPrimeMIDDLE();// keep for halfway
-        } //drive forward down and open simultaniously
-        if (opMode.gamepad1.x) {
-            clawsub.setPrimeLOW();
+//        if (opMode.gamepad1.right_bumper) {
+//            clawsub.setClawCLOSE();   // keep 90 always
+//        } else if (opMode.gamepad1.left_bumper) {
+//            clawsub.setClawOPEN();  //  keep at 60 increase  to open less
+//        }
+//        if (opMode.gamepad1.y) {
+//            clawsub.setPrimeTOP();// press b first ALWAYS.
+//        } else if (opMode.gamepad1.a) {
+//            clawsub.setPrimeBOTTOM();//change degrees in small increments.
+//        } else if (opMode.gamepad1.b) {
+//            clawsub.setPrimeMIDDLE();// keep for halfway
+//        } //drive forward down and open simultaniously
+//        if (opMode.gamepad1.x) {
+//            clawsub.setPrimeLOW();
+//
+//        }
+//        if (opMode.gamepad2.a) {
+//            clawsub.setHangBOTTOM();
+//
+//        }
+//        if (opMode.gamepad2.b) {
+//            clawsub.setHangMIDDLE();
+//        }
+//        if (opMode.gamepad2.y) {
+//            clawsub.setHangTOP();
+//        }
+//        if (opMode.gamepad2.right_bumper) {
+//            clawsub.setUClawOPEN();
+//        } else if (opMode.gamepad2.left_bumper) {
+//            clawsub.setUClawCLOSE();
+//
+//        }
 
-        }
-        if (opMode.gamepad2.a) {
-            clawsub.setHangBOTTOM();
-
-        }
-        if (opMode.gamepad2.b) {
-            clawsub.setHangMIDDLE();
-        }
-        if (opMode.gamepad2.y) {
-            clawsub.setHangTOP();
-        }
-        if (opMode.gamepad2.right_bumper) {
-            clawsub.setUClawOPEN();
-        } else if (opMode.gamepad2.left_bumper) {
-            clawsub.setUClawCLOSE();
-
-        }
-
-        if (opMode.gamepad2.dpad_up) {
-            armSub.setUptarget(2200);
-        } else if (opMode.gamepad2.dpad_down) {
-            armSub.setUptarget(100);//k
-        }
-        if (opMode.gamepad2.dpad_right) {
-            armSub.setUptarget(900);
-            clawsub.setHangBOTTOM();
-        }
-        if (opMode.gamepad2.dpad_left) {
-            armSub.setUptarget(280);
-            clawsub.setHangMIDDLE();
-        }
+//        if (opMode.gamepad2.dpad_up) {
+//            armSub.setUptarget(2200);
+//        } else if (opMode.gamepad2.dpad_down) {
+//            armSub.setUptarget(100);//k
+//        }
+//        if (opMode.gamepad2.dpad_right) {
+//            armSub.setUptarget(900);
+//            clawsub.setHangBOTTOM();
+//        }
+//        if (opMode.gamepad2.dpad_left) {
+//            armSub.setUptarget(280);
+//            clawsub.setHangMIDDLE();
+//        }
         if (opMode.gamepad1.right_trigger > 0) {
             gunmotor.setPower(1);
             gunmotorL.setPower(1);
@@ -151,9 +151,9 @@ public class HARDWARECONFIG {
             gunmotor.setPower(0);
             gunmotorL.setPower(0);
         }
-        if (opMode.gamepad2.x) {
-            clawsub.setFREAKY();
-        }
+//        if (opMode.gamepad2.x) {
+//            clawsub.setFREAKY();
+//        }
 
 
         //frontLeftMotor.setPower(frontLeftPower);
@@ -164,7 +164,7 @@ public class HARDWARECONFIG {
         gunmotorL.setPower(gunmotorPowerL);
 
         //clawsub.update();
-        armSub.update();
+        //armSub.update();
         buildtelemetry();
 
     }

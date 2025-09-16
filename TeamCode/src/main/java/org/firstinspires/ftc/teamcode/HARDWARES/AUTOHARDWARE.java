@@ -226,14 +226,14 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
         Actions.runBlocking(
                 new SequentialAction(
                         //set claw middle to insert
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangMIDDLE())),
+                        //clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangMIDDLE())),
                         //armSub.armAction(List.of(() -> armSub.setUptarget(300))),
                         // clawsub.clawAction(clawsub,List.of(() -> clawsub.setHangBOTTOM())),
 
                         new InstantAction(() -> drivefinished = false),
                         new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(300))),
-                                Update()
+                                //armSub.armAction(List.of(() -> armSub.setUptarget(300))),
+                                //Update()
                         ),
                         new InstantAction(() -> drivefinished = true),
                         //set arm at correct height
@@ -245,13 +245,13 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
 
                                                 .build(),
                                         endAction()
-                                ),
-                                Update()
+                                )
+                                //Update()
                         ),
                         //increase arm height when in sub
                         //set claw to top position
 
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+                        //clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
                         new SleepAction(1.0)
                 )
         );
@@ -380,88 +380,700 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
 //    }
 
 
-    public void sample1() {
-        drivefinished = true;
-        Actions.runBlocking(
-                new SequentialAction(
-
-                        new SequentialAction(
-                                drive.actionBuilder(lastPose)
-                                        .turnTo(Math.toRadians(90.0))
-                                        .strafeTo(new Vector2d(-50, -33.5))//
-                                        //.lineToY(-30)
-                                        .build(),
-                                endAction()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        new InstantAction(() -> drivefinished = true),
-                        armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                        new ParallelAction(
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                .lineToYLinearHeading(-58.25, Math.toRadians(225))
-                                                .lineToX(-58.25)
-//                                                .strafeToLinearHeading(new Vector2d(-50, -50), Math.toRadians(225))
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-//                                                .turnTo(Math.toRadians(225))
-//                                                .strafeTo(new Vector2d(-58.25, -58.25))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-
-//                                new SequentialAction(
-//                                        drive.actionBuilder(lastPose)
-//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//    public void sample1() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                new SequentialAction(
 //
-//                                                .strafeTo(new Vector2d(-58.25, -58.25))
-//                                                .turnTo(Math.toRadians(225.0))//
-//                                                .build(),
-//                                        endAction()
-//                                ),
-//                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        //new SleepAction(1),
-                        //reset the claw in order to grab next sample
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
-                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
-                                        Update()
-                                ),
-                                new InstantAction(() -> drivefinished = true),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE()))
-
-                        )
-                )
-        );
-    }
-
-
-    public void preloadsample() {
-        drivefinished = true;
-        Actions.runBlocking(
-                new SequentialAction(
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-
 //                        new SequentialAction(
 //                                drive.actionBuilder(lastPose)
 //                                        .turnTo(Math.toRadians(90.0))
 //                                        .strafeTo(new Vector2d(-50, -33.5))//
+//                                        //.lineToY(-30)
+//                                        .build(),
+//                                endAction()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+//                        new InstantAction(() -> drivefinished = true),
+//                        armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                        new ParallelAction(
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                .lineToYLinearHeading(-58.25, Math.toRadians(225))
+//                                                .lineToX(-58.25)
+////                                                .strafeToLinearHeading(new Vector2d(-50, -50), Math.toRadians(225))
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+////                                                .turnTo(Math.toRadians(225))
+////                                                .strafeTo(new Vector2d(-58.25, -58.25))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//
+////                                new SequentialAction(
+////                                        drive.actionBuilder(lastPose)
+////                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+////
+////                                                .strafeTo(new Vector2d(-58.25, -58.25))
+////                                                .turnTo(Math.toRadians(225.0))//
+////                                                .build(),
+////                                        endAction()
+////                                ),
+////                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        //new SleepAction(1),
+//                        //reset the claw in order to grab next sample
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
+//                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
+//                                        Update()
+//                                ),
+//                                new InstantAction(() -> drivefinished = true),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE()))
+//
+//                        )
+//                )
+//        );
+//    }
+//
+//
+//    public void preloadsample() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                new SequentialAction(
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//
+////                        new SequentialAction(
+////                                drive.actionBuilder(lastPose)
+////                                        .turnTo(Math.toRadians(90.0))
+////                                        .strafeTo(new Vector2d(-50, -33.5))//
+////                                        //.lineToY(-30)
+////                                        .build(),
+////
+////                                endAction()
+////                        ),
+////                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+////                        new SleepAction(1),
+////                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+////                        new SleepAction(1),
+////                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+////                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+////                        new SleepAction(1),
+////                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+////                        new SleepAction(1),
+////                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+////                        new InstantAction(() -> drivefinished = true),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-57.5, -57.5))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//
+////                                new SequentialAction(
+////                                        drive.actionBuilder(lastPose)
+////                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+////
+////                                                .strafeTo(new Vector2d(-58.25, -58.25))
+////                                                .turnTo(Math.toRadians(225.0))//
+////                                                .build(),
+////                                        endAction()
+////                                ),
+////                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        //new SleepAction(1),
+//                        //reset the claw in order to grab next sample
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(1.0),
+//                                endAction()
+//
+//                        )
+//
+//
+//                )
+//        );
+//    }
+//
+//
+//    public void justtwo() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                new SequentialAction(
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2100))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-57.5, -57.5))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        //new SleepAction(1),
+//                        //reset the claw in order to grab next sample
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(200))),
+//                                new ParallelAction(
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(0.5),
+//                                endAction()
+//
+//                        ),
+//                        //finish!!!
+//
+//
+//                        new ParallelAction(
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//                                                .turnTo(Math.toRadians(91))
+//                                                .strafeTo(new Vector2d(-41, -50))
+//                                                // .turnTo(Math.toRadians(90.0))
+//                                                .lineToY(-30)
+//                                                .build(),
+//                                        endAction()
+//
+//                                )
+//
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+//                        new SleepAction(0.5),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new InstantAction(() -> drivefinished = true),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2100))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-58, -58))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//                        ),
+//
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        new SleepAction(0.5),
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(300))),
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(0.5)
+//
+//                        )
+//                )
+//        );
+//    }
+//
+//
+//    public void justthree() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                new SequentialAction(
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2100))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-57.5, -57.5))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        //new SleepAction(1),
+//                        //reset the claw in order to grab next sample
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(300))),
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(0.5),
+//                                endAction()//
+//
+//                        ),
+//                        //finish!!!
+//
+//
+//                        new ParallelAction(
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//                                                .turnTo(Math.toRadians(91))
+//                                                .strafeTo(new Vector2d(-41, -50))
+//                                                // .turnTo(Math.toRadians(90.0))
+//                                                .lineToY(-27)
+//                                                .build(),
+//                                        endAction()
+//
+//                                )
+//
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+//                        new SleepAction(0.5),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new InstantAction(() -> drivefinished = true),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2100))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-58, -58))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        new SleepAction(0.5),
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(300))),
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(0.5),
+//                                endAction()//
+//
+//                        ),
+//                        new ParallelAction(
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//                                                .turnTo(Math.toRadians(91))
+//                                                .strafeTo(new Vector2d(-46, -50))
+//                                                // .turnTo(Math.toRadians(90.0))
+//                                                .lineToY(-30)
+//                                                .build(),
+//                                        endAction()
+//
+//                                )
+//
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+//                        new SleepAction(0.5),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new InstantAction(() -> drivefinished = true),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2100))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-58, -58))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        new SleepAction(0.5),
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(150))),
+//                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(1),
+//                                endAction()
+//
+//                        )
+//
+//
+//                )
+//        );
+//    }
+//
+//
+//    public void twopre() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                new SequentialAction(
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-57.5, -57.5))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        //new SleepAction(1),
+//                        //reset the claw in order to grab next sample
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(1.0),
+//                                endAction()
+//
+//                        ),
+//                        //finish!!!
+//
+//
+//                        new ParallelAction(
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-48, -50))
+//                                                .turnTo(Math.toRadians(90.0))
+//                                                .lineToY(-37)
+//                                                .build(),
+//                                        endAction()
+//
+//                                )
+//
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+//                        new SleepAction(0.5),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-58.5, -58.5))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
+//                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(1.0),
+//                                endAction()
+//
+//                        ),
+//                        //Finish!!
+//                        new ParallelAction(
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-58, -50))
+//                                                .turnTo(Math.toRadians(90.0))
+//                                                .lineToY(-33)
+//                                                .build(),
+//                                        endAction()
+//
+//                                )
+//
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+//                        new SleepAction(0.5),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
+//                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(1.0),
+//                                endAction()
+//
+//                        )
+//
+//
+//                )
+//        );
+//    }
+//
+//    public void fd() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                new SequentialAction(
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-57.5, -57.5))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        //new SleepAction(1),
+//                        //reset the claw in order to grab next sample
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(100))),
+//                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(1.0),
+//                                endAction()
+//
+//                        ),
+//                        //finish!!!
+//
+//
+//                        new ParallelAction(
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-48, -50))
+//                                                .turnTo(Math.toRadians(90.0))
+//                                                .lineToY(-37)
+//                                                .build(),
+//                                        endAction()
+//
+//                                )
+//
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+//                        new SleepAction(0.5),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-58, -58))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(100))),
+//                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(1.0),
+//                                endAction()
+//
+//                        ),
+//                        //Finish!!
+//                        new ParallelAction(
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-58, -50))
+//                                                .turnTo(Math.toRadians(90.0))
+//                                                .lineToY(-34)
+//                                                .build(),
+//                                        endAction()
+//
+//                                )
+//
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+//                        new SleepAction(0.5),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .turnTo(Math.toRadians(225))
+//                                                .strafeTo(new Vector2d(-58, -58))
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(100))),
+//                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
+//                                        Update()
+//                                ),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                                new SleepAction(1.0),
+//                                endAction()
+//
+//                        )
+//
+//
+//                )
+//        );
+//    }
+//
+//
+//    public void sample() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                new SequentialAction(
+//
+//                        new SequentialAction(
+//                                drive.actionBuilder(lastPose)
+//                                        .turnTo(Math.toRadians(90.0))
+//                                        .strafeTo(new Vector2d(-48, -35))//
 //                                        //.lineToY(-30)
 //                                        .build(),
 //
@@ -478,20 +1090,72 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
 //                        new SleepAction(1),
 //                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
 //                        new InstantAction(() -> drivefinished = true),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-57.5, -57.5))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-
+//                        new SequentialAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new ParallelAction(
+//                                        new SequentialAction(
+//                                                drive.actionBuilder(lastPose)
+//                                                        //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                        .turnTo(Math.toRadians(225))
+//                                                        .strafeTo(new Vector2d(-58, -58))
+//
+//
+//                                                        .build(),
+//                                                endAction()
+//                                        ),
+//                                        Update()
+//                                )
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        //new SleepAction(1),
+//                        //reset the claw in order to grab next sample
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
+//                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
+//                                        Update()
+//                                ),
+//                                new InstantAction(() -> drivefinished = true),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE()))
+//
+//                        ), new SleepAction(1)
+//                )
+//        );
+//    }
+//
+//
+//    public void sample1R() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                new SequentialAction(
+//
+//                        new SequentialAction(
+//                                drive.actionBuilder(lastPose)
+//                                        .turnTo(Math.toRadians(90.0))
+//                                        .strafeTo(new Vector2d(-45, -34.5))//
+//                                        //.lineToY(-30)
+//                                        .build(),
+//
+//                                endAction()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+//                        new InstantAction(() -> drivefinished = true),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
 //                                new SequentialAction(
 //                                        drive.actionBuilder(lastPose)
 //                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
@@ -502,671 +1166,150 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
 //                                        endAction()
 //                                ),
 //                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        //new SleepAction(1),
-                        //reset the claw in order to grab next sample
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(1.0),
-                                endAction()
-
-                        )
-
-
-                )
-        );
-    }
-
-
-    public void justtwo() {
-        drivefinished = true;
-        Actions.runBlocking(
-                new SequentialAction(
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2100))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-57.5, -57.5))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        //new SleepAction(1),
-                        //reset the claw in order to grab next sample
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                armSub.armAction(List.of(() -> armSub.setUptarget(200))),
-                                new ParallelAction(
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(0.5),
-                                endAction()
-
-                        ),
-                        //finish!!!
-
-
-                        new ParallelAction(
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-                                                .turnTo(Math.toRadians(91))
-                                                .strafeTo(new Vector2d(-41, -50))
-                                                // .turnTo(Math.toRadians(90.0))
-                                                .lineToY(-30)
-                                                .build(),
-                                        endAction()
-
-                                )
-
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(0.5),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new InstantAction(() -> drivefinished = true),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2100))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-58, -58))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-                        ),
-
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        new SleepAction(0.5),
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(300))),
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(0.5)
-
-                        )
-                )
-        );
-    }
-
-
-    public void justthree() {
-        drivefinished = true;
-        Actions.runBlocking(
-                new SequentialAction(
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2100))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-57.5, -57.5))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        //new SleepAction(1),
-                        //reset the claw in order to grab next sample
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(300))),
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(0.5),
-                                endAction()//
-
-                        ),
-                        //finish!!!
-
-
-                        new ParallelAction(
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-                                                .turnTo(Math.toRadians(91))
-                                                .strafeTo(new Vector2d(-41, -50))
-                                                // .turnTo(Math.toRadians(90.0))
-                                                .lineToY(-27)
-                                                .build(),
-                                        endAction()
-
-                                )
-
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(0.5),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new InstantAction(() -> drivefinished = true),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2100))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-58, -58))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        new SleepAction(0.5),
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(300))),
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(0.5),
-                                endAction()//
-
-                        ),
-                        new ParallelAction(
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-                                                .turnTo(Math.toRadians(91))
-                                                .strafeTo(new Vector2d(-46, -50))
-                                                // .turnTo(Math.toRadians(90.0))
-                                                .lineToY(-30)
-                                                .build(),
-                                        endAction()
-
-                                )
-
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(0.5),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new InstantAction(() -> drivefinished = true),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2100))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-58, -58))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        new SleepAction(0.5),
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(150))),
-                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(1),
-                                endAction()
-
-                        )
-
-
-                )
-        );
-    }
-
-
-    public void twopre() {
-        drivefinished = true;
-        Actions.runBlocking(
-                new SequentialAction(
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-57.5, -57.5))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        //new SleepAction(1),
-                        //reset the claw in order to grab next sample
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(1.0),
-                                endAction()
-
-                        ),
-                        //finish!!!
-
-
-                        new ParallelAction(
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-48, -50))
-                                                .turnTo(Math.toRadians(90.0))
-                                                .lineToY(-37)
-                                                .build(),
-                                        endAction()
-
-                                )
-
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(0.5),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-58.5, -58.5))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
-                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(1.0),
-                                endAction()
-
-                        ),
-                        //Finish!!
-                        new ParallelAction(
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-58, -50))
-                                                .turnTo(Math.toRadians(90.0))
-                                                .lineToY(-33)
-                                                .build(),
-                                        endAction()
-
-                                )
-
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(0.5),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
-                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(1.0),
-                                endAction()
-
-                        )
-
-
-                )
-        );
-    }
-
-    public void fd() {
-        drivefinished = true;
-        Actions.runBlocking(
-                new SequentialAction(
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-57.5, -57.5))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        //new SleepAction(1),
-                        //reset the claw in order to grab next sample
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(100))),
-                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(1.0),
-                                endAction()
-
-                        ),
-                        //finish!!!
-
-
-                        new ParallelAction(
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-48, -50))
-                                                .turnTo(Math.toRadians(90.0))
-                                                .lineToY(-37)
-                                                .build(),
-                                        endAction()
-
-                                )
-
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(0.5),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-58, -58))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(100))),
-                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(1.0),
-                                endAction()
-
-                        ),
-                        //Finish!!
-                        new ParallelAction(
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-58, -50))
-                                                .turnTo(Math.toRadians(90.0))
-                                                .lineToY(-34)
-                                                .build(),
-                                        endAction()
-
-                                )
-
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(0.5),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .turnTo(Math.toRadians(225))
-                                                .strafeTo(new Vector2d(-58, -58))
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(100))),
-                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
-                                        Update()
-                                ),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                                new SleepAction(1.0),
-                                endAction()
-
-                        )
-
-
-                )
-        );
-    }
-
-
-    public void sample() {
-        drivefinished = true;
-        Actions.runBlocking(
-                new SequentialAction(
-
-                        new SequentialAction(
-                                drive.actionBuilder(lastPose)
-                                        .turnTo(Math.toRadians(90.0))
-                                        .strafeTo(new Vector2d(-48, -35))//
-                                        //.lineToY(-30)
-                                        .build(),
-
-                                endAction()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        new InstantAction(() -> drivefinished = true),
-                        new SequentialAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new ParallelAction(
-                                        new SequentialAction(
-                                                drive.actionBuilder(lastPose)
-                                                        //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                        .turnTo(Math.toRadians(225))
-                                                        .strafeTo(new Vector2d(-58, -58))
-
-
-                                                        .build(),
-                                                endAction()
-                                        ),
-                                        Update()
-                                )
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        //new SleepAction(1),
-                        //reset the claw in order to grab next sample
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
-                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
-                                        Update()
-                                ),
-                                new InstantAction(() -> drivefinished = true),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE()))
-
-                        ), new SleepAction(1)
-                )
-        );
-    }
-
-
-    public void sample1R() {
-        drivefinished = true;
-        Actions.runBlocking(
-                new SequentialAction(
-
-                        new SequentialAction(
-                                drive.actionBuilder(lastPose)
-                                        .turnTo(Math.toRadians(90.0))
-                                        .strafeTo(new Vector2d(-45, -34.5))//
-                                        //.lineToY(-30)
-                                        .build(),
-
-                                endAction()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        new InstantAction(() -> drivefinished = true),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .strafeTo(new Vector2d(-58.25, -58.25))
-                                                .turnTo(Math.toRadians(225.0))//
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-
+//
+////                                new SequentialAction(
+////                                        drive.actionBuilder(lastPose)
+////                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+////
+////                                                .strafeTo(new Vector2d(-58.25, -58.25))
+////                                                .turnTo(Math.toRadians(225.0))//
+////                                                .build(),
+////                                        endAction()
+////                                ),
+////                                Update()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        //new SleepAction(1),
+//                        //reset the claw in order to grab next sample
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
+//                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
+//                                        Update()
+//                                ),
+//                                new InstantAction(() -> drivefinished = true),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE()))
+//
+//                        )
+//                )
+//        );
+//    }
+//
+//
+//    public void sample2() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                new SequentialAction(
+//
+//                        new SequentialAction(
+//                                drive.actionBuilder(lastPose)
+//                                        .turnTo(Math.toRadians(90.0))
+//                                        .strafeTo(new Vector2d(-60, -35))//
+//                                        //.lineToY(-30)
+//                                        .build(),
+//
+//                                endAction()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+//                        new InstantAction(() -> drivefinished = true),
+//                        new SequentialAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new ParallelAction(
+//                                        new SequentialAction(
+//                                                drive.actionBuilder(lastPose)
+//                                                        //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                        .strafeTo(new Vector2d(-48, -30))
+//                                                        .turnTo(Math.toRadians(225.0))//
+//                                                        .build(),
+//                                                endAction()
+//                                        ),
+//                                        Update()
+//                                ),
+//                                new ParallelAction(
+//                                        new SequentialAction(
+//                                                drive.actionBuilder(lastPose)
+//                                                        //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                        .strafeTo(new Vector2d(-58.25, -58.25))
+//                                                        .turnTo(Math.toRadians(225.0))//
+//                                                        .build(),
+//                                                endAction()
+//                                        ),
+//                                        Update()
+//                                )
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        //new SleepAction(1),
+//                        //reset the claw in order to grab next sample
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
+//                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
+//                                        Update()
+//                                ),
+//                                new InstantAction(() -> drivefinished = true),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE()))
+//
+//                        ), new SleepAction(1)
+//                )
+//        );
+//    }
+//
+//
+//    public void sample2R() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                new SequentialAction(
+//
+//                        new SequentialAction(
+//                                drive.actionBuilder(lastPose)
+//                                        .turnTo(Math.toRadians(90.0))
+//                                        .strafeTo(new Vector2d(-57.5, -33))//
+//                                        //.lineToY(-30)
+//                                        .build(),
+//
+//                                endAction()
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
+//                        new SleepAction(1),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
+//                        new InstantAction(() -> drivefinished = true),
+//                        new ParallelAction(
+//                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
+//                                new SequentialAction(
+//                                        drive.actionBuilder(lastPose)
+//                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
+//
+//                                                .strafeTo(new Vector2d(-48, -30))
+//                                                .turnTo(Math.toRadians(225.0))//
+//                                                .build(),
+//                                        endAction()
+//                                ),
+//                                Update(),
+//
 //                                new SequentialAction(
 //                                        drive.actionBuilder(lastPose)
 //                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
@@ -1177,168 +1320,25 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
 //                                        endAction()
 //                                ),
 //                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        //new SleepAction(1),
-                        //reset the claw in order to grab next sample
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
-                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
-                                        Update()
-                                ),
-                                new InstantAction(() -> drivefinished = true),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE()))
-
-                        )
-                )
-        );
-    }
-
-
-    public void sample2() {
-        drivefinished = true;
-        Actions.runBlocking(
-                new SequentialAction(
-
-                        new SequentialAction(
-                                drive.actionBuilder(lastPose)
-                                        .turnTo(Math.toRadians(90.0))
-                                        .strafeTo(new Vector2d(-60, -35))//
-                                        //.lineToY(-30)
-                                        .build(),
-
-                                endAction()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        new InstantAction(() -> drivefinished = true),
-                        new SequentialAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new ParallelAction(
-                                        new SequentialAction(
-                                                drive.actionBuilder(lastPose)
-                                                        //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                        .strafeTo(new Vector2d(-48, -30))
-                                                        .turnTo(Math.toRadians(225.0))//
-                                                        .build(),
-                                                endAction()
-                                        ),
-                                        Update()
-                                ),
-                                new ParallelAction(
-                                        new SequentialAction(
-                                                drive.actionBuilder(lastPose)
-                                                        //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                        .strafeTo(new Vector2d(-58.25, -58.25))
-                                                        .turnTo(Math.toRadians(225.0))//
-                                                        .build(),
-                                                endAction()
-                                        ),
-                                        Update()
-                                )
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        //new SleepAction(1),
-                        //reset the claw in order to grab next sample
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
-                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
-                                        Update()
-                                ),
-                                new InstantAction(() -> drivefinished = true),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE()))
-
-                        ), new SleepAction(1)
-                )
-        );
-    }
-
-
-    public void sample2R() {
-        drivefinished = true;
-        Actions.runBlocking(
-                new SequentialAction(
-
-                        new SequentialAction(
-                                drive.actionBuilder(lastPose)
-                                        .turnTo(Math.toRadians(90.0))
-                                        .strafeTo(new Vector2d(-57.5, -33))//
-                                        //.lineToY(-30)
-                                        .build(),
-
-                                endAction()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawCLOSE())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangBOTTOM())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawOPEN())),
-                        new SleepAction(1),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN())),
-                        new InstantAction(() -> drivefinished = true),
-                        new ParallelAction(
-                                armSub.armAction(List.of(() -> armSub.setUptarget(2000))),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setFREAKY())),
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .strafeTo(new Vector2d(-48, -30))
-                                                .turnTo(Math.toRadians(225.0))//
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update(),
-
-                                new SequentialAction(
-                                        drive.actionBuilder(lastPose)
-                                                //.splineToLinearHeading(new Pose2d(-56, -56, Math.toRadians(225.0)), Math.toRadians(225.0))
-
-                                                .strafeTo(new Vector2d(-58.25, -58.25))
-                                                .turnTo(Math.toRadians(225.0))//
-                                                .build(),
-                                        endAction()
-                                ),
-                                Update()
-                        ),
-                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-                        //new SleepAction(1),
-                        //reset the claw in order to grab next sample
-                        new SequentialAction(
-                                new InstantAction(() -> drivefinished = false),
-                                new ParallelAction(
-                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
-                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
-                                        Update()
-                                ),
-                                new InstantAction(() -> drivefinished = true),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE()))
-
-                        ), new SleepAction(1)
-                )
-        );
-    }
+//                        ),
+//                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
+//                        //new SleepAction(1),
+//                        //reset the claw in order to grab next sample
+//                        new SequentialAction(
+//                                new InstantAction(() -> drivefinished = false),
+//                                new ParallelAction(
+//                                        armSub.armAction(List.of(() -> armSub.setUptarget(0))),
+//                                        armSub.armAction(List.of(() -> armSub.isUpAtTarget(50))),
+//                                        Update()
+//                                ),
+//                                new InstantAction(() -> drivefinished = true),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
+//                                clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE()))
+//
+//                        ), new SleepAction(1)
+//                )
+//        );
+//    }
 
 //    public void placeYellowSample1() {
 //        drivefinished = true;
@@ -1927,22 +1927,22 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
 //
 //        );
 //    }
-    class update implements Action {
+//    class update implements Action {
+//
+//        @Override
+//        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+//            //clawsub.update();
+//            //armSub.update();
+//            //telemetryPacket.put("encoder1", armSub.dualEncoder.getmost());
+//            //return !armSub.isUpAtTarget(150) || drivefinished;
+//
+//        }
+//    }
 
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            clawsub.update();
-            armSub.update();
-            telemetryPacket.put("encoder1", armSub.dualEncoder.getmost());
-            return !armSub.isUpAtTarget(150) || drivefinished;
-
-        }
-    }
-
-    Action Update() {
-        return new update();
-
-    }
+//    Action Update() {
+//        return new update();
+//
+//    }
 
     class end implements Action {
 
