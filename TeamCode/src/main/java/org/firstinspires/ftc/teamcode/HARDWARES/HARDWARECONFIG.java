@@ -17,13 +17,15 @@ public class HARDWARECONFIG {
     LinearOpMode opMode = null;
    // public CLAWSUB clawsub = null;
     //public org.firstinspires.ftc.teamcode.SUBS.ARMSUB armSub = null;
-//    DcMotor frontLeftMotor = null;
-//    DcMotor backLeftMotor = null;
-//    DcMotor frontRightMotor = null;
-//    DcMotor backRightMotor = null;
+    DcMotor frontLeftMotor = null;
+    DcMotor backLeftMotor = null;
+    DcMotor frontRightMotor = null;
+    DcMotor backRightMotor = null;
    // Limelight3A limelight = null;
     DcMotor gunmotor = null;
     DcMotor gunmotorL = null;
+    DcMotor intakeR = null;
+    DcMotor intakeL = null;
 
     ElapsedTime elapsedTime = null;
 
@@ -36,12 +38,14 @@ public class HARDWARECONFIG {
         telemetry = om.telemetry;
         //clawsub = new CLAWSUB(hwmap);
        // armSub = new org.firstinspires.ftc.teamcode.SUBS.ARMSUB(hwmap, auto);
-//        frontLeftMotor = hwmap.dcMotor.get("frontLeftMotor");
-//        backLeftMotor = hwmap.dcMotor.get("backLeftMotor");
-//        frontRightMotor = hwmap.dcMotor.get("frontRightMotor");
-//        backRightMotor = hwmap.dcMotor.get("backRightMotor");
+        frontLeftMotor = hwmap.dcMotor.get("frontLeftMotor");
+        backLeftMotor = hwmap.dcMotor.get("backLeftMotor");
+        frontRightMotor = hwmap.dcMotor.get("frontRightMotor");
+        backRightMotor = hwmap.dcMotor.get("backRightMotor");
         gunmotor = hwmap.dcMotor.get("gunmotor");
         gunmotorL = hwmap.dcMotor.get("gunmotorL");
+        intakeR = hwmap.dcMotor.get("intakeR");
+        intakeL = hwmap.dcMotor.get("intakeL");
 
 //         limelight = hwmap.get(Limelight3A.class, "limelight");
 //        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -148,18 +152,25 @@ public class HARDWARECONFIG {
             gunmotorL.setPower(1);
         }
         if (opMode.gamepad1.left_trigger > 0) {
-            gunmotor.setPower(0);
-            gunmotorL.setPower(0);
+            gunmotor.setPower(-1);
+            gunmotorL.setPower(-1);
         }
+        if (opMode.gamepad1.right_bumper) {
+            intakeR.setPower(1);
+            intakeL.setPower(1);
+        } else if (opMode.gamepad1.left_bumper) {
+            intakeR.setPower(-1);
+            intakeL.setPower(-1);
+
 //        if (opMode.gamepad2.x) {
 //            clawsub.setFREAKY();
 //        }
 
 
-        //frontLeftMotor.setPower(frontLeftPower);
-        //backLeftMotor.setPower(backLeftPower);
-        //frontRightMotor.setPower(frontRightPower);
-        //backRightMotor.setPower(backRightPower);
+        frontLeftMotor.setPower(frontLeftPower);
+        backLeftMotor.setPower(backLeftPower);
+        frontRightMotor.setPower(frontRightPower);
+        backRightMotor.setPower(backRightPower);
         gunmotor.setPower(gunmotorPower);
         gunmotorL.setPower(gunmotorPowerL);
 
