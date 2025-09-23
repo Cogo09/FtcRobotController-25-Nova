@@ -147,11 +147,11 @@ public class HARDWARECONFIG {
 //            armSub.setUptarget(280);
 //            clawsub.setHangMIDDLE();
 //        }
-        if (opMode.gamepad1.right_trigger > 0) {
+        if (opMode.gamepad2.right_trigger > 0) {
             gunmotor.setPower(1);
             gunmotorL.setPower(1);
         }
-        if (opMode.gamepad1.left_trigger > 0) {
+        if (opMode.gamepad2.left_trigger > 0) {
             gunmotor.setPower(-1);
             gunmotorL.setPower(-1);
         }
@@ -159,8 +159,8 @@ public class HARDWARECONFIG {
             intakeR.setPower(1);
             intakeL.setPower(1);
         } else if (opMode.gamepad1.left_bumper) {
-            intakeR.setPower(-1);
-            intakeL.setPower(-1);
+            intakeR.setPower(0);
+            intakeL.setPower(0);
 
 //        if (opMode.gamepad2.x) {
 //            clawsub.setFREAKY();
