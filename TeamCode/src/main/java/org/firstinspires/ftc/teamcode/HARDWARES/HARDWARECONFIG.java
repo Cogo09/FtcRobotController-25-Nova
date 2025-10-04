@@ -49,7 +49,7 @@ public class HARDWARECONFIG {
 
 //         limelight = hwmap.get(Limelight3A.class, "limelight");
 //        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-//        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 //
 //
 
@@ -160,7 +160,7 @@ public class HARDWARECONFIG {
             intakeL.setPower(1);
         } else if (opMode.gamepad1.left_bumper) {
             intakeR.setPower(0);
-            intakeL.setPower(0);
+            intakeL.setPower(0);}
 
 //        if (opMode.gamepad2.x) {
 //            clawsub.setFREAKY();
@@ -179,4 +179,5 @@ public class HARDWARECONFIG {
         buildtelemetry();
 
     }
-}}
+}
+
