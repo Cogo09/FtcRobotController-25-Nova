@@ -22,7 +22,7 @@ public class HARDWARECONFIG {
     DcMotor frontRightMotor = null;
     DcMotor backRightMotor = null;
    // Limelight3A limelight = null;
-    DcMotor gunmotor = null;
+    DcMotor gunmotorR = null;
     DcMotor gunmotorL = null;
     DcMotor intakeR = null;
     DcMotor intakeL = null;
@@ -42,7 +42,7 @@ public class HARDWARECONFIG {
         backLeftMotor = hwmap.dcMotor.get("backLeftMotor");
         frontRightMotor = hwmap.dcMotor.get("frontRightMotor");
         backRightMotor = hwmap.dcMotor.get("backRightMotor");
-        gunmotor = hwmap.dcMotor.get("gunmotor");
+        gunmotorR = hwmap.dcMotor.get("gunmotorR");
         gunmotorL = hwmap.dcMotor.get("gunmotorL");
         intakeR = hwmap.dcMotor.get("intakeR");
         intakeL = hwmap.dcMotor.get("intakeL");
@@ -50,6 +50,7 @@ public class HARDWARECONFIG {
 //         limelight = hwmap.get(Limelight3A.class, "limelight");
 //        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeL.setDirection(DcMotorSimple.Direction.REVERSE);
 //
 //
 
@@ -148,16 +149,16 @@ public class HARDWARECONFIG {
 //            clawsub.setHangMIDDLE();
 //        }
         if (opMode.gamepad2.right_trigger > 0) {
-            gunmotor.setPower(1);
+            gunmotorR.setPower(1);
             gunmotorL.setPower(1);
         }
         if (opMode.gamepad2.left_trigger > 0) {
-            gunmotor.setPower(-1);
+            gunmotorR.setPower(-1);
             gunmotorL.setPower(-1);
         }
         if (opMode.gamepad1.right_bumper) {
             intakeR.setPower(1);
-            intakeL.setPower(1);
+            intakeL.setPower(0.5);
         } else if (opMode.gamepad1.left_bumper) {
             intakeR.setPower(0);
             intakeL.setPower(0);}
@@ -171,7 +172,7 @@ public class HARDWARECONFIG {
         backLeftMotor.setPower(backLeftPower);
         frontRightMotor.setPower(frontRightPower);
         backRightMotor.setPower(backRightPower);
-        gunmotor.setPower(gunmotorPower);
+        gunmotorR.setPower(gunmotorPower);
         gunmotorL.setPower(gunmotorPowerL);
 
         //clawsub.update();
