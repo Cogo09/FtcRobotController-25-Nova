@@ -9,6 +9,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+
+import java.util.List;
 //import org.firstinspires.ftc.teamcode.SUBS.CLAWSUB;
 
 public class HARDWARECONFIG {
@@ -26,6 +35,11 @@ public class HARDWARECONFIG {
     DcMotor gunmotorL = null;
     DcMotor intakeR = null;
     DcMotor intakeL = null;
+    double heading = 0;
+    double distance = 0;
+
+    private VisionPortal visionPortal;
+    private AprilTagProcessor aprilTag;
 
     ElapsedTime elapsedTime = null;
 
@@ -51,18 +65,75 @@ public class HARDWARECONFIG {
 //        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeL.setDirection(DcMotorSimple.Direction.REVERSE);
-//
-//
+
+        aprilTag = new AprilTagProcessor.Builder()
+
+                // The following default settings are available to un-comment and edit as needed.
+                .setDrawAxes(true)
+                .setDrawCubeProjection(false)
+                .setDrawTagOutline(true)
+                .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)
+                .setTagLibrary(AprilTagGameDatabase.getDecodeTagLibrary())
+                .setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
+
+                // == CAMERA CALIBRATION ==
+                // If you do not manually specify calibration parameters, the SDK will attempt
+                // to load a predefined calibration for your camera.
+                .setLensIntrinsics(578.272, 578.272, 402.145, 221.506)
+                // ... these parameters are fx, fy, cx, cy.
+
+
+                .build();
+        VisionPortal.Builder builder = new VisionPortal.Builder();
+
+        // Set the camera (webcam vs. built-in RC phone camera).
+            builder.setCamera(hwmap.get(WebcamName.class, "Webcam 1"));
+        builder.addProcessor(aprilTag);
+
+        // Build the Vision Portal, using the above settings.
+        visionPortal = builder.build();
 
         elapsedTime = new ElapsedTime();
+    }
+    public int getrandomization(){
+        //apriltags need to find the green 1 for first pos 2 for second pos 3 for third.
+        //21,22,23
+        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+
+        for (AprilTagDetection detection : currentDetections) {
+            if (detection.id >= 21 && detection.id <=23) {
+                return detection.id - 20;
+
+            }
+
+        }return 0;
+    }
+    public double getrangefromAT(){
+        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+
+        for (AprilTagDetection detection : currentDetections) {
+            if (detection.id == 20 || detection.id == 24){
+                return detection.ftcPose.range;
+            }
+
+        }return -1;
+
+    }
+    public double getheadingfromAT(){
+        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+
+        for (AprilTagDetection detection : currentDetections) {
+            if (detection.id == 20 || detection.id ==24){
+                return detection.ftcPose.pitch;
+            }
+
+        }return -999999999;
     }
 
     public void buildtelemetry() {
         telemetry.addData("slowmode", slowmode);
-        telemetry.addData("claw", opMode.gamepad1.right_bumper);
-        telemetry.addData("b", opMode.gamepad1.b);
-        telemetry.addData("up", opMode.gamepad1.dpad_up);
-        telemetry.addData("rightstick", opMode.gamepad2.right_stick_y);
+        telemetry.addData("heading",heading);
+        telemetry.addData("distance",distance);
        // armSub.telemetry(telemetry);
         telemetry.update();
     }
@@ -70,8 +141,9 @@ public class HARDWARECONFIG {
     boolean touchpadwpressed = false;
 
     public void dobulk() {//
-
-        double y = opMode.gamepad1.left_stick_y; // Remember, Y stick value is reversed
+        heading = getheadingfromAT();
+        distance = getrangefromAT();
+        double y = -opMode.gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = -opMode.gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
         double rx = -opMode.gamepad1.right_stick_x;
         boolean touchpadpressed = opMode.gamepad1.touchpad;
@@ -96,6 +168,7 @@ public class HARDWARECONFIG {
         double backRightPower = ((y + x - rx) / denominator) * multiplier;
         double gunmotorPower = Range.clip(opMode.gamepad1.right_trigger, -1, 1);
         double gunmotorPowerL = Range.clip(opMode.gamepad1.right_trigger, -1, 1);
+
 
 
         double armpower = 0;
@@ -167,7 +240,6 @@ public class HARDWARECONFIG {
 //            clawsub.setFREAKY();
 //        }
 
-
         frontLeftMotor.setPower(frontLeftPower);
         backLeftMotor.setPower(backLeftPower);
         frontRightMotor.setPower(frontRightPower);
@@ -177,6 +249,7 @@ public class HARDWARECONFIG {
 
         //clawsub.update();
         //armSub.update();
+
         buildtelemetry();
 
     }
