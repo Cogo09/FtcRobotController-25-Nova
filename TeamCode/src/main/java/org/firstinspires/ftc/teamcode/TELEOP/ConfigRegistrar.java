@@ -12,9 +12,17 @@ import org.gentrifiedApps.gentrifiedAppsUtil.config.ConfigCreator;
 public final class ConfigRegistrar {
 
     static ConfigMaker config = new ConfigMaker("Generated_ROBOTO")
-            
-            .addMotor("gunmotor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 0)
-.addMotor("gunmotorl", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 1);
+            .addCamera("Webcam 1","4290945F")
+            .addModule(ConfigMaker.ModuleType.EXPANSION_HUB, "Expansion Hub 2")
+            .addMotor("frontLeftMotor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 0)
+            .addMotor("backLeftMotor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 1)
+            .addMotor("frontRightMotor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 2)
+            .addMotor("backRightMotor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 3)
+
+            .addMotor("intakeL", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 0)
+            .addMotor("intakeR", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 1)
+            .addMotor("gunmotorR", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 2)
+            .addMotor("gunmotorL", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 3);
 
     static boolean isEnabled = true;
     private ConfigRegistrar() {

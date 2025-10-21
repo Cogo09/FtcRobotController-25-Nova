@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.HARDWARES;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -64,7 +65,8 @@ public class HARDWARECONFIG {
 //         limelight = hwmap.get(Limelight3A.class, "limelight");
 //        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        intakeL.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeL.setDirection(DcMotorSimple.Direction.FORWARD);
+        intakeR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         aprilTag = new AprilTagProcessor.Builder()
 
@@ -92,6 +94,7 @@ public class HARDWARECONFIG {
 
         // Build the Vision Portal, using the above settings.
         visionPortal = builder.build();
+        FtcDashboard.getInstance().startCameraStream(visionPortal,60);
 
         elapsedTime = new ElapsedTime();
     }
@@ -144,7 +147,7 @@ public class HARDWARECONFIG {
         heading = getheadingfromAT();
         distance = getrangefromAT();
         double y = -opMode.gamepad1.left_stick_y; // Remember, Y stick value is reversed
-        double x = -opMode.gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
+        double x = opMode.gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
         double rx = -opMode.gamepad1.right_stick_x;
         boolean touchpadpressed = opMode.gamepad1.touchpad;
         if (touchpadpressed && !touchpadwpressed) {
