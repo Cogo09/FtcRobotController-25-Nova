@@ -148,7 +148,7 @@ public class HARDWARECONFIG {
         distance = getrangefromAT();
         double y = -opMode.gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = opMode.gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-        double rx = -opMode.gamepad1.right_stick_x;
+        double rx = opMode.gamepad1.right_stick_x;
         boolean touchpadpressed = opMode.gamepad1.touchpad;
         if (touchpadpressed && !touchpadwpressed) {
             slowmode = !slowmode;
@@ -169,8 +169,8 @@ public class HARDWARECONFIG {
         double backLeftPower = ((y - x + rx) / denominator) * multiplier;
         double frontRightPower = ((y - x - rx) / denominator) * multiplier;
         double backRightPower = ((y + x - rx) / denominator) * multiplier;
-        double gunmotorPower = Range.clip(opMode.gamepad1.right_trigger, -1, 1);
-        double gunmotorPowerL = Range.clip(opMode.gamepad1.right_trigger, -1, 1);
+        double gunmotorPower = Range.clip(opMode.gamepad1.right_trigger, -100, 100);
+        double gunmotorPowerL = Range.clip(opMode.gamepad1.right_trigger, -100, 100);
 
 
 
@@ -238,6 +238,13 @@ public class HARDWARECONFIG {
         } else if (opMode.gamepad1.left_bumper) {
             intakeR.setPower(0);
             intakeL.setPower(0);}
+        if (getrangefromAT() >=100 && getrangefromAT()<=140){
+            gunmotorR.setPower(1);
+            gunmotorL.setPower(1);
+        } else if (getrangefromAT() >=70 && getrangefromAT()<=99) {
+            gunmotorR.setPower(70);
+            gunmotorL.setPower(70);
+        }
 
 //        if (opMode.gamepad2.x) {
 //            clawsub.setFREAKY();
