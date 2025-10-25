@@ -40,6 +40,7 @@ public class HARDWARECONFIG {
     DcMotor intakeL = null;
     double heading = 0;
     double distance = 0;
+    double upperpowerbound = 0;
 
     private VisionPortal visionPortal;
     private AprilTagProcessor aprilTag;
@@ -173,8 +174,8 @@ public class HARDWARECONFIG {
         double backLeftPower = ((y - x + rx) / denominator) * multiplier;
         double frontRightPower = ((y - x - rx) / denominator) * multiplier;
         double backRightPower = ((y + x - rx) / denominator) * multiplier;
-        double gunmotorPower = Range.clip(opMode.gamepad1.right_trigger, -100, 100);
-        double gunmotorPowerL = Range.clip(opMode.gamepad1.right_trigger, -100, 100);
+        double gunmotorPower = Range.clip(opMode.gamepad1.right_trigger, -1, 1);
+        double gunmotorPowerL = Range.clip(opMode.gamepad1.right_trigger, -1, 1);
 
 
 
@@ -228,15 +229,7 @@ public class HARDWARECONFIG {
 //            armSub.setUptarget(280);
 //            clawsub.setHangMIDDLE();
 //        }
-        if (opMode.gamepad2.right_trigger > 0) {
-            gunmotorR.setPower(1);
-            gunmotorL.setPower(1);
-        }
 
-        if (opMode.gamepad2.left_trigger > 0) {
-            gunmotorR.setPower(-1);
-            gunmotorL.setPower(-1);
-        }
 
         if (opMode.gamepad1.right_bumper) {
             intakeR.setPower(1);
@@ -246,11 +239,20 @@ public class HARDWARECONFIG {
             intakeL.setPower(0);}
 
         if (getrangefromAT() >=100 && getrangefromAT()<=140){
-            gunmotorR.setPower(1);
-            gunmotorL.setPower(1);
+            upperpowerbound = 1;
         } else if (getrangefromAT() >=70 && getrangefromAT()<=99) {
-            gunmotorR.setPower(70);
-            gunmotorL.setPower(70);
+            upperpowerbound = 0.7;
+        } else {
+            upperpowerbound = 0.5;
+        }
+
+        if (opMode.gamepad2.right_trigger > 0) {
+
+            gunmotorR.setPower(upperpowerbound);
+            gunmotorL.setPower(upperpowerbound);
+        } else {
+            gunmotorR.setPower(0);
+            gunmotorL.setPower(0);
         }
 
         if (opMode.gamepad1.y) {
@@ -270,6 +272,7 @@ public class HARDWARECONFIG {
         }else if (opMode.gamepad1.left_trigger > 0){
             servosub.MELEup();
         }
+
 
         frontLeftMotor.setPower(frontLeftPower);
         backLeftMotor.setPower(backLeftPower);
