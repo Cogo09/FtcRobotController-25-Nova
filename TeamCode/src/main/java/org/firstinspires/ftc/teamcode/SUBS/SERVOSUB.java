@@ -145,7 +145,7 @@ public class SERVOSUB {
             for (Runnable func : funcs) {
                 func.run();
             }
-            //SERVOSUB.update();// removes the need for the update to be run after simply updating a claw
+            servosub.update();// removes the need for the update to be run after simply updating a claw
 
             return false;
         }
