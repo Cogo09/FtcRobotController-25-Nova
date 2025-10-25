@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.HARDWARES;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.SUBS.SERVOSUB;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
@@ -25,7 +27,7 @@ public class HARDWARECONFIG {
     boolean slowmode = false;
     Telemetry telemetry = null;
     LinearOpMode opMode = null;
-   // public CLAWSUB clawsub = null;
+    public SERVOSUB servosub = null;
     //public org.firstinspires.ftc.teamcode.SUBS.ARMSUB armSub = null;
     DcMotor frontLeftMotor = null;
     DcMotor backLeftMotor = null;
@@ -41,11 +43,13 @@ public class HARDWARECONFIG {
 
     private VisionPortal visionPortal;
     private AprilTagProcessor aprilTag;
+    private RevColorSensorV3 colorSensor;
 
     ElapsedTime elapsedTime = null;
 
     public HARDWARECONFIG(LinearOpMode om, HardwareMap hwmap, Boolean auto) {
         initrobot(hwmap, om, auto);
+        servosub = new SERVOSUB(hwmap);
     }
 
     void initrobot(HardwareMap hwmap, LinearOpMode om, Boolean auto) {
@@ -228,16 +232,19 @@ public class HARDWARECONFIG {
             gunmotorR.setPower(1);
             gunmotorL.setPower(1);
         }
+
         if (opMode.gamepad2.left_trigger > 0) {
             gunmotorR.setPower(-1);
             gunmotorL.setPower(-1);
         }
+
         if (opMode.gamepad1.right_bumper) {
             intakeR.setPower(1);
             intakeL.setPower(0.5);
         } else if (opMode.gamepad1.left_bumper) {
             intakeR.setPower(0);
             intakeL.setPower(0);}
+
         if (getrangefromAT() >=100 && getrangefromAT()<=140){
             gunmotorR.setPower(1);
             gunmotorL.setPower(1);
@@ -246,9 +253,23 @@ public class HARDWARECONFIG {
             gunmotorL.setPower(70);
         }
 
-//        if (opMode.gamepad2.x) {
-//            clawsub.setFREAKY();
-//        }
+        if (opMode.gamepad1.y) {
+            servosub.LELEup();
+        }else if (opMode.gamepad1.a) {
+            servosub.LELEdown();
+        }
+
+        if (opMode.gamepad1.x) {
+            servosub.RELEup();
+        }else if (opMode.gamepad1.b) {
+            servosub.RELEdown();
+        }
+
+        if (opMode.gamepad1.right_trigger > 0) {
+            servosub.MELEdown();
+        }else if (opMode.gamepad1.left_trigger > 0){
+            servosub.MELEup();
+        }
 
         frontLeftMotor.setPower(frontLeftPower);
         backLeftMotor.setPower(backLeftPower);
@@ -257,7 +278,7 @@ public class HARDWARECONFIG {
         gunmotorR.setPower(gunmotorPower);
         gunmotorL.setPower(gunmotorPowerL);
 
-        //clawsub.update();
+        servosub.update();
         //armSub.update();
 
         buildtelemetry();
