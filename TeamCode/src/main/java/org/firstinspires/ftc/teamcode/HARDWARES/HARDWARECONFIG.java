@@ -41,6 +41,7 @@ public class HARDWARECONFIG {
     double heading = 0;
     double distance = 0;
     double upperpowerbound = 0;
+    double color = 0;
 
     private VisionPortal visionPortal;
     private AprilTagProcessor aprilTag;
@@ -239,6 +240,7 @@ public class HARDWARECONFIG {
         } else if (opMode.gamepad1.left_bumper) {
             intakeR.setPower(0);
             intakeL.setPower(0);}
+        if ()
 
         if (getrangefromAT() >=100 && getrangefromAT()<=140){
             upperpowerbound = 1;
