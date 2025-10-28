@@ -72,6 +72,7 @@ public class HARDWARECONFIG {
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeL.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeR.setDirection(DcMotorSimple.Direction.REVERSE);
+        gunmotorL.setDirection(DcMotorSimple.Direction.REVERSE);
 
         aprilTag = new AprilTagProcessor.Builder()
 
@@ -142,6 +143,7 @@ public class HARDWARECONFIG {
         telemetry.addData("slowmode", slowmode);
         telemetry.addData("heading",heading);
         telemetry.addData("distance",distance);
+        telemetry.addData("Power",upperpowerbound);
        // armSub.telemetry(telemetry);
         telemetry.update();
     }
