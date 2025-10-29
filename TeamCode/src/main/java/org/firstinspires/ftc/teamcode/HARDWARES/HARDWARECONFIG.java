@@ -240,7 +240,7 @@ public class HARDWARECONFIG {
         } else if (opMode.gamepad1.left_bumper) {
             intakeR.setPower(0);
             intakeL.setPower(0);}
-        if ()
+
 
         if (getrangefromAT() >=100 && getrangefromAT()<=140){
             upperpowerbound = 1;
@@ -259,21 +259,21 @@ public class HARDWARECONFIG {
             gunmotorL.setPower(0);
         }
 
-        if (opMode.gamepad1.y) {
+        if (opMode.gamepad2.dpad_left) {
             servosub.LELEup();
-        }else if (opMode.gamepad1.a) {
+        }else if (opMode.gamepad2.dpad_down) {
             servosub.LELEdown();
         }
 
-        if (opMode.gamepad1.x) {
-            servosub.RELEup();
-        }else if (opMode.gamepad1.b) {
+        if (opMode.gamepad2.dpad_right) {
             servosub.RELEdown();
+        }else if (opMode.gamepad2.dpad_down) {
+            servosub.RELEup();
         }
 
-        if (opMode.gamepad1.right_trigger > 0) {
+        if (opMode.gamepad2.dpad_up) {
             servosub.MELEdown();
-        }else if (opMode.gamepad1.left_trigger > 0){
+        }else if (opMode.gamepad2.dpad_down){
             servosub.MELEup();
         }
 
