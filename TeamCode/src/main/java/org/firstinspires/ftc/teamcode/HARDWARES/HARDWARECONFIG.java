@@ -40,7 +40,7 @@ public class HARDWARECONFIG {
     DcMotor intakeL = null;
     double heading = 0;
     double distance = 0;
-    double upperpowerbound = 0;
+    double upperpowerbound = 1;
     double color = 0;
 
     private VisionPortal visionPortal;
@@ -236,19 +236,27 @@ public class HARDWARECONFIG {
 
         if (opMode.gamepad1.right_bumper) {
             intakeR.setPower(1);
-            intakeL.setPower(0.5);
+            intakeL.setPower(1);
         } else if (opMode.gamepad1.left_bumper) {
             intakeR.setPower(0);
             intakeL.setPower(0);}
-
-
-        if (getrangefromAT() >=100 && getrangefromAT()<=140){
-            upperpowerbound = 1;
-        } else if (getrangefromAT() >=70 && getrangefromAT()<=99) {
-            upperpowerbound = 0.7;
-        } else {
-            upperpowerbound = 0.5;
+        if (opMode.gamepad2.b){
+            intakeR.setDirection(DcMotorSimple.Direction.REVERSE);
+            intakeR.setPower(1);
         }
+        else if (opMode.gamepad2.a){
+            intakeL.setDirection(DcMotorSimple.Direction.REVERSE);
+            intakeL.setPower(1);
+        }
+
+
+//        if (getrangefromAT() >=100 && getrangefromAT()<=140){
+//            upperpowerbound = 1;
+//        } else if (getrangefromAT() >=70 && getrangefromAT()<=99) {
+//            upperpowerbound = 0.7;
+//        } else {
+//            upperpowerbound = 1;
+//        }
 
         if (opMode.gamepad2.right_trigger > 0) {
 
