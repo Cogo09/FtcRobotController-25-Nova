@@ -4,12 +4,14 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.ejml.equation.IntegerSequence;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -41,6 +43,7 @@ public class HARDWARECONFIG {
     double heading = 0;
     double distance = 0;
     double upperpowerbound = 1;
+
     double color = 0;
 
     private VisionPortal visionPortal;
@@ -73,7 +76,8 @@ public class HARDWARECONFIG {
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeL.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeR.setDirection(DcMotorSimple.Direction.REVERSE);
-        gunmotorL.setDirection(DcMotorSimple.Direction.REVERSE);
+        gunmotorL.setDirection(DcMotorSimple.Direction.FORWARD);
+        gunmotorR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         aprilTag = new AprilTagProcessor.Builder()
 
@@ -162,7 +166,7 @@ public class HARDWARECONFIG {
             slowmode = !slowmode;
         }
         touchpadwpressed = touchpadpressed;
-        double slowmodemultiplier = 0.5;
+        double slowmodemultiplier = 1.5;
 
 
         // Denominator is the largest motor power (absolute value) or 1
@@ -235,19 +239,23 @@ public class HARDWARECONFIG {
 
 
         if (opMode.gamepad1.right_bumper) {
-            intakeR.setPower(1);
-            intakeL.setPower(1);
-        } else if (opMode.gamepad1.left_bumper) {
-            intakeR.setPower(0);
-            intakeL.setPower(0);}
-        if (opMode.gamepad2.b){
             intakeR.setDirection(DcMotorSimple.Direction.REVERSE);
             intakeR.setPower(1);
+            intakeL.setDirection(DcMotorSimple.Direction.FORWARD);
+            intakeL.setPower(1);
         }
-        else if (opMode.gamepad2.a){
+        else if (opMode.gamepad1.left_bumper){
+            intakeR.setDirection(DcMotorSimple.Direction.FORWARD);
+            intakeR.setPower(1);
             intakeL.setDirection(DcMotorSimple.Direction.REVERSE);
             intakeL.setPower(1);
         }
+
+        else {
+            intakeL.setPower(0);
+            intakeR.setPower(0);
+        }
+
 
 
 //        if (getrangefromAT() >=100 && getrangefromAT()<=140){
