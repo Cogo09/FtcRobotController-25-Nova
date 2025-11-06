@@ -18,6 +18,7 @@ public class SERVOSUB {
     private final Servo leftelevatorservo;
     private final Servo middleelevatorservo;
     private final Servo rightelevatorservo;
+    private final Servo bootkickerservo;
 
 
     public enum LeftELEState {UP, DOWN, IDLE}
@@ -68,6 +69,22 @@ public class SERVOSUB {
         MiddleELEStateVar = MiddleELEState.IDLE;
     }
 
+    public enum BootState {UP, DOWN, IDLE}
+
+    private BootState BootStateVar = BootState.IDLE;
+
+    public void Bootup() {
+        BootStateVar = BootState.UP;
+    }
+
+    public void Bootdown() {
+        BootStateVar = BootState.DOWN;
+    }
+
+    public void BootIDLE() {
+        BootStateVar = BootState.IDLE;
+    }
+
 
 
     //this is where you put all enums and variables
@@ -75,9 +92,11 @@ public class SERVOSUB {
         leftelevatorservo = hwMap.get(Servo.class, "leftelevatorservo");
         middleelevatorservo = hwMap.get(Servo.class, "middleelevatorservo");
         rightelevatorservo = hwMap.get(Servo.class, "rightelevatorservo");
+        bootkickerservo = hwMap.get(Servo.class,"bootkickerservo");
         leftelevatorservo.setDirection(Servo.Direction.FORWARD);
         middleelevatorservo.setDirection(Servo.Direction.FORWARD);
         rightelevatorservo.setDirection(Servo.Direction.REVERSE);
+        bootkickerservo.setDirection(Servo.Direction.REVERSE);
 
     }
 
@@ -90,6 +109,17 @@ public class SERVOSUB {
                 break;
             case DOWN:
                 setpose(leftelevatorservo, SERVOUTIL.leftelevatorservodown);
+                break;
+            case IDLE:
+
+                break;
+        }
+        switch (BootStateVar) {
+            case UP:
+                setpose(bootkickerservo,SERVOUTIL.bootkickerup);
+                break;
+            case DOWN:
+                setpose(bootkickerservo,SERVOUTIL.bootkickerdown);
                 break;
             case IDLE:
 

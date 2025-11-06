@@ -292,6 +292,11 @@ public class HARDWARECONFIG {
         }else if (opMode.gamepad2.dpad_down){
             servosub.MELEup();
         }
+        if (opMode.gamepad2.y){
+            servosub.Bootup();
+        }else if (opMode.gamepad2.a){
+            servosub.Bootdown();
+        }
 
 
         frontLeftMotor.setPower(frontLeftPower);
