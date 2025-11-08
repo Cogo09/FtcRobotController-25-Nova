@@ -101,7 +101,7 @@ public class SERVOSUB {
     }
 
     public void update() {
-        // this is where you put your state machines and all power functions (call this in our main code)
+        // this is where you put your state machines and all power functions (call this in our main code)l
 
         switch (LeftELEStateVar) {
             case UP:
