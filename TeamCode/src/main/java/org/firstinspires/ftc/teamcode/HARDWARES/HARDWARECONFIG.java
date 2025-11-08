@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.HARDWARES;
 
+import static org.firstinspires.ftc.teamcode.HARDWARES.UPPERPOWERFILE.upperpowerbound;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
@@ -10,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
 
 import org.ejml.equation.IntegerSequence;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -42,7 +45,7 @@ public class HARDWARECONFIG {
     DcMotor intakeL = null;
     double heading = 0;
     double distance = 0;
-    double upperpowerbound = 1;
+
 
     double color = 0;
 
@@ -267,12 +270,20 @@ public class HARDWARECONFIG {
 //        }
 
         if (opMode.gamepad2.right_trigger > 0) {
+            gunmotorR.setDirection(DcMotorSimple.Direction.REVERSE);
 
             gunmotorR.setPower(upperpowerbound);
+            gunmotorL.setDirection(DcMotorSimple.Direction.FORWARD);
             gunmotorL.setPower(upperpowerbound);
         } else {
             gunmotorR.setPower(0);
             gunmotorL.setPower(0);
+        }
+        if (opMode.gamepad2.left_trigger>0){
+            gunmotorR.setDirection(DcMotorSimple.Direction.FORWARD);
+            gunmotorR.setPower(0.5);
+            gunmotorL.setDirection(DcMotorSimple.Direction.REVERSE);
+            gunmotorL.setPower(0.5);
         }
 
         if (opMode.gamepad2.dpad_left) {

@@ -13,6 +13,6 @@ public class SERVOUTIL {
     public static double rightelevatorservoup = 52;
     public static double rightelevatorservodown = 0;
 
-    public static double bootkickerup = 130;
+    public static double bootkickerup = 150;
     public static double bootkickerdown = 0;
 }
