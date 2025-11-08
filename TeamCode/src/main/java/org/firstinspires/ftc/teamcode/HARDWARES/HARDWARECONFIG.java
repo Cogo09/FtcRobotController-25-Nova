@@ -294,7 +294,7 @@ public class HARDWARECONFIG {
         }
         if (opMode.gamepad2.y){
             servosub.Bootup();
-        }else if (opMode.gamepad2.a){
+        }else{
             servosub.Bootdown();
         }
 
