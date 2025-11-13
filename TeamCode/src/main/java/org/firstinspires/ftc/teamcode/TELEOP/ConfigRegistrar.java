@@ -12,7 +12,7 @@ import org.gentrifiedApps.gentrifiedAppsUtil.config.ConfigCreator;
 public final class ConfigRegistrar {
 
     static ConfigMaker config = new ConfigMaker("Generated_ROBOTO")
-            .addCamera("Webcam 1","4290945F")
+            .addCamera("Webcam 1","UC684")
             .addModule(ConfigMaker.ModuleType.EXPANSION_HUB, "Expansion Hub 2",2)
             .addMotor("frontLeftMotor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 0)
             .addMotor("backLeftMotor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 1)
