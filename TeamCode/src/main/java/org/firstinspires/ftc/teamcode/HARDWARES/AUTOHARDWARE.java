@@ -88,32 +88,25 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     }
 
 
-//    public void parkclose() {
-//        drivefinished = true;
-//        Actions.runBlocking(
-//                //!this needs help
-//                new SequentialAction(
-//                        new ParallelAction(
-//                                new SequentialAction(
-//
-//                                        // no update action here
-//                                        new SequentialAction(
-//                                                drive.actionBuilder(startPose)
-//                                                        .turnTo(Math.toRadians(90))
-//                                                        .strafeTo(new Vector2d(56, -56))
-//                                                        .build(),
-//                                                endAction()
-//                                        ),
-//                                        //ready everything for op
-//                                        armSub.armAction(List.of(() -> armSub.setUptarget(100))),
-//                                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setUClawCLOSE())),
-//                                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setHangTOP())),
-//                                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setPrimeTOP())),
-//                                        clawsub.clawAction(clawsub, List.of(() -> clawsub.setClawOPEN()))
-//                                )
-//                        ))
-//        );
-//    }
+    public void turn() {
+       drivefinished = true;
+     Actions.runBlocking(
+                //!this needs help
+                new SequentialAction(
+                        new ParallelAction(
+                                new SequentialAction(
+
+                                        // no update action here
+                                        new SequentialAction(
+                                                drive.actionBuilder(startPose)
+                                                        .turnTo(Math.toRadians(90))
+                                                        .build(),
+                                                endAction()
+                                        )
+                                        //ready everything for op
+                                )
+                        )));
+    }
 
 
     //theoretical ^

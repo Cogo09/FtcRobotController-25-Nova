@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode.HARDWARES;
 import static org.firstinspires.ftc.teamcode.HARDWARES.UPPERPOWERFILE.upperpowerbound;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.roadrunner.ParallelAction;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -284,6 +287,9 @@ public class HARDWARECONFIG {
             gunmotorR.setPower(0.5);
             gunmotorL.setDirection(DcMotorSimple.Direction.REVERSE);
             gunmotorL.setPower(0.5);
+        }
+        if (opMode.gamepad1.left_trigger > 0){
+
         }
 
         if (opMode.gamepad2.dpad_left) {
