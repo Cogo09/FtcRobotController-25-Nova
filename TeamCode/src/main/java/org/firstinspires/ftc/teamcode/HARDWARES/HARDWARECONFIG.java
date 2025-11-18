@@ -321,6 +321,7 @@ public class HARDWARECONFIG {
         }
         if (opMode.gamepad2.left_bumper){
             lockit();
+            //LOCKIT SHOULD TURN TO AT HEADING>
         }
 
         if (opMode.gamepad2.dpad_left) {
