@@ -1,10 +1,15 @@
 package org.firstinspires.ftc.teamcode.HARDWARES;
 
+import static com.qualcomm.robotcore.eventloop.opmode.OpMode.blackboard;
 import static org.firstinspires.ftc.teamcode.HARDWARES.UPPERPOWERFILE.upperpowerbound;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.TimeTurn;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
@@ -13,6 +18,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -23,6 +29,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.SUBS.SERVOSUB;
+import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
@@ -48,6 +55,10 @@ public class HARDWARECONFIG {
     DcMotor intakeL = null;
     double heading = 0;
     double distance = 0;
+    Pose2d startPose = null;
+    private IMU imu = null;      // Control/Expansion Hub IMU
+    MecanumDrive drive = null;
+    FtcDashboard dash = null;
 
 
     double color = 0;
@@ -61,6 +72,7 @@ public class HARDWARECONFIG {
     public HARDWARECONFIG(LinearOpMode om, HardwareMap hwmap, Boolean auto) {
         initrobot(hwmap, om, auto);
         servosub = new SERVOSUB(hwmap);
+
     }
 
     void initrobot(HardwareMap hwmap, LinearOpMode om, Boolean auto) {
@@ -76,6 +88,9 @@ public class HARDWARECONFIG {
         gunmotorL = hwmap.dcMotor.get("gunmotorL");
         intakeR = hwmap.dcMotor.get("intakeR");
         intakeL = hwmap.dcMotor.get("intakeL");
+        dash = FtcDashboard.getInstance();
+
+        drive = new MecanumDrive(hwmap, (Pose2d) blackboard.getOrDefault(currentpose, new Pose2d(0,0,0)));
 
 //         limelight = hwmap.get(Limelight3A.class, "limelight");
 //        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -93,12 +108,12 @@ public class HARDWARECONFIG {
                 .setDrawTagOutline(true)
                 .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)
                 .setTagLibrary(AprilTagGameDatabase.getDecodeTagLibrary())
-                .setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
+                .setOutputUnits(DistanceUnit.INCH, AngleUnit.RADIANS)
 
                 // == CAMERA CALIBRATION ==
                 // If you do not manually specify calibration parameters, the SDK will attempt
                 // to load a predefined calibration for your camera.
-                .setLensIntrinsics(578.272, 578.272, 402.145, 221.506)
+                .setLensIntrinsics(572.066, 572.066, 327.923, 257.789)
                 // ... these parameters are fx, fy, cx, cy.
 
 
@@ -127,6 +142,19 @@ public class HARDWARECONFIG {
             }
 
         }return 0;
+    }
+    public static String currentpose = "currentpose";
+
+
+    public Action Turn(){
+        return drive.actionBuilder(drive.localizer.getPose())
+                .turnTo(getheadingfromAT()).build();
+    }
+    public void lockit(){
+        TelemetryPacket p =new TelemetryPacket();
+        Action t = Turn();
+        t.run(p);
+        dash.sendTelemetryPacket(p);
     }
     public double getrangefromAT(){
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
@@ -290,6 +318,9 @@ public class HARDWARECONFIG {
         }
         if (opMode.gamepad1.left_trigger > 0){
 
+        }
+        if (opMode.gamepad2.left_bumper){
+            lockit();
         }
 
         if (opMode.gamepad2.dpad_left) {

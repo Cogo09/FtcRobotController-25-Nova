@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.AUTONOMOUS;
 
+import static org.firstinspires.ftc.teamcode.HARDWARES.HARDWARECONFIG.currentpose;
+
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -29,6 +31,7 @@ public class AUTOREAL extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()){
            robot.turn();
+           blackboard.put(currentpose,robot.drive.localizer.getPose());
         }
     }
 }

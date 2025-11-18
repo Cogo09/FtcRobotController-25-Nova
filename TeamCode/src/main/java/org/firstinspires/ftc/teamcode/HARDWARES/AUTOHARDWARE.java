@@ -26,7 +26,7 @@ import java.util.List;
 public class AUTOHARDWARE extends HARDWARECONFIG {
     Pose2d startPose = null;
     private IMU imu = null;      // Control/Expansion Hub IMU
-    MecanumDrive drive = null;
+    public MecanumDrive drive = null;
 
     private double headingError = 0;
     public static final double COUNTS_PER_INCH_Side = -100 * 0.50;
