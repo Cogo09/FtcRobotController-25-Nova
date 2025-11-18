@@ -28,6 +28,7 @@ public final class ConfigRegistrar {
             .addMotor("intakeL", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 0)
             .addMotor("intakeR", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 1)
             .addMotor("gunmotorR", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 2)
+            .addDevice("imu",ConfigMaker.ModuleType.EXPANSION_HUB,ConfigMaker.DeviceType.AdafruitBNO055IMU,1)
             .addMotor("gunmotorL", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 3);
 
     static boolean isEnabled = true;

@@ -25,7 +25,7 @@ public final class Realconfig {
             .addMotor("gunmotorR", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5202SeriesMotor, 2)
             .addMotor("gunmotorL", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5202SeriesMotor, 3)
             .addMotor("intakeL", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 0)
-            .addDevice("imu",ConfigMaker.ModuleType.EXPANSION_HUB,ConfigMaker.DeviceType.AdafruitBNO055IMU,0)
+            .addDevice("imu",ConfigMaker.ModuleType.EXPANSION_HUB,ConfigMaker.DeviceType.AdafruitBNO055IMU,1)
             .addMotor("intakeR", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 1);
 
 
