@@ -35,6 +35,7 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import org.gentrifiedApps.gentrifiedAppsUtil.classes.Scribe;
 
 import java.util.List;
 //import org.firstinspires.ftc.teamcode.SUBS.CLAWSUB;
@@ -152,7 +153,7 @@ public class HARDWARECONFIG {
 
     public Action Turn(){
         return drive.actionBuilder(drive.localizer.getPose())
-                .turnTo(getheadingfromAT()).build();
+                .turn(getheadingfromAT()).build();
     }
     public void lockit(){
         TelemetryPacket p = new TelemetryPacket();
@@ -177,7 +178,9 @@ public class HARDWARECONFIG {
 
         for (AprilTagDetection detection : currentDetections) {
             if (detection.id == 20 || detection.id ==24){
-                return detection.ftcPose.pitch;
+                double degrees = detection.ftcPose.pitch;
+                Scribe.getInstance().logData(degrees);
+                return degrees;
             }
 
         }return -999999999;
