@@ -18,7 +18,7 @@ public final class ConfigRegistrar {
             .addMotor("backLeftMotor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 1)
             .addMotor("frontRightMotor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 2)
             .addMotor("backRightMotor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 3)
-            .addDevice("colorSensor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.DeviceType.RevColorSensorV3,0)
+            .addDevice("colorsensor", ConfigMaker.ModuleType.CONTROL_HUB, ConfigMaker.DeviceType.RevColorSensorV3,1)
             .addDevice("leftelevatorservo", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.DeviceType.Servo,0)
             .addDevice("middleelevatorservo", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.DeviceType.Servo,1)
             .addDevice("rightelevatorservo", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.DeviceType.Servo,2)
@@ -28,7 +28,7 @@ public final class ConfigRegistrar {
             .addMotor("intakeL", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 0)
             .addMotor("intakeR", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 1)
             .addMotor("gunmotorR", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 2)
-            .addDevice("imu",ConfigMaker.ModuleType.EXPANSION_HUB,ConfigMaker.DeviceType.AdafruitBNO055IMU,1)
+            .addDevice("imu",ConfigMaker.ModuleType.EXPANSION_HUB,ConfigMaker.DeviceType.AdafruitBNO055IMU,0)
             .addMotor("gunmotorL", ConfigMaker.ModuleType.EXPANSION_HUB, ConfigMaker.MotorType.goBILDA5201SeriesMotor, 3);
 
     static boolean isEnabled = true;
