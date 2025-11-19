@@ -28,6 +28,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.SUBS.SERVOSUB;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.vision.VisionPortal;
@@ -59,6 +60,9 @@ public class HARDWARECONFIG {
     private IMU imu = null;      // Control/Expansion Hub IMU
     MecanumDrive drive = null;
     FtcDashboard dash = null;
+    double x = 0;
+    double y = 0;
+
 
 
     double color = 0;
@@ -88,7 +92,7 @@ public class HARDWARECONFIG {
         gunmotorL = hwmap.dcMotor.get("gunmotorL");
         intakeR = hwmap.dcMotor.get("intakeR");
         intakeL = hwmap.dcMotor.get("intakeL");
-        dash = FtcDashboard.getInstance();
+        dash = FtcDashboard.getInstance();;
 
         drive = new MecanumDrive(hwmap, (Pose2d) blackboard.getOrDefault(currentpose, new Pose2d(0,0,0)));
 
@@ -151,11 +155,12 @@ public class HARDWARECONFIG {
                 .turnTo(getheadingfromAT()).build();
     }
     public void lockit(){
-        TelemetryPacket p =new TelemetryPacket();
+        TelemetryPacket p = new TelemetryPacket();
         Action t = Turn();
         t.run(p);
         dash.sendTelemetryPacket(p);
     }
+
     public double getrangefromAT(){
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
@@ -177,12 +182,26 @@ public class HARDWARECONFIG {
 
         }return -999999999;
     }
+    public double getx(){
+        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+        for (AprilTagDetection detection : currentDetections) {
+            return detection.ftcPose.x;
+        }return -99999;
+    }
+    public double gety(){
+        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+        for (AprilTagDetection detection : currentDetections) {
+            return detection.ftcPose.y;
+        }return -99999;
+    }
 
     public void buildtelemetry() {
         telemetry.addData("slowmode", slowmode);
         telemetry.addData("heading",heading);
         telemetry.addData("distance",distance);
         telemetry.addData("Power",upperpowerbound);
+        telemetry.addData("x",x);
+        telemetry.addData("y",y);
        // armSub.telemetry(telemetry);
         telemetry.update();
     }
@@ -191,6 +210,8 @@ public class HARDWARECONFIG {
 
     public void dobulk() {//
         heading = getheadingfromAT();
+        x = getx();
+        y = gety();
         distance = getrangefromAT();
         double y = -opMode.gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = opMode.gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing

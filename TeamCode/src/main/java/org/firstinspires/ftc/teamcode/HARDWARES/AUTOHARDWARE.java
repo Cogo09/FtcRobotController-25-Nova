@@ -92,20 +92,16 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
        drivefinished = true;
      Actions.runBlocking(
                 //!this needs help
-                new SequentialAction(
-                        new ParallelAction(
-                                new SequentialAction(
-
                                         // no update action here
                                         new SequentialAction(
                                                 drive.actionBuilder(startPose)
+                                                        .lineToX(- 12)
                                                         .turnTo(Math.toRadians(90))
                                                         .build(),
                                                 endAction()
                                         )
                                         //ready everything for op
-                                )
-                        )));
+                                );
     }
 
 
