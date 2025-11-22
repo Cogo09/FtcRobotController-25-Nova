@@ -66,6 +66,7 @@ public class HARDWARECONFIG {
 
 
 
+
     double color = 0;
 
     private VisionPortal visionPortal;
@@ -100,8 +101,8 @@ public class HARDWARECONFIG {
 //         limelight = hwmap.get(Limelight3A.class, "limelight");
 //        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        intakeL.setDirection(DcMotorSimple.Direction.FORWARD);
-        intakeR.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeL.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeR.setDirection(DcMotorSimple.Direction.FORWARD);
         gunmotorL.setDirection(DcMotorSimple.Direction.FORWARD);
         gunmotorR.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -153,7 +154,7 @@ public class HARDWARECONFIG {
 
     public Action Turn(){
         return drive.actionBuilder(drive.localizer.getPose())
-                .turn(getheadingfromAT()).build();
+                .turnTo(getheadingfromAT()).build();
     }
     public void lockit(){
         TelemetryPacket p = new TelemetryPacket();

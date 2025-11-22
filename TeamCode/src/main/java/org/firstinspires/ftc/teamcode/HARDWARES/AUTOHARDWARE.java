@@ -95,8 +95,9 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                                         // no update action here
                                         new SequentialAction(
                                                 drive.actionBuilder(startPose)
-                                                        .lineToX(- 12)
+                                                        .lineToX(24)
                                                         .turnTo(Math.toRadians(90))
+                                                        .lineToY(36)
                                                         .build(),
                                                 endAction()
                                         )
