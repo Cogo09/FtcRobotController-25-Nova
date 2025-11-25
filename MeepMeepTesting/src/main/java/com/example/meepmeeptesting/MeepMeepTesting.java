@@ -128,7 +128,69 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
                     .waitSeconds(2)
                     .turnTo(Math.toRadians(180))
                     .build());
-            //!RED
+            //!BLUE SHOOT 12 clear
+            myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(56, -10, 0))
+                    .turnTo(Math.toRadians(205))
+                    .waitSeconds(2)
+                    //preloads
+                    .turnTo(Math.toRadians(180))
+                    .lineToX(35)
+                    .turnTo(Math.toRadians(270))
+                    .lineToY(-40)
+                    .lineToY(-10)
+                    .turnTo(Math.toRadians(180))
+                    .lineToX(-15)
+                    .turnTo(Math.toRadians(225))
+                    .waitSeconds(2)
+                    //first
+                    .turnTo(Math.toRadians(180))
+                    .lineToX(12)
+                    .turnTo(Math.toRadians(270))
+                    .lineToY(-40)
+                    .lineToY(-10)
+                    .turnTo(Math.toRadians(180))
+                    .lineToX(-15)
+                    .turnTo(Math.toRadians(225))
+                    .waitSeconds(2)
+                    //second
+                    .turnTo(Math.toRadians(180))
+                    .lineToX(0)
+                    .turnTo(Math.toRadians(90))
+                    .lineToY(-54)
+                    .waitSeconds(2)
+                    .build());
+            //!RED SHOOT 12 clear
+            myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(56, 10, 0))
+                    .turnTo(Math.toRadians(155))
+                    .waitSeconds(2)
+                    //preloads
+                    .turnTo(Math.toRadians(180))
+                    .lineToX(35)
+                    .turnTo(Math.toRadians(90))
+                    .lineToY(40)
+                    .lineToY(10)
+                    .turnTo(Math.toRadians(180))
+                    .lineToX(-15)
+                    .turnTo(Math.toRadians(135))
+                    .waitSeconds(2)
+                    //first
+                    .turnTo(Math.toRadians(180))
+                    .lineToX(12)
+                    .turnTo(Math.toRadians(90))
+                    .lineToY(40)
+                    .lineToY(10)
+                    .turnTo(Math.toRadians(180))
+                    .lineToX(-15)
+                    .turnTo(Math.toRadians(135))
+                    .waitSeconds(2)
+                    //second
+                    .turnTo(Math.toRadians(180))
+                    .lineToX(0)
+                    .turnTo(Math.toRadians(270))
+                    .lineToY(54)
+                    .waitSeconds(2)
+                    .build());
+
 
 
             meepMeep.setBackground(MeepMeep.Background.FIELD_DECODE_OFFICIAL)

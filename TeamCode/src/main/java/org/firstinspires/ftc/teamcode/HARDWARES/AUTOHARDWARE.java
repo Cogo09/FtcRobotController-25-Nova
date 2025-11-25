@@ -94,8 +94,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                         drive.actionBuilder(startPose)
                                 .turnTo(Math.toRadians(205))
                                 .waitSeconds(2)
-                                //preloads
-                                .turnTo(Math.toRadians(180))
+
                                 .lineToX(35)
                                 .turnTo(Math.toRadians(270))
                                 .lineToY(-40)
