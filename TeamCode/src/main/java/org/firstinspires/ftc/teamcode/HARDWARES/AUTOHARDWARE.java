@@ -87,17 +87,109 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
         drive = new MecanumDrive(hwmap, startPose);
     }
 
+    public void blue18(){
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        drive.actionBuilder(startPose)
+                                .turnTo(Math.toRadians(205))
+                                .waitSeconds(2)
+                                //preloads
+                                .turnTo(Math.toRadians(180))
+                                .lineToX(35)
+                                .turnTo(Math.toRadians(270))
+                                .lineToY(-40)
+                                .lineToY(-10)
+                                .turnTo(Math.toRadians(180))
+                                .lineToX(-15)
+                                .turnTo(Math.toRadians(225))
+                                .waitSeconds(2)
+                                //first
+                                .turnTo(Math.toRadians(180))
+                                .lineToX(12)
+                                .turnTo(Math.toRadians(270))
+                                .lineToY(-40)
+                                .lineToY(-10)
+                                .turnTo(Math.toRadians(180))
+                                .lineToX(-15)
+                                .turnTo(Math.toRadians(225))
+                                .waitSeconds(2)
+                                //second
+                                .turnTo(Math.toRadians(180))
+                                .lineToX(0)
+                                .turnTo(Math.toRadians(90))
+                                .lineToY(-54)
+                                .waitSeconds(2)
+                                //clear stack
+                                //.splineTo(new Vector2d(56,56),1)
+//                            .lineToY(10)
+//                            .turnTo(Math.toRadians(180))
+                                .lineToY(-10)
+                                .turnTo(Math.toRadians(180))
+                                .lineToX(-12)
+                                .turnTo(Math.toRadians(270))
+                                .lineToY(-40)
+                                .lineToY(-10)
+                                .turnTo(Math.toRadians(225))
+                                //third
 
-    public void turn() {
+                                .splineTo(new Vector2d(56,-56),1)
+                                .turnTo(Math.toRadians(270))
+                                .build(),
+                        endAction()
+                )
+        );
+    }
+    public void red18() {
        drivefinished = true;
      Actions.runBlocking(
                 //!this needs help
                                         // no update action here
                                         new SequentialAction(
                                                 drive.actionBuilder(startPose)
-                                                        .lineToX(24)
+                                                        .turnTo(Math.toRadians(155))
+                                                        .waitSeconds(2)
+                                                        //preloads
+                                                        .turnTo(Math.toRadians(180))
+                                                        .lineToX(35)
                                                         .turnTo(Math.toRadians(90))
-                                                        .lineToY(36)
+                                                        .lineToY(40)
+                                                        .lineToY(10)
+                                                        .turnTo(Math.toRadians(180))
+                                                        .lineToX(-15)
+                                                        .turnTo(Math.toRadians(135))
+                                                        .waitSeconds(2)
+                                                        //first
+                                                        .turnTo(Math.toRadians(180))
+                                                        .lineToX(12)
+                                                        .turnTo(Math.toRadians(90))
+                                                        .lineToY(40)
+                                                        .lineToY(10)
+                                                        .turnTo(Math.toRadians(180))
+                                                        .lineToX(-15)
+                                                        .turnTo(Math.toRadians(135))
+                                                        .waitSeconds(2)
+                                                        //second
+                                                        .turnTo(Math.toRadians(180))
+                                                        .lineToX(0)
+                                                        .turnTo(Math.toRadians(270))
+                                                        .lineToY(54)
+                                                        .waitSeconds(2)
+                                                        //clear stack
+                                                        //.splineTo(new Vector2d(56,56),1)
+//                            .lineToY(10)
+//                            .turnTo(Math.toRadians(180))
+                                                        .lineToY(10)
+                                                        .turnTo(Math.toRadians(180))
+                                                        .lineToX(-12)
+                                                        .turnTo(Math.toRadians(90))
+                                                        .lineToY(40)
+                                                        .lineToY(10)
+                                                        .turnTo(Math.toRadians(135))
+                                                        //third
+
+                                                        .splineTo(new Vector2d(56,56),1)
+                                                        .turnTo(Math.toRadians(180))
                                                         .build(),
                                                 endAction()
                                         )

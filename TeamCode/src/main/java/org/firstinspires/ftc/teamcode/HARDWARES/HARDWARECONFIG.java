@@ -297,13 +297,13 @@ public class HARDWARECONFIG {
 //        }
 
 
-        if (opMode.gamepad1.right_bumper) {
+        if (opMode.gamepad1.left_bumper) {
             intakeR.setDirection(DcMotorSimple.Direction.REVERSE);
             intakeR.setPower(1);
             intakeL.setDirection(DcMotorSimple.Direction.FORWARD);
             intakeL.setPower(1);
         }
-        else if (opMode.gamepad1.left_bumper){
+        else if (opMode.gamepad1.right_bumper){
             intakeR.setDirection(DcMotorSimple.Direction.FORWARD);
             intakeR.setPower(1);
             intakeL.setDirection(DcMotorSimple.Direction.REVERSE);

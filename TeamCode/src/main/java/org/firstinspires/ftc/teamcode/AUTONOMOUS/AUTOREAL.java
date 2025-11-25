@@ -27,10 +27,10 @@ public class AUTOREAL extends LinearOpMode {
     ///
     @Override//
     public void runOpMode() throws InterruptedException {
-        robot = new AUTOHARDWARE(this, hardwareMap, new Pose2d(0,0,Math.toRadians(0)));
+        robot = new AUTOHARDWARE(this, hardwareMap, new Pose2d(56,10,Math.toRadians(180)));
         waitForStart();
         if (opModeIsActive()){
-           robot.turn();
+           robot.red18();
            blackboard.put(currentpose,robot.drive.localizer.getPose());
         }
     }
