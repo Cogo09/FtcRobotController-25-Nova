@@ -4,6 +4,7 @@ import static com.qualcomm.robotcore.eventloop.opmode.OpMode.blackboard;
 import static org.firstinspires.ftc.teamcode.HARDWARES.UPPERPOWERFILE.upperpowerbound;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
@@ -80,7 +81,7 @@ public class HARDWARECONFIG {
         servosub = new SERVOSUB(hwmap);
 
     }
-
+    Action t = null;
     void initrobot(HardwareMap hwmap, LinearOpMode om, Boolean auto) {
         opMode = om;//
         telemetry = om.telemetry;
@@ -98,6 +99,7 @@ public class HARDWARECONFIG {
 
         drive = new MecanumDrive(hwmap, (Pose2d) blackboard.getOrDefault(currentpose, new Pose2d(0,0,0)));
 
+        t = Turn(1.7);
 //         limelight = hwmap.get(Limelight3A.class, "limelight");
 //        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -152,15 +154,31 @@ public class HARDWARECONFIG {
     public static String currentpose = "currentpose";
 
 
-    public Action Turn(){
+    public Action Turn(double angle){
         return drive.actionBuilder(drive.localizer.getPose())
-                .turnTo(getheadingfromAT()).build();
+                .turn(angle).build();
     }
+    Action runningaction = null;
     public void lockit(){
         TelemetryPacket p = new TelemetryPacket();
-        Action t = Turn();
-        t.run(p);
-        dash.sendTelemetryPacket(p);
+        double angle = getheadingfromAT();
+
+//        Scribe.getInstance().logData(angle);
+        if (angle != 0){
+//            Action t = Turn(angle);
+
+
+        if (runningaction != null ){
+            runningaction.preview(p.fieldOverlay());
+            if (!runningaction.run(p)){
+                runningaction = null;
+            }
+
+        }else{
+            runningaction = t;
+        }
+            dash.sendTelemetryPacket(p);
+}
     }
 
     public double getrangefromAT(){
@@ -179,12 +197,12 @@ public class HARDWARECONFIG {
 
         for (AprilTagDetection detection : currentDetections) {
             if (detection.id == 20 || detection.id ==24){
-                double degrees = detection.ftcPose.pitch;
+                double degrees = detection.ftcPose.yaw;
                 Scribe.getInstance().logData(degrees);
                 return degrees;
             }
 
-        }return -999999999;
+        }return 0;
     }
     public double getx(){
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();

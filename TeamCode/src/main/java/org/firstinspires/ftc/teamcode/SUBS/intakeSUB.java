@@ -15,4 +15,4 @@ import org.firstinspires.ftc.teamcode.HARDWARES.SERVOUTIL;
 
 import java.util.List;
 
-public class intakeSUB{
+public class intakeSUB{}

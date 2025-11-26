@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegistrar;
 
 import org.firstinspires.ftc.robotcore.internal.opmode.OpModeMeta;
 
+import org.gentrifiedApps.gentrifiedAppsUtil.classes.drive.drift.DriftTunerOpMode;
 import org.gentrifiedApps.gentrifiedAppsUtil.config.ConfigMaker;
 import org.gentrifiedApps.gentrifiedAppsUtil.config.ConfigCreator;
 
@@ -46,6 +47,7 @@ public final class Realconfig {
     public static void register(OpModeManager manager) {
         if (!isEnabled) return;
         manager.register(metaForClass(ConfigCreator.class), new ConfigCreator(config));
+//        manager.register(metaForClass(DriftTunerOpMode.class),new DriftTunerOpMode());
     }
 }
     
