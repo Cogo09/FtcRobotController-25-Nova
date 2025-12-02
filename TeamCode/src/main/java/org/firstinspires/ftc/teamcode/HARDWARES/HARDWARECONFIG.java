@@ -243,7 +243,7 @@ public class HARDWARECONFIG {
             slowmode = !slowmode;
         }
         touchpadwpressed = touchpadpressed;
-        double slowmodemultiplier = 1.5;
+        double slowmodemultiplier = 0.5;
 
 
         // Denominator is the largest motor power (absolute value) or 1
