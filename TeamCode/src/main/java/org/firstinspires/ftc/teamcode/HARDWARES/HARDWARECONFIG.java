@@ -30,6 +30,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.teamcode.SUBS.PowerSUB;
 import org.firstinspires.ftc.teamcode.SUBS.SERVOSUB;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.vision.VisionPortal;
@@ -39,13 +40,13 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.gentrifiedApps.gentrifiedAppsUtil.classes.Scribe;
 
 import java.util.List;
-//import org.firstinspires.ftc.teamcode.SUBS.CLAWSUB;
 
 public class HARDWARECONFIG {
     boolean slowmode = false;
     Telemetry telemetry = null;
     LinearOpMode opMode = null;
     public SERVOSUB servosub = null;
+    public PowerSUB powersub = null;
     //public org.firstinspires.ftc.teamcode.SUBS.ARMSUB armSub = null;
     DcMotor frontLeftMotor = null;
     DcMotor backLeftMotor = null;
@@ -79,6 +80,7 @@ public class HARDWARECONFIG {
     public HARDWARECONFIG(LinearOpMode om, HardwareMap hwmap, Boolean auto) {
         initrobot(hwmap, om, auto);
         servosub = new SERVOSUB(hwmap);
+        powersub = new PowerSUB(hwmap);
 
     }
     Action t = null;
@@ -399,6 +401,7 @@ public class HARDWARECONFIG {
         gunmotorL.setPower(gunmotorPowerL);
 
         servosub.update();
+        powersub.update();
         //armSub.update();
 
         buildtelemetry();

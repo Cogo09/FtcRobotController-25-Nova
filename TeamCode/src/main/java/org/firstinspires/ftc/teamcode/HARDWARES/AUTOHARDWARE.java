@@ -139,6 +139,21 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                 )
         );
     }
+    public void test(){
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                new InstantAction(()->powersub.gunon()),
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .waitSeconds(2)
+                                        .build(),
+                                endAction()
+                        )
+
+
+        ));
+    }
     public void red18() {
        drivefinished = true;
      Actions.runBlocking(
