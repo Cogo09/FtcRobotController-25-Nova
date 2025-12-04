@@ -46,7 +46,7 @@ public final class ConfigRegistrar {
                 .setFlavor(OpModeMeta.Flavor.TELEOP)
                 .build();
     }
-//!hihihim
+//!hihihimm
     @OpModeRegistrar
     public static void register(OpModeManager manager) {
         if (!isEnabled) return;
