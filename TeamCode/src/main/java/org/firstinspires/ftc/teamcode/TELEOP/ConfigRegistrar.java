@@ -3,11 +3,15 @@ package org.firstinspires.ftc.teamcode.TELEOP;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegistrar;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.internal.opmode.OpModeMeta;
 
+
+import org.gentrifiedApps.gentrifiedAppsUtil.classes.drive.drift.DriftTunerOpMode;
 import org.gentrifiedApps.gentrifiedAppsUtil.config.ConfigMaker;
 import org.gentrifiedApps.gentrifiedAppsUtil.config.ConfigCreator;
+import org.gentrifiedApps.gentrifiedAppsUtil.heatseeker.Driver;
 
 public final class ConfigRegistrar {
 
@@ -42,11 +46,13 @@ public final class ConfigRegistrar {
                 .setFlavor(OpModeMeta.Flavor.TELEOP)
                 .build();
     }
-
+//!hihihimm
     @OpModeRegistrar
     public static void register(OpModeManager manager) {
         if (!isEnabled) return;
         manager.register(metaForClass(ConfigCreator.class), new ConfigCreator(config));
+        manager.register(metaForClass(DriftTunerOpMode.class), new DriftTunerOpMode(new Driver("frontLeftMotor", "frontRightMotor", "backLeftMotor", "backRightMotor", DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE),3));
+
     }
 }
     
