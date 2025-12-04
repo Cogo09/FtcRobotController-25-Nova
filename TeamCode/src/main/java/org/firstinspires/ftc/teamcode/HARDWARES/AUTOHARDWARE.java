@@ -143,7 +143,8 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
         drivefinished = true;
         Actions.runBlocking(
                 new SequentialAction(
-                new InstantAction(()->powersub.gunon()),
+                        powersub.gunAction(List.of(()->powersub.gunon())),
+
                         new SequentialAction(
                                 drive.actionBuilder(startPose)
                                         .waitSeconds(2)
@@ -497,6 +498,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     Action endAction() {
         return new end();
     }
+
 
 //    public void armextend(double maxDriveSpeed,
 //                          double distance, double heading) {

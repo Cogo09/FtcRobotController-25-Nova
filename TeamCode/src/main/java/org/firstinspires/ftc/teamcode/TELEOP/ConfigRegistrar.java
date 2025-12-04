@@ -51,7 +51,7 @@ public final class ConfigRegistrar {
     public static void register(OpModeManager manager) {
         if (!isEnabled) return;
         manager.register(metaForClass(ConfigCreator.class), new ConfigCreator(config));
-        manager.register(metaForClass(DriftTunerOpMode.class), new DriftTunerOpMode(new Driver("frontLeftMotor", "frontRightMotor", "backLeftMotor", "backRightMotor", DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE),3));
+        manager.register(metaForClass(DriftTunerOpMode.class), new DriftTunerOpMode(new Driver("frontLeftMotor", "frontRightMotor", "backLeftMotor", "backRightMotor", DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD),3));
 
     }
 }

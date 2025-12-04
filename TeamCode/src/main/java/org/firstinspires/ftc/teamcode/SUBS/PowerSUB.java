@@ -91,9 +91,7 @@ public class PowerSUB {
     // this is where you put your update functions to switch between states
     public void telemetry(Telemetry telemetry) {}
         // add telemetry data here
-        public Action MotorAction(PowerSUB powersub, List<Runnable> funcs) {
-            return new MotorAction(powersub, funcs);
-        }
+
 
         class MotorAction implements Action {
             List<Runnable> funcs;
@@ -104,6 +102,7 @@ public class PowerSUB {
                 this.powersub = powersub;
             }
 
+
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 for (Runnable func : funcs) {
@@ -113,5 +112,9 @@ public class PowerSUB {
 
                 return false;
             }
+
+    }
+    public Action gunAction(List<Runnable> funcs){
+        return new MotorAction(this, funcs);
     }
 }
