@@ -6,6 +6,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -141,8 +142,12 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     public void test() {
         drivefinished = true;
         Actions.runBlocking(
+
                 new SequentialAction(
+
+
                         powersub.gunAction(List.of(() -> powersub.gunon())),
+                        new SleepAction(1),
                         powersub.gunAction(List.of(() -> powersub.gunoff())),
                         endAction(),
 
@@ -161,11 +166,10 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                                                         .lineToY(50)
                                                         .build(),
                                                 endAction()
-                                        )
+                                        ),
+                                        powersub.gunAction(List.of(()-> powersub.intakeoff()))
 
-                                ),
-
-                                endAction()
+                                )
                         )
 
 
@@ -183,12 +187,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                                 .build(),
                         endAction(),
                         new SequentialAction(powersub.gunAction(List.of(() -> powersub.gunon()))),
-                        new SequentialAction(
-                                drive.actionBuilder(startPose)
-
-                                        .waitSeconds(1)//
-                                        .build(),
-                                endAction(),
+                        new SleepAction(1),
                                 new SequentialAction(powersub.gunAction(List.of(() -> powersub.gunoff()))),
                                 new SequentialAction(
                                         drive.actionBuilder(startPose)
@@ -238,7 +237,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
 
         endAction()))
         //ready everything for op
-                                ));
+                                );
     }
 
 
