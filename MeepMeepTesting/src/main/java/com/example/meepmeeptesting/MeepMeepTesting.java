@@ -165,7 +165,7 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
                     .waitSeconds(2)
                     //preloads
                     .turnTo(Math.toRadians(180))
-                    .lineToX(35)
+                    .lineToX(37)
                     .turnTo(Math.toRadians(90))
                     .lineToY(40)
                     .lineToY(10)
