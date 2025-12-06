@@ -30,8 +30,8 @@ public class AUTOREAL extends LinearOpMode {
         robot = new AUTOHARDWARE(this, hardwareMap, new Pose2d(56,10,Math.toRadians(180)));
         waitForStart();
         if (opModeIsActive()){
-           //robot.test();
-            robot.red18();
+           robot.test();
+            //robot.red18();
            blackboard.put(currentpose,robot.drive.localizer.getPose());
         }
     }
