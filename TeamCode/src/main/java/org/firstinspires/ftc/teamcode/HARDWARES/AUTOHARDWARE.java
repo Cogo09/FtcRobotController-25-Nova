@@ -98,7 +98,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                                 powersub.gunAction(List.of(() -> powersub.gunoff())),
                                 endAction(),
                                 new SequentialAction(
-                                        drive.actionBuilder(startPose)
+                                        drive.actionBuilder(drive.localizer.getPose())
                                                 .turnTo(Math.toRadians(179))
                                                 .lineToX(37)
                                                 .turnTo(Math.toRadians(90))
@@ -114,23 +114,23 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                         ),
 
                         new SequentialAction(
-                                drive.actionBuilder(startPose)
+                                drive.actionBuilder(drive.localizer.getPose())
                                         .turnTo(Math.toRadians(89))
                                         .turnTo(Math.toRadians(179))
                                         .build(),
                                 endAction()
+                        ),
+
+                        new SequentialAction(
+                                powersub.gunAction(List.of(() -> powersub.intakeoff())),
+                                endAction()
+                        ),
+
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .build(),
+                                endAction()
                         )
-//
-//                        new SequentialAction(
-//                                powersub.gunAction(List.of(() -> powersub.intakeoff())),
-//                                endAction()
-//                        ),
-//
-//                        new SequentialAction(
-//                                drive.actionBuilder(startPose)
-//                                        .build(),
-//                                endAction()
-//                        )
                 )
         );
     }
