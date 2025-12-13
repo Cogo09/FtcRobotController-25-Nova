@@ -91,47 +91,29 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
 
         Actions.runBlocking(
                 new SequentialAction(
-
                         new SequentialAction(
                                 powersub.gunAction(List.of(() -> powersub.gunon())),
                                 new SleepAction(1),
                                 powersub.gunAction(List.of(() -> powersub.gunoff())),
-                                endAction(),
-                                new SequentialAction(
-                                        drive.actionBuilder(drive.localizer.getPose())
-                                                .turnTo(Math.toRadians(179))
-                                                .lineToX(37)
-                                                .turnTo(Math.toRadians(90))
-                                                .waitSeconds(3)
-                                                .build(),
-                                        endAction()
-                                )
-                        ),
-
-                        new SequentialAction(
-                                powersub.gunAction(List.of(() -> powersub.intakeon())),
                                 endAction()
                         ),
-
                         new SequentialAction(
-                                drive.actionBuilder(drive.localizer.getPose())
-                                        .turnTo(Math.toRadians(89))
+                                drive.actionBuilder(lastPose)
                                         .turnTo(Math.toRadians(179))
+                                        .lineToX(37)
                                         .build(),
                                 endAction()
                         ),
-
+                        new SleepAction(1),
                         new SequentialAction(
-                                powersub.gunAction(List.of(() -> powersub.intakeoff())),
-                                endAction()
-                        ),
-
-                        new SequentialAction(
-                                drive.actionBuilder(startPose)
+                                drive.actionBuilder(lastPose)
+                                        .turnTo(Math.toRadians(90))
                                         .build(),
                                 endAction()
                         )
+
                 )
+
         );
     }
 //!help

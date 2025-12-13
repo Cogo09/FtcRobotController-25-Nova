@@ -20,6 +20,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.LED;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -65,6 +66,8 @@ public class HARDWARECONFIG {
     FtcDashboard dash = null;
     double x = 0;
     double y = 0;
+    private LED redLed;
+    private LED greenLed;
 
 
 
@@ -97,6 +100,8 @@ public class HARDWARECONFIG {
         gunmotorL = hwmap.dcMotor.get("gunmotorL");
         intakeR = hwmap.dcMotor.get("intakeR");
         intakeL = hwmap.dcMotor.get("intakeL");
+        redLed = hwmap.get(LED.class, "led_red");
+        greenLed = hwmap.get(LED.class,"led_green");
         dash = FtcDashboard.getInstance();;
 
         drive = new MecanumDrive(hwmap, (Pose2d) blackboard.getOrDefault(currentpose, new Pose2d(0,0,0)));
@@ -109,6 +114,7 @@ public class HARDWARECONFIG {
         intakeR.setDirection(DcMotorSimple.Direction.FORWARD);
         gunmotorL.setDirection(DcMotorSimple.Direction.FORWARD);
         gunmotorR.setDirection(DcMotorSimple.Direction.REVERSE);
+        indicator();
 
         aprilTag = new AprilTagProcessor.Builder()
 
@@ -155,10 +161,24 @@ public class HARDWARECONFIG {
     }
     public static String currentpose = "currentpose";
 
+    public void SetRedLED(boolean isOn){
+        if(isOn){
+            redLed.on();
+        }
+        else {redLed.off();}
+    }
+
+    public void SetGreenLED(boolean isOn){
+        if(isOn){
+            greenLed.on();
+        }
+        else {greenLed.off();}
+    }
+
 
     public Action Turn(double angle){
         return drive.actionBuilder(drive.localizer.getPose())
-                .turn(angle).build();
+                .turnTo(angle).build();
     }
     Action runningaction = null;
     public void lockit(){
@@ -194,6 +214,15 @@ public class HARDWARECONFIG {
         }return -1;
 
     }
+    public void indicator(){
+        if (getheadingfromAT() >= 0.1){
+            greenLed.on();
+        }
+        else if (getheadingfromAT() < 0.1){
+            redLed.on();
+        }
+    }
+
     public double getheadingfromAT(){
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
@@ -218,6 +247,7 @@ public class HARDWARECONFIG {
             return detection.ftcPose.y;
         }return -99999;
     }
+
 
     public void buildtelemetry() {
         telemetry.addData("slowmode", slowmode);
