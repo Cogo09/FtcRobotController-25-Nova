@@ -4,18 +4,11 @@ import static com.qualcomm.robotcore.eventloop.opmode.OpMode.blackboard;
 import static org.firstinspires.ftc.teamcode.HARDWARES.UPPERPOWERFILE.upperpowerbound;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.TimeTurn;
-import com.acmerobotics.roadrunner.ftc.Actions;
-import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -24,13 +17,10 @@ import com.qualcomm.robotcore.hardware.LED;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-
-import org.ejml.equation.IntegerSequence;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.SUBS.PowerSUB;
 import org.firstinspires.ftc.teamcode.SUBS.SERVOSUB;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
@@ -53,7 +43,7 @@ public class HARDWARECONFIG {
     DcMotor backLeftMotor = null;
     DcMotor frontRightMotor = null;
     DcMotor backRightMotor = null;
-   // Limelight3A limelight = null;
+    // Limelight3A limelight = null;
     DcMotor gunmotorR = null;
     DcMotor gunmotorL = null;
     DcMotor intakeR = null;
@@ -66,10 +56,9 @@ public class HARDWARECONFIG {
     FtcDashboard dash = null;
     double x = 0;
     double y = 0;
+    double indicator = 0;
     private LED redLed;
     private LED greenLed;
-
-
 
 
     double color = 0;
@@ -86,12 +75,14 @@ public class HARDWARECONFIG {
         powersub = new PowerSUB(hwmap);
 
     }
+
     Action t = null;
+
     void initrobot(HardwareMap hwmap, LinearOpMode om, Boolean auto) {
         opMode = om;//
         telemetry = om.telemetry;
         //clawsub = new CLAWSUB(hwmap);
-       // armSub = new org.firstinspires.ftc.teamcode.SUBS.ARMSUB(hwmap, auto);
+        // armSub = new org.firstinspires.ftc.teamcode.SUBS.ARMSUB(hwmap, auto);
         frontLeftMotor = hwmap.dcMotor.get("frontLeftMotor");
         backLeftMotor = hwmap.dcMotor.get("backLeftMotor");
         frontRightMotor = hwmap.dcMotor.get("frontRightMotor");
@@ -101,10 +92,11 @@ public class HARDWARECONFIG {
         intakeR = hwmap.dcMotor.get("intakeR");
         intakeL = hwmap.dcMotor.get("intakeL");
         redLed = hwmap.get(LED.class, "led_red");
-        greenLed = hwmap.get(LED.class,"led_green");
-        dash = FtcDashboard.getInstance();;
+        greenLed = hwmap.get(LED.class, "led_green");
+        dash = FtcDashboard.getInstance();
+        ;
 
-        drive = new MecanumDrive(hwmap, (Pose2d) blackboard.getOrDefault(currentpose, new Pose2d(0,0,0)));
+        drive = new MecanumDrive(hwmap, (Pose2d) blackboard.getOrDefault(currentpose, new Pose2d(0, 0, 0)));
 
         t = Turn(1.7);
 //         limelight = hwmap.get(Limelight3A.class, "limelight");
@@ -114,7 +106,6 @@ public class HARDWARECONFIG {
         intakeR.setDirection(DcMotorSimple.Direction.FORWARD);
         gunmotorL.setDirection(DcMotorSimple.Direction.FORWARD);
         gunmotorR.setDirection(DcMotorSimple.Direction.REVERSE);
-        indicator();
 
         aprilTag = new AprilTagProcessor.Builder()
 
@@ -137,126 +128,152 @@ public class HARDWARECONFIG {
         VisionPortal.Builder builder = new VisionPortal.Builder();
 
         // Set the camera (webcam vs. built-in RC phone camera).
-            builder.setCamera(hwmap.get(WebcamName.class, "Webcam 1"));
+        builder.setCamera(hwmap.get(WebcamName.class, "Webcam 1"));
         builder.addProcessor(aprilTag);
 
         // Build the Vision Portal, using the above settings.
         visionPortal = builder.build();
-        FtcDashboard.getInstance().startCameraStream(visionPortal,60);
+        FtcDashboard.getInstance().startCameraStream(visionPortal, 60);
 
         elapsedTime = new ElapsedTime();
     }
-    public int getrandomization(){
+
+    public int getrandomization() {
         //apriltags need to find the green 1 for first pos 2 for second pos 3 for third.
         //21,22,23
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
         for (AprilTagDetection detection : currentDetections) {
-            if (detection.id >= 21 && detection.id <=23) {
+            if (detection.id >= 21 && detection.id <= 23) {
                 return detection.id - 20;
 
             }
 
-        }return 0;
+        }
+        return 0;
     }
+
     public static String currentpose = "currentpose";
 
-    public void SetRedLED(boolean isOn){
-        if(isOn){
+    public void SetRedLED(boolean isOn) {
+        if (isOn) {
             redLed.on();
+        } else {
+            redLed.off();
         }
-        else {redLed.off();}
     }
 
-    public void SetGreenLED(boolean isOn){
-        if(isOn){
+    public void SetGreenLED(boolean isOn) {
+        if (isOn) {
             greenLed.on();
+        } else {
+            greenLed.off();
         }
-        else {greenLed.off();}
     }
 
 
-    public Action Turn(double angle){
+    public Action Turn(double angle) {
         return drive.actionBuilder(drive.localizer.getPose())
                 .turnTo(angle).build();
     }
+
     Action runningaction = null;
-    public void lockit(){
+
+    public void lockit() {
         TelemetryPacket p = new TelemetryPacket();
         double angle = getheadingfromAT();
 
 //        Scribe.getInstance().logData(angle);
-        if (angle != 0){
+        if (angle != 0) {
 //            Action t = Turn(angle);
 
 
-        if (runningaction != null ){
-            runningaction.preview(p.fieldOverlay());
-            if (!runningaction.run(p)){
-                runningaction = null;
-            }
+            if (runningaction != null) {
+                runningaction.preview(p.fieldOverlay());
+                if (!runningaction.run(p)) {
+                    runningaction = null;
+                }
 
-        }else{
-            runningaction = t;
-        }
+            } else {
+                runningaction = t;
+            }
             dash.sendTelemetryPacket(p);
-}
+        }
     }
 
-    public double getrangefromAT(){
+    public double getrangefromAT() {
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
         for (AprilTagDetection detection : currentDetections) {
-            if (detection.id == 20 || detection.id == 24){
+            if (detection.id == 20 || detection.id == 24) {
                 return detection.ftcPose.range;
             }
 
-        }return -1;
+        }
+        return -1;
 
     }
-    public void indicator(){
-        if (getheadingfromAT() >= 0.1){
-            greenLed.on();
-        }
-        else if (getheadingfromAT() < 0.1){
-            redLed.on();
+
+    public void indicatormath() {
+        if (heading <= 0) {
+            indicator = 1;
+        } else if (heading > -0.6) {
+            indicator = 0;
         }
     }
 
-    public double getheadingfromAT(){
+    public void lighton() {
+        if (indicator > 0) {
+            SetGreenLED(true);
+            SetRedLED(false);
+        } else if (indicator < 1) {
+            SetGreenLED(false);
+            SetRedLED(true);
+        }
+    }
+
+    public double getheadingfromAT() {
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
         for (AprilTagDetection detection : currentDetections) {
-            if (detection.id == 20 || detection.id ==24){
+            if (detection.id == 20 || detection.id == 24) {
                 double degrees = detection.ftcPose.yaw;
                 Scribe.getInstance().logData(degrees);
                 return degrees;
             }
 
-        }return 0;
+        }
+        return 0;
     }
-    public double getx(){
+
+    public double getx() {
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
         for (AprilTagDetection detection : currentDetections) {
             return detection.ftcPose.x;
-        }return -99999;
+        }
+        return -99999;
     }
-    public double gety(){
+
+    public double gety() {
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
         for (AprilTagDetection detection : currentDetections) {
             return detection.ftcPose.y;
-        }return -99999;
+        }
+        return -99999;
     }
 
 
     public void buildtelemetry() {
         telemetry.addData("slowmode", slowmode);
-        telemetry.addData("heading",heading);
-        telemetry.addData("distance",distance);
-        telemetry.addData("Power",upperpowerbound);
-        telemetry.addData("x",x);
-        telemetry.addData("y",y);
-       // armSub.telemetry(telemetry);
+        telemetry.addData("heading", heading);
+        telemetry.addData("distance", distance);
+        telemetry.addData("Power", upperpowerbound);
+        telemetry.addData("x", x);
+        telemetry.addData("y", y);
+        telemetry.addData("indicator", indicator);
+        telemetry.addData("greenled", greenLed.isLightOn());
+        telemetry.addData("redled", redLed.isLightOn());
+        // armSub.telemetry(telemetry);
         telemetry.update();
     }
 
@@ -292,7 +309,6 @@ public class HARDWARECONFIG {
         double backRightPower = ((y + x - rx) / denominator) * multiplier;
         double gunmotorPower = Range.clip(opMode.gamepad1.right_trigger, -1, 1);
         double gunmotorPowerL = Range.clip(opMode.gamepad1.right_trigger, -1, 1);
-
 
 
         double armpower = 0;
@@ -345,6 +361,23 @@ public class HARDWARECONFIG {
 //            armSub.setUptarget(280);
 //            clawsub.setHangMIDDLE();
 //        }
+//! -0.65, -0.4 0.5, 0.4 FIX
+        if (heading >= -0.65 && heading <= -0.4) {
+            indicator = 1;
+        } else if (heading >= 0.4 && heading <= 0.5) {
+            indicator = 1;
+        } else {
+            indicator = 0;
+        }
+
+
+        if (indicator == 1) {
+            SetGreenLED(false);
+            SetRedLED(true);
+        } else if (indicator == 0) {
+            SetGreenLED(true);
+            SetRedLED(false);
+        }
 
 
         if (opMode.gamepad1.left_bumper) {
@@ -352,19 +385,15 @@ public class HARDWARECONFIG {
             intakeR.setPower(1);
             intakeL.setDirection(DcMotorSimple.Direction.FORWARD);
             intakeL.setPower(1);
-        }
-        else if (opMode.gamepad1.right_bumper){
+        } else if (opMode.gamepad1.right_bumper) {
             intakeR.setDirection(DcMotorSimple.Direction.FORWARD);
             intakeR.setPower(1);
             intakeL.setDirection(DcMotorSimple.Direction.REVERSE);
             intakeL.setPower(1);
-        }
-
-        else {
+        } else {
             intakeL.setPower(0);
             intakeR.setPower(0);
         }
-
 
 
 //        if (getrangefromAT() >=100 && getrangefromAT()<=140){
@@ -385,40 +414,40 @@ public class HARDWARECONFIG {
             gunmotorR.setPower(0);
             gunmotorL.setPower(0);
         }
-        if (opMode.gamepad2.left_trigger>0){
+        if (opMode.gamepad2.left_trigger > 0) {
             gunmotorR.setDirection(DcMotorSimple.Direction.FORWARD);
             gunmotorR.setPower(0.5);
             gunmotorL.setDirection(DcMotorSimple.Direction.REVERSE);
             gunmotorL.setPower(0.5);
         }
-        if (opMode.gamepad1.left_trigger > 0){
+        if (opMode.gamepad1.left_trigger > 0) {
 
         }
-        if (opMode.gamepad2.left_bumper){
+        if (opMode.gamepad2.left_bumper) {
             lockit();
             //LOCKIT SHOULD TURN TO AT HEADING>
         }
 
         if (opMode.gamepad2.dpad_left) {
             servosub.LELEup();
-        }else if (opMode.gamepad2.dpad_down) {
+        } else if (opMode.gamepad2.dpad_down) {
             servosub.LELEdown();
         }
 
         if (opMode.gamepad2.dpad_right) {
             servosub.RELEdown();
-        }else if (opMode.gamepad2.dpad_down) {
+        } else if (opMode.gamepad2.dpad_down) {
             servosub.RELEup();
         }
 
         if (opMode.gamepad2.dpad_up) {
             servosub.MELEdown();
-        }else if (opMode.gamepad2.dpad_down){
+        } else if (opMode.gamepad2.dpad_down) {
             servosub.MELEup();
         }
-        if (opMode.gamepad2.y){
+        if (opMode.gamepad2.y) {
             servosub.Bootup();
-        }else{
+        } else {
             servosub.Bootdown();
         }
 
