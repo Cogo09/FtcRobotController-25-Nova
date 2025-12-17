@@ -74,7 +74,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     static final double P_TURN_GAIN = 0.02;     // Larger is more responsive, but also less stable.
     static final double P_DRIVE_GAIN = 0.03;     // Larger is more responsive, but also less stable.
     public static final double ARM_EXTEND = 1.0;
-    public static Pose2d lastPose;
+    public Pose2d lastPose;
 
 
     public AUTOHARDWARE(LinearOpMode om, HardwareMap hwmap, Pose2d startPose) {
@@ -86,6 +86,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     }
 
     //!help
+
     public void test() {
         drivefinished = true;
 
@@ -101,16 +102,20 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                                 drive.actionBuilder(lastPose)
                                         .turnTo(Math.toRadians(179))
                                         .lineToX(37)
-                                        .build(),
-                                endAction()
-                        ),
-                        new SleepAction(1),
-                        new SequentialAction(
-                                drive.actionBuilder(lastPose)
+                                        .waitSeconds(1)
                                         .turnTo(Math.toRadians(90))
+                                        .stopAndAdd(()-> powersub.gunon())
+
                                         .build(),
                                 endAction()
                         )
+//                        new SleepAction(1),
+//                        new SequentialAction(
+//                                drive.actionBuilder(new Pose2d(drive.localizer.getPose().position.x, drive.localizer.getPose().position.y, drive.localizer.getPose().heading.real))
+//                                        .turnTo(Math.toRadians(90))
+//                                        .build(),
+//                                endAction()
+//                        )
 
                 )
 
@@ -517,6 +522,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
             drivefinished = false;
+            lastPose = drive.localizer.getPose();
             return false;
         }
     }

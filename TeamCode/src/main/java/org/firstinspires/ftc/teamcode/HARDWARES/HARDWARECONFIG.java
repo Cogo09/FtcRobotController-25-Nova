@@ -173,8 +173,9 @@ public class HARDWARECONFIG {
 
 
     public Action Turn(double angle) {
-        return drive.actionBuilder(drive.localizer.getPose())
-                .turnTo(angle).build();
+        Scribe.getInstance().logData("here");
+        return drive.actionBuilder(new Pose2d(0,0,0))
+                .turn(angle).build();
     }
 
     Action runningaction = null;
@@ -191,28 +192,29 @@ public class HARDWARECONFIG {
             if (runningaction != null) {
                 runningaction.preview(p.fieldOverlay());
                 if (!runningaction.run(p)) {
+                    Scribe.getInstance().logData("true");
                     runningaction = null;
                 }
 
             } else {
-                runningaction = t;
+                runningaction = Turn(angle);
             }
             dash.sendTelemetryPacket(p);
         }
     }
 
-    public double getrangefromAT() {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-
-        for (AprilTagDetection detection : currentDetections) {
-            if (detection.id == 20 || detection.id == 24) {
-                return detection.ftcPose.range;
-            }
-
-        }
-        return -1;
-
-    }
+//    public double getrangefromAT() {
+//        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+//
+//        for (AprilTagDetection detection : currentDetections) {
+//            if (detection.id == 20 || detection.id == 24) {
+//                return detection.ftcPose.range;
+//            }
+//
+//        }
+//        return -1;
+//
+//    }
 
     public void indicatormath() {
         if (heading <= 0) {
@@ -233,34 +235,19 @@ public class HARDWARECONFIG {
     }
 
     public double getheadingfromAT() {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-
-        for (AprilTagDetection detection : currentDetections) {
-            if (detection.id == 20 || detection.id == 24) {
-                double degrees = detection.ftcPose.yaw;
-                Scribe.getInstance().logData(degrees);
-                return degrees;
-            }
-
-        }
-        return 0;
+//        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+//
+//        for (AprilTagDetection detection : currentDetections) {
+//            if (detection.id == 20 || detection.id == 24) {
+//                double degrees = detection.ftcPose.yaw;
+//                Scribe.getInstance().logData(degrees);
+//                return degrees;
+//            }
+//
+//        }
+        return 1.57;
     }
 
-    public double getx() {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        for (AprilTagDetection detection : currentDetections) {
-            return detection.ftcPose.x;
-        }
-        return -99999;
-    }
-
-    public double gety() {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        for (AprilTagDetection detection : currentDetections) {
-            return detection.ftcPose.y;
-        }
-        return -99999;
-    }
 
 
     public void buildtelemetry() {
@@ -271,9 +258,6 @@ public class HARDWARECONFIG {
         telemetry.addData("x", x);
         telemetry.addData("y", y);
         telemetry.addData("indicator", indicator);
-        telemetry.addData("greenled", greenLed.isLightOn());
-        telemetry.addData("redled", redLed.isLightOn());
-        // armSub.telemetry(telemetry);
         telemetry.update();
     }
 
@@ -281,9 +265,7 @@ public class HARDWARECONFIG {
 
     public void dobulk() {//
         heading = getheadingfromAT();
-        x = getx();
-        y = gety();
-        distance = getrangefromAT();
+       // distance = getrangefromAT();
         double y = -opMode.gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = opMode.gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
         double rx = opMode.gamepad1.right_stick_x;
