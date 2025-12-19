@@ -95,7 +95,7 @@ public class SERVOSUB {
         bootkickerservo = hwMap.get(Servo.class,"bootkickerservo");
         leftelevatorservo.setDirection(Servo.Direction.FORWARD);
         middleelevatorservo.setDirection(Servo.Direction.FORWARD);
-        rightelevatorservo.setDirection(Servo.Direction.REVERSE);
+        rightelevatorservo.setDirection(Servo.Direction.FORWARD);
         bootkickerservo.setDirection(Servo.Direction.REVERSE);
 
     }

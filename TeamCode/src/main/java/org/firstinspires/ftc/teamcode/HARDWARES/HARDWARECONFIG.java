@@ -7,6 +7,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,6 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.LED;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -59,6 +61,10 @@ public class HARDWARECONFIG {
     double indicator = 0;
     private LED redLed;
     private LED greenLed;
+    private LED redLed1;
+    private LED greenLed1;
+    private LED redLed2;
+    private LED greenLed2;
 
 
     double color = 0;
@@ -93,8 +99,12 @@ public class HARDWARECONFIG {
         intakeL = hwmap.dcMotor.get("intakeL");
         redLed = hwmap.get(LED.class, "led_red");
         greenLed = hwmap.get(LED.class, "led_green");
+        redLed1 = hwmap.get(LED.class,"led_red1");
+        greenLed1 = hwmap.get(LED.class,"led_green1");
+        redLed2 = hwmap.get(LED.class,"led_red2");
+        greenLed2 = hwmap.get(LED.class,"led_green2");
         dash = FtcDashboard.getInstance();
-        ;
+        colorSensor = hwmap.get(RevColorSensorV3.class,"colorsensor");
 
         drive = new MecanumDrive(hwmap, (Pose2d) blackboard.getOrDefault(currentpose, new Pose2d(0, 0, 0)));
 
@@ -162,6 +172,20 @@ public class HARDWARECONFIG {
             redLed.off();
         }
     }
+    public void SetRedLED1(boolean isOn) {
+        if (isOn) {
+            redLed1.on();
+        } else {
+            redLed1.off();
+        }
+    }
+    public void SetRedLED2(boolean isOn) {
+        if (isOn) {
+            redLed2.on();
+        } else {
+            redLed2.off();
+        }
+    }
 
     public void SetGreenLED(boolean isOn) {
         if (isOn) {
@@ -170,12 +194,50 @@ public class HARDWARECONFIG {
             greenLed.off();
         }
     }
+    public void SetGreenLED1(boolean isOn) {
+        if (isOn) {
+            greenLed1.on();
+        } else {
+            greenLed1.off();
+        }
+    }
+    public void SetGreenLED2(boolean isOn) {
+        if (isOn) {
+            greenLed2.on();
+        } else {
+            greenLed2.off();
+        }
+    }
+    public void getDetectedColor (Telemetry telemetry){
+       NormalizedRGBA colors = colorSensor.getNormalizedColors();
+
+        float normpurple, normgreen, normred;
+        normgreen = colors.green*100;
+        normpurple = colors.blue*100;
+        normred = colors.red*100;
+        boolean isgreen = false;
+        float max = normpurple;
+        if (normgreen > max){
+            max = normgreen;
+            isgreen = true;
+        }
+
+        telemetry.addData("green",normgreen);
+        telemetry.addData("purple",normpurple);
+        telemetry.addData("red",normred);
+        if (max > 1){
+            telemetry.addData("max", max);
+            telemetry.addData("green",isgreen);
+        }
+
+
+    }
 
 
     public Action Turn(double angle) {
         Scribe.getInstance().logData("here");
-        return drive.actionBuilder(new Pose2d(0,0,0))
-                .turn(angle).build();
+        return drive.actionBuilder(drive.localizer.getPose())
+                .turnTo(angle).build();
     }
 
     Action runningaction = null;
@@ -184,20 +246,24 @@ public class HARDWARECONFIG {
         TelemetryPacket p = new TelemetryPacket();
         double angle = getheadingfromAT();
 
+
 //        Scribe.getInstance().logData(angle);
         if (angle != 0) {
-//            Action t = Turn(angle);
+            Action t = Turn(angle);
 
 
             if (runningaction != null) {
-                runningaction.preview(p.fieldOverlay());
-                if (!runningaction.run(p)) {
-                    Scribe.getInstance().logData("true");
-                    runningaction = null;
-                }
+//                runningaction.preview(p.fieldOverlay());
+                Actions.runBlocking(runningaction);
+                runningaction = null;
+//                runningaction.run(p);
+//                if (!runningaction.run(p)) {
+//                    Scribe.getInstance().logData("true");
+//                    runningaction = null;
+//                }
 
             } else {
-                runningaction = Turn(angle);
+                runningaction = t;
             }
             dash.sendTelemetryPacket(p);
         }
@@ -234,18 +300,21 @@ public class HARDWARECONFIG {
         }
     }
 
+
     public double getheadingfromAT() {
-//        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-//
-//        for (AprilTagDetection detection : currentDetections) {
-//            if (detection.id == 20 || detection.id == 24) {
-//                double degrees = detection.ftcPose.yaw;
-//                Scribe.getInstance().logData(degrees);
-//                return degrees;
-//            }
-//
-//        }
-        return 1.57;
+        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+
+        for (AprilTagDetection detection : currentDetections) {
+            if (detection.id == 20 || detection.id == 24) {
+                if (detection.id == 20){
+                    return Math.PI/4;
+                }else{
+                    return (7*Math.PI)/4;
+                }
+            }
+
+        }
+        return 0;
     }
 
 
@@ -351,6 +420,7 @@ public class HARDWARECONFIG {
         } else {
             indicator = 0;
         }
+        getDetectedColor(telemetry);
 
 
         if (indicator == 1) {
