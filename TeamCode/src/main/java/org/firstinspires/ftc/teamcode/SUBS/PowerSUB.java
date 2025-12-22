@@ -17,7 +17,7 @@ public class PowerSUB {
     private DcMotor gunmotorR;
     private DcMotor gunmotorL;
 
-    public enum gunSTATE {ON, OFF, IDLE}
+    public enum gunSTATE {ON, OFF, REVERSE, IDLE}
 //!help
     private PowerSUB.gunSTATE gunStateVar = PowerSUB.gunSTATE.IDLE;
 
@@ -28,8 +28,9 @@ public class PowerSUB {
     public void gunoff() {
         gunStateVar = gunSTATE.OFF;
     }
+    public void gunreverse(){gunStateVar = gunSTATE.REVERSE;}
 
-    public enum intakeSTATE {ON, OFF, IDLE}
+    public enum intakeSTATE {ON, OFF, REVERSE, IDLE}
 
     private PowerSUB.intakeSTATE intakeStateVar = PowerSUB.intakeSTATE.IDLE;
 
@@ -40,14 +41,14 @@ public class PowerSUB {
     public void intakeoff() {
         intakeStateVar = intakeSTATE.OFF;
     }
-    private HardwareMap hwmap = null;
+    public void intakereverse(){intakeStateVar = intakeSTATE.REVERSE;}
+
 
 
     //this is where you put all enums and variables
     public PowerSUB(HardwareMap hwMap) {
-        this.hwmap = hwMap;
-        gunmotorL = hwMap.get(DcMotor.class,"gunmotorR");
-        gunmotorR = hwmap.get(DcMotor.class,"gunmotorR");
+        gunmotorL = hwMap.get(DcMotor.class,"gunmotorL");
+        gunmotorR = hwMap.get(DcMotor.class,"gunmotorR");
         intakeR = hwMap.get(DcMotor.class,"intakeR");
         intakeL = hwMap.get(DcMotor.class, "intakeL");
         intakeL.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -68,6 +69,10 @@ public class PowerSUB {
                 intakeR.setPower(0);
                 intakeL.setPower(0);
                 break;
+            case REVERSE:
+                intakeR.setPower(-0.5);
+                intakeL.setPower(-0.5);
+                break;
             case IDLE:
 
                 break;
@@ -78,9 +83,13 @@ public class PowerSUB {
                 gunmotorR.setPower(1);
                 gunmotorL.setPower(1);
                 break;
-            case  OFF:
+            case OFF:
                 gunmotorL.setPower(0);
                 gunmotorR.setPower(0);
+                break;
+            case REVERSE:
+                gunmotorL.setPower(-1);
+                gunmotorR.setPower(-1);
                 break;
             case IDLE:
 
