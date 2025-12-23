@@ -17,7 +17,7 @@ public class PowerSUB {
     private DcMotor gunmotorR;
     private DcMotor gunmotorL;
 
-    public enum gunSTATE {ON, OFF, REVERSE, IDLE}
+    public enum gunSTATE {ON, OFF, REVERSE, MATCH, IDLE}
 //!help
     private PowerSUB.gunSTATE gunStateVar = PowerSUB.gunSTATE.IDLE;
 
@@ -29,6 +29,7 @@ public class PowerSUB {
         gunStateVar = gunSTATE.OFF;
     }
     public void gunreverse(){gunStateVar = gunSTATE.REVERSE;}
+    public void gunmatch(){gunStateVar = gunSTATE.MATCH;}
 
     public enum intakeSTATE {ON, OFF, REVERSE, IDLE}
 
@@ -91,6 +92,9 @@ public class PowerSUB {
                 gunmotorL.setPower(-1);
                 gunmotorR.setPower(-1);
                 break;
+            case MATCH:
+                gunmotorR.setPower(0.3);
+                gunmotorL.setPower(0.3);
             case IDLE:
 
                 break;

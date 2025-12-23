@@ -120,6 +120,7 @@ public class HARDWARECONFIG {
 //        gunmotorL.setDirection(DcMotorSimple.Direction.FORWARD);
 //        gunmotorR.setDirection(DcMotorSimple.Direction.REVERSE);
 
+
         aprilTag = new AprilTagProcessor.Builder()
 
                 // The following default settings are available to un-comment and edit as needed.
@@ -167,6 +168,9 @@ public class HARDWARECONFIG {
     }
 
     public static String currentpose = "currentpose";
+    public void Powermotorstart(){
+        powersub.gunmatch();
+    }
 
     public void SetRedLED(boolean isOn) {
         if (isOn) {
@@ -215,9 +219,9 @@ public class HARDWARECONFIG {
        NormalizedRGBA colors = colorSensor.getNormalizedColors();
 
         float normpurple, normgreen, normred;
-        normgreen = colors.green*100;
-        normpurple = colors.blue*100;
-        normred = colors.red*100;
+        normgreen = colors.green * 100;
+        normpurple = colors.blue * 100;
+        normred = colors.red * 100;
         boolean isgreen = false;
         float max = normpurple;
         if (normgreen > max){
@@ -402,10 +406,10 @@ public class HARDWARECONFIG {
 
         if (opMode.gamepad2.left_trigger > 0) {
             powersub.gunreverse();
-        }else if (opMode.gamepad2.right_trigger > 0){
+        }else if (opMode.gamepad1.right_trigger > 0){
             powersub.gunon();
         }else {
-            powersub.gunoff();
+            powersub.gunmatch();
         }
         if (opMode.gamepad2.left_bumper) {
             lockit();
