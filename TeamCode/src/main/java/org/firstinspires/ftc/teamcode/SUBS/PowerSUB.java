@@ -93,8 +93,8 @@ public class PowerSUB {
                 gunmotorR.setPower(-1);
                 break;
             case MATCH:
-                gunmotorR.setPower(0.3);
-                gunmotorL.setPower(0.3);
+                gunmotorR.setPower(0);
+                gunmotorL.setPower(0);
             case IDLE:
 
                 break;

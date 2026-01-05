@@ -93,6 +93,12 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
         Actions.runBlocking(
                 new SequentialAction(
                         new SequentialAction(
+                                drive.actionBuilder(lastPose)
+                                        .turnTo(Math.toRadians(179))
+                                        .build(),
+                                endAction()
+                        ),
+                        new SequentialAction(
                                 powersub.gunAction(List.of(() -> powersub.gunon())),
                                 new SleepAction(1),
                                 powersub.gunAction(List.of(() -> powersub.gunoff())),
