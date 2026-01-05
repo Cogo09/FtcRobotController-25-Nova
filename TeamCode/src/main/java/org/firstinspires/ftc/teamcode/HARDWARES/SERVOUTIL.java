@@ -13,6 +13,12 @@ public class SERVOUTIL {
     public static double rightelevatorservoup = 100;
     public static double rightelevatorservodown = 50;
 
+    public static double rightscooperup = 30;
+    public static double rightscooperdown = 75;
+
+    public static double leftscooperup = 0;
+    public static double leftscooperdown = 62.5;
+
     public static double bootkickerup = 150;
     public static double bootkickerdown = 0;
 }

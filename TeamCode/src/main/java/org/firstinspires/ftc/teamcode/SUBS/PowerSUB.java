@@ -81,16 +81,16 @@ public class PowerSUB {
 
         switch (gunStateVar) {
             case ON:
-                gunmotorR.setPower(1);
-                gunmotorL.setPower(1);
+                gunmotorR.setPower(0.8);
+                gunmotorL.setPower(0.8);
                 break;
             case OFF:
                 gunmotorL.setPower(0);
                 gunmotorR.setPower(0);
                 break;
             case REVERSE:
-                gunmotorL.setPower(-1);
-                gunmotorR.setPower(-1);
+                gunmotorL.setPower(1);
+                gunmotorR.setPower(1);
                 break;
             case MATCH:
                 gunmotorR.setPower(0);

@@ -18,6 +18,8 @@ public class SERVOSUB {
     private final Servo leftelevatorservo;
     private final Servo middleelevatorservo;
     private final Servo rightelevatorservo;
+    private final Servo leftscooperservo;
+    private final Servo rightscooperservo;
 //    private final Servo bootkickerservo;
 
 
@@ -69,6 +71,26 @@ public class SERVOSUB {
         MiddleELEStateVar = MiddleELEState.IDLE;
     }
 
+    public enum RightScooperState {UP,DOWN,IDLE}
+
+    private RightScooperState RightScooperStateVar = RightScooperState.IDLE;
+
+    public void rscoopdown(){RightScooperStateVar = RightScooperState.DOWN;}
+
+    public void rscoopup(){RightScooperStateVar = RightScooperState.UP;}
+
+    public void rscoopidle(){RightScooperStateVar = RightScooperState.IDLE;}
+
+    public enum LeftScooperState {UP,DOWN,IDLE}
+
+    private LeftScooperState LeftScooperStateVar = LeftScooperState.IDLE;
+
+    public void lscoopdown(){LeftScooperStateVar = LeftScooperState.DOWN;}
+
+    public void lscoopup(){LeftScooperStateVar = LeftScooperState.UP;}
+
+    public void lscoopidle(){LeftScooperStateVar = LeftScooperState.IDLE;}
+
     public enum BootState {UP, DOWN, IDLE}
 
 //    private BootState BootStateVar = BootState.IDLE;
@@ -92,10 +114,13 @@ public class SERVOSUB {
         leftelevatorservo = hwMap.get(Servo.class, "leftelevatorservo");
         middleelevatorservo = hwMap.get(Servo.class, "middleelevatorservo");
         rightelevatorservo = hwMap.get(Servo.class, "rightelevatorservo");
+        leftscooperservo = hwMap.get(Servo.class,"leftscooperservo");
+        rightscooperservo = hwMap.get(Servo.class,"rightscooperservo");
 //        bootkickerservo = hwMap.get(Servo.class,"bootkickerservo");
         leftelevatorservo.setDirection(Servo.Direction.FORWARD);
         middleelevatorservo.setDirection(Servo.Direction.FORWARD);
         rightelevatorservo.setDirection(Servo.Direction.FORWARD);
+        rightscooperservo.setDirection(Servo.Direction.REVERSE);
 //        bootkickerservo.setDirection(Servo.Direction.REVERSE);
 
     }
@@ -114,6 +139,28 @@ public class SERVOSUB {
 //
 //                break;
 //        }
+        switch (RightScooperStateVar){
+            case UP:
+                setpose(rightscooperservo, SERVOUTIL.rightscooperup);
+                break;
+            case DOWN:
+                setpose(rightscooperservo, SERVOUTIL.rightscooperdown);
+                break;
+            case IDLE:
+
+                break;
+        }
+        switch (LeftScooperStateVar){
+            case UP:
+                setpose(leftscooperservo, SERVOUTIL.leftscooperup);
+                break;
+            case DOWN:
+                setpose(leftscooperservo, SERVOUTIL.leftscooperdown);
+                break;
+            case IDLE:
+
+                break;
+        }
         switch (LeftELEStateVar) {
             case UP:
                 setpose(leftelevatorservo, SERVOUTIL.leftelevatorservoup);

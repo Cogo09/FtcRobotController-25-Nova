@@ -406,7 +406,7 @@ public class HARDWARECONFIG {
 
         if (opMode.gamepad2.left_trigger > 0) {
             powersub.gunreverse();
-        }else if (opMode.gamepad1.right_trigger > 0){
+        }else if (opMode.gamepad2.right_trigger > 0){
             powersub.gunon();
         }else {
             powersub.gunmatch();
@@ -421,6 +421,19 @@ public class HARDWARECONFIG {
             servosub.LELEdown();
         }
 
+        if (opMode.gamepad2.x){
+            servosub.lscoopdown();
+        }
+        if (opMode.gamepad2.b){
+            servosub.rscoopdown();
+        }
+        if (opMode.gamepad2.a){
+            servosub.rscoopup();
+            servosub.lscoopup();
+        }
+
+
+
         if (opMode.gamepad2.dpad_right) {
             servosub.RELEup();
         } else if (opMode.gamepad2.dpad_down) {
@@ -431,15 +444,6 @@ public class HARDWARECONFIG {
             servosub.MELEup();
         } else if (opMode.gamepad2.dpad_down) {
             servosub.MELEdown();
-        }
-        if (opMode.gamepad2.triangle) {
-            servosub.MELEup();
-            servosub.LELEup();
-            servosub.RELEup();
-        } else if (opMode.gamepad2.cross) {
-            servosub.MELEdown();
-            servosub.LELEdown();
-            servosub.RELEdown();
         }
 
 

@@ -107,11 +107,8 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                         new SequentialAction(
                                 drive.actionBuilder(lastPose)
                                         .turnTo(Math.toRadians(179))
-                                        .lineToX(37)
+                                        .lineToY(-15)
                                         .waitSeconds(1)
-                                        .turnTo(Math.toRadians(90))
-                                        .stopAndAdd(()-> powersub.gunon())
-
                                         .build(),
                                 endAction()
                         )
@@ -185,69 +182,69 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
 //                            .lineToY(10)
 //                    .turnTo(Math.toRadians(179))
 //                            .build());
-    public void red18() {
-        drivefinished = true;
-        Actions.runBlocking(
-                //!this needs help
-                // no update action here
-                new SequentialAction(
-                        drive.actionBuilder(startPose)
-                                .turnTo(Math.toRadians(155))
-                                .build(),
-                        endAction(),
-                        new SequentialAction(powersub.gunAction(List.of(() -> powersub.gunon()))),
-                        new SleepAction(1),
-                        new SequentialAction(powersub.gunAction(List.of(() -> powersub.gunoff()))),
-                        new SequentialAction(
-                                drive.actionBuilder(startPose)
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(37)
-                                        .turnTo(Math.toRadians(90))
-                                        .lineToY(50)
-                                        .lineToY(8)
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(-15)
-                                        .turnTo(Math.toRadians(135))
-                                        .waitSeconds(1)
-                                        //first
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(21)
-                                        .turnTo(Math.toRadians(90))
-                                        .lineToY(45)
-                                        .lineToY(6)
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(-15)
-                                        .turnTo(Math.toRadians(135))
-                                        .waitSeconds(1)
-                                        //second
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(0)
-                                        .turnTo(Math.toRadians(270))
-                                        .lineToY(45)
-                                        .waitSeconds(1)
-                                        //clear stack
-                                        //.splineTo(new Vector2d(56,56),1)
-                                        //                            .lineToY(10)
-                                        //                            .turnTo(Math.toRadians(180))
-                                        .lineToY(10)
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(-12)
-                                        .turnTo(Math.toRadians(90))
-                                        .lineToY(40)
-                                        .lineToY(10)
-                                        .turnTo(Math.toRadians(135))
-                                        //third
-
-                                        .splineTo(new Vector2d(56, 56), 1)
-                                        .turnTo(Math.toRadians(180))
-                                        .build(),
-                                //preloads
-
-
-                                endAction()))
-                //ready everything for op
-        );
-    }
+//    public void red18() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                //!this needs help
+//                // no update action here
+//                new SequentialAction(
+//                        drive.actionBuilder(startPose)
+//                                .turnTo(Math.toRadians(155))
+//                                .build(),
+//                        endAction(),
+//                        new SequentialAction(powersub.gunAction(List.of(() -> powersub.gunon()))),
+//                        new SleepAction(1),
+//                        new SequentialAction(powersub.gunAction(List.of(() -> powersub.gunoff()))),
+//                        new SequentialAction(
+//                                drive.actionBuilder(startPose)
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(37)
+//                                        .turnTo(Math.toRadians(90))
+//                                        .lineToY(50)
+//                                        .lineToY(8)
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(-15)
+//                                        .turnTo(Math.toRadians(135))
+//                                        .waitSeconds(1)
+//                                        //first
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(21)
+//                                        .turnTo(Math.toRadians(90))
+//                                        .lineToY(45)
+//                                        .lineToY(6)
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(-15)
+//                                        .turnTo(Math.toRadians(135))
+//                                        .waitSeconds(1)
+//                                        //second
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(0)
+//                                        .turnTo(Math.toRadians(270))
+//                                        .lineToY(45)
+//                                        .waitSeconds(1)
+//                                        //clear stack
+//                                        //.splineTo(new Vector2d(56,56),1)
+//                                        //                            .lineToY(10)
+//                                        //                            .turnTo(Math.toRadians(180))
+//                                        .lineToY(10)
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(-12)
+//                                        .turnTo(Math.toRadians(90))
+//                                        .lineToY(40)
+//                                        .lineToY(10)
+//                                        .turnTo(Math.toRadians(135))
+//                                        //third
+//
+//                                        .splineTo(new Vector2d(56, 56), 1)
+//                                        .turnTo(Math.toRadians(180))
+//                                        .build(),
+//                                //preloads
+//
+//
+//                                endAction()))
+//                //ready everything for op
+//        );
+//    }
 
 
     //theoretical ^
