@@ -7,7 +7,6 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -86,13 +85,29 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     }
 
     //!help
-    public void shooter(){
+    public void shooter() {
         drivefinished = true;
         Actions.runBlocking(
                 new SequentialAction(
-                        drive.actionBuilder(lastPose)
-                                .lineToXConstantHeading(-15)
-                                .build()
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToXConstantHeading(-15)
+                                        .build(),
+                                endAction()
+                        ),
+                        new SequentialAction(
+                                powersub.gunAction(List.of(() -> powersub.gunon())),
+                                new SleepAction(2),
+                                servosub.ServoAction(List.of(() -> servosub.MELEup())),
+                                new SleepAction(1),
+                                servosub.ServoAction(List.of(() -> servosub.RELEup())),
+                                new SleepAction(1),
+                                servosub.ServoAction(List.of(() -> servosub.LELEup())),
+                                new SleepAction(1),
+                                powersub.gunAction(List.of(() -> powersub.gunoff())),
+                                endAction()
+
+                        )
                 )
         );
     }

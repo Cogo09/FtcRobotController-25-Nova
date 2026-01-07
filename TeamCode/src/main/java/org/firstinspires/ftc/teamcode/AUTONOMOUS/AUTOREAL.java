@@ -27,7 +27,7 @@ public class AUTOREAL extends LinearOpMode {
     ///
     @Override//
     public void runOpMode() throws InterruptedException {
-        robot = new AUTOHARDWARE(this, hardwareMap, new Pose2d(56,10,Math.toRadians(180)));
+        robot = new AUTOHARDWARE(this, hardwareMap, new Pose2d(-52,50,Math.toRadians(140)));
         waitForStart();
         if (opModeIsActive()){
            robot.shooter();
