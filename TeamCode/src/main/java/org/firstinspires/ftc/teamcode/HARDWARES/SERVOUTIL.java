@@ -14,7 +14,7 @@ public class SERVOUTIL {
     public static double rightelevatorservodown = 50;
 
     public static double rightscooperup = 30;
-    public static double rightscooperdown = 75;
+    public static double rightscooperdown = 90;
 
     public static double leftscooperup = 0;
     public static double leftscooperdown = 62.5;

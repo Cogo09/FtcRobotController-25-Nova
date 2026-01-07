@@ -423,9 +423,13 @@ public class HARDWARECONFIG {
 
         if (opMode.gamepad2.x){
             servosub.lscoopdown();
+        }else {
+            servosub.lscoopup();
         }
         if (opMode.gamepad2.b){
             servosub.rscoopdown();
+        }else {
+            servosub.rscoopup();
         }
         if (opMode.gamepad2.a){
             servosub.rscoopup();

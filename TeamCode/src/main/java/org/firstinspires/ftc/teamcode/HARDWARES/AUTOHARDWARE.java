@@ -86,6 +86,16 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     }
 
     //!help
+    public void shooter(){
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        drive.actionBuilder(lastPose)
+                                .lineToXConstantHeading(-15)
+                                .build()
+                )
+        );
+    }
 
     public void test() {
         drivefinished = true;
