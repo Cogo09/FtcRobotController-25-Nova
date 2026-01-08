@@ -5,17 +5,21 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.UTILITIES.FlyUTIL;
 
 import java.util.List;
 
 public class PowerSUB {
     private DcMotor intakeR;
     private DcMotor intakeL;
-    private DcMotor gunmotorR;
-    private DcMotor gunmotorL;
+    private DcMotorEx gunmotorR;
+    private DcMotorEx gunmotorL;
 
     public enum gunSTATE {ON, OFF, REVERSE, MATCH, IDLE}
 //!help
@@ -30,6 +34,7 @@ public class PowerSUB {
     }
     public void gunreverse(){gunStateVar = gunSTATE.REVERSE;}
     public void gunmatch(){gunStateVar = gunSTATE.MATCH;}
+    public void gunidle(){gunStateVar = gunSTATE.IDLE;}
 
     public enum intakeSTATE {ON, OFF, REVERSE, IDLE}
 
@@ -48,14 +53,17 @@ public class PowerSUB {
 
     //this is where you put all enums and variables
     public PowerSUB(HardwareMap hwMap) {
-        gunmotorL = hwMap.get(DcMotor.class,"gunmotorL");
-        gunmotorR = hwMap.get(DcMotor.class,"gunmotorR");
+        gunmotorL = hwMap.get(DcMotorEx.class,"gunmotorL");
+        gunmotorR = hwMap.get(DcMotorEx.class,"gunmotorR");
         intakeR = hwMap.get(DcMotor.class,"intakeR");
         intakeL = hwMap.get(DcMotor.class, "intakeL");
         intakeL.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeR.setDirection(DcMotorSimple.Direction.FORWARD);
         gunmotorL.setDirection(DcMotorSimple.Direction.FORWARD);
         gunmotorR.setDirection(DcMotorSimple.Direction.REVERSE);
+        PIDFCoefficients pidfCoefficients = new PIDFCoefficients(FlyUTIL.p, 0, 0, FlyUTIL.f);
+        gunmotorL.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidfCoefficients);
+        gunmotorR.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidfCoefficients);
 
     }
 
@@ -81,28 +89,37 @@ public class PowerSUB {
 
         switch (gunStateVar) {
             case ON:
-                gunmotorR.setPower(0.8);
-                gunmotorL.setPower(0.8);
+                gunmotorR.setVelocity(0.8*FlyUTIL.highvelo);
+                gunmotorL.setVelocity(0.8*FlyUTIL.highvelo);
                 break;
             case OFF:
-                gunmotorL.setPower(0);
-                gunmotorR.setPower(0);
+                gunmotorL.setVelocity(0);
+                gunmotorR.setVelocity(0);
                 break;
             case REVERSE:
-                gunmotorL.setPower(1);
-                gunmotorR.setPower(1);
+                gunmotorL.setVelocity(FlyUTIL.highvelo);
+                gunmotorR.setVelocity(FlyUTIL.highvelo);
                 break;
             case MATCH:
-                gunmotorR.setPower(0.72);
-                gunmotorL.setPower(0.72);
+                gunmotorR.setVelocity(0.72*FlyUTIL.highvelo);
+                gunmotorL.setVelocity(0.72*FlyUTIL.highvelo);
+                break;
             case IDLE:
-
+                gunmotorR.setVelocity(0.3*FlyUTIL.highvelo);
+                gunmotorL.setVelocity(0.3*FlyUTIL.highvelo);
                 break;
         }
     }
 
     // this is where you put your update functions to switch between states
-    public void telemetry(Telemetry telemetry) {}
+
+    public void telemetry(Telemetry telemetry) {
+        double currentVeloL = gunmotorL.getVelocity();
+        double currentVeloR = gunmotorR.getVelocity();
+        telemetry.addData("RVELO",currentVeloR);
+        telemetry.addData("LVELO",currentVeloL);
+
+    }
         // add telemetry data here
 
 

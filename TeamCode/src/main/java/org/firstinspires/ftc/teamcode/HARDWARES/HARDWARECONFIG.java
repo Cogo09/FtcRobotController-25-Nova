@@ -31,6 +31,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.gentrifiedApps.gentrifiedAppsUtil.classes.Scribe;
+import org.gentrifiedApps.gentrifiedAppsUtil.controllers.initMovement.InitMovementController;
 
 import java.util.List;
 
@@ -61,12 +62,12 @@ public class HARDWARECONFIG {
     double x = 0;
     double y = 0;
     double indicator = 0;
-    private LED redLed;
-    private LED greenLed;
-    private LED redLed1;
-    private LED greenLed1;
-    private LED redLed2;
-    private LED greenLed2;
+//    private LED redLed;
+//    private LED greenLed;
+//    private LED redLed1;
+//    private LED greenLed1;
+//    private LED redLed2;
+//    private LED greenLed2;
 
 
     double color = 0;
@@ -74,6 +75,7 @@ public class HARDWARECONFIG {
     private VisionPortal visionPortal;
     private AprilTagProcessor aprilTag;
     private RevColorSensorV3 colorSensor;
+    private InitMovementController imc = null;
 
     ElapsedTime elapsedTime = null;
 
@@ -89,6 +91,7 @@ public class HARDWARECONFIG {
     void initrobot(HardwareMap hwmap, LinearOpMode om, Boolean auto) {
         opMode = om;//
         telemetry = om.telemetry;
+        imc = new InitMovementController(opMode.gamepad2,opMode.gamepad1);
         //clawsub = new CLAWSUB(hwmap);
         // armSub = new org.firstinspires.ftc.teamcode.SUBS.ARMSUB(hwmap, auto);
         frontLeftMotor = hwmap.dcMotor.get("frontLeftMotor");
@@ -99,12 +102,12 @@ public class HARDWARECONFIG {
 //        gunmotorL = hwmap.dcMotor.get("gunmotorL");
 //        intakeR = hwmap.dcMotor.get("intakeR");
 //        intakeL = hwmap.dcMotor.get("intakeL");
-        redLed = hwmap.get(LED.class, "led_red");
-        greenLed = hwmap.get(LED.class, "led_green");
-        redLed1 = hwmap.get(LED.class,"led_red1");
-        greenLed1 = hwmap.get(LED.class,"led_green1");
-        redLed2 = hwmap.get(LED.class,"led_red2");
-        greenLed2 = hwmap.get(LED.class,"led_green2");
+//        redLed = hwmap.get(LED.class, "led_red");
+//        greenLed = hwmap.get(LED.class, "led_green");
+//        redLed1 = hwmap.get(LED.class,"led_red1");
+//        greenLed1 = hwmap.get(LED.class,"led_green1");
+//        redLed2 = hwmap.get(LED.class,"led_red2");
+//        greenLed2 = hwmap.get(LED.class,"led_green2");
         dash = FtcDashboard.getInstance();
         colorSensor = hwmap.get(RevColorSensorV3.class,"colorsensor");
 
@@ -121,6 +124,7 @@ public class HARDWARECONFIG {
 //        intakeR.setDirection(DcMotorSimple.Direction.FORWARD);
 //        gunmotorL.setDirection(DcMotorSimple.Direction.FORWARD);
 //        gunmotorR.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
 
         aprilTag = new AprilTagProcessor.Builder()
@@ -174,49 +178,49 @@ public class HARDWARECONFIG {
         powersub.gunmatch();
     }
 
-    public void SetRedLED(boolean isOn) {
-        if (isOn) {
-            redLed.on();
-        } else {
-            redLed.off();
-        }
-    }
-    public void SetRedLED1(boolean isOn) {
-        if (isOn) {
-            redLed1.on();
-        } else {
-            redLed1.off();
-        }
-    }
-    public void SetRedLED2(boolean isOn) {
-        if (isOn) {
-            redLed2.on();
-        } else {
-            redLed2.off();
-        }
-    }
-
-    public void SetGreenLED(boolean isOn) {
-        if (isOn) {
-            greenLed.on();
-        } else {
-            greenLed.off();
-        }
-    }
-    public void SetGreenLED1(boolean isOn) {
-        if (isOn) {
-            greenLed1.on();
-        } else {
-            greenLed1.off();
-        }
-    }
-    public void SetGreenLED2(boolean isOn) {
-        if (isOn) {
-            greenLed2.on();
-        } else {
-            greenLed2.off();
-        }
-    }
+//    public void SetRedLED(boolean isOn) {
+//        if (isOn) {
+//            redLed.on();
+//        } else {
+//            redLed.off();
+//        }
+//    }
+//    public void SetRedLED1(boolean isOn) {
+//        if (isOn) {
+//            redLed1.on();
+//        } else {
+//            redLed1.off();
+//        }
+//    }
+//    public void SetRedLED2(boolean isOn) {
+//        if (isOn) {
+//            redLed2.on();
+//        } else {
+//            redLed2.off();
+//        }
+//    }
+//
+//    public void SetGreenLED(boolean isOn) {
+//        if (isOn) {
+//            greenLed.on();
+//        } else {
+//            greenLed.off();
+//        }
+//    }
+//    public void SetGreenLED1(boolean isOn) {
+//        if (isOn) {
+//            greenLed1.on();
+//        } else {
+//            greenLed1.off();
+//        }
+//    }
+//    public void SetGreenLED2(boolean isOn) {
+//        if (isOn) {
+//            greenLed2.on();
+//        } else {
+//            greenLed2.off();
+//        }
+//    }
     public void getDetectedColor (Telemetry telemetry){
        NormalizedRGBA colors = colorSensor.getNormalizedColors();
 
@@ -299,15 +303,15 @@ public class HARDWARECONFIG {
         }
     }
 
-    public void lighton() {
-        if (indicator > 0) {
-            SetGreenLED(true);
-            SetRedLED(false);
-        } else if (indicator < 1) {
-            SetGreenLED(false);
-            SetRedLED(true);
-        }
-    }
+//    public void lighton() {
+//        if (indicator > 0) {
+//            SetGreenLED(true);
+//            SetRedLED(false);
+//        } else if (indicator < 1) {
+//            SetGreenLED(false);
+//            SetRedLED(true);
+//        }
+//    }
 
 
     public double getheadingfromAT() {
@@ -336,12 +340,14 @@ public class HARDWARECONFIG {
         telemetry.addData("x", x);
         telemetry.addData("y", y);
         telemetry.addData("indicator", indicator);
+        powersub.telemetry(telemetry);
         telemetry.update();
     }
 
     boolean touchpadwpressed = false;
 
     public void dobulk() {//
+        imc.checkHasMovedOnInit();
         heading = getheadingfromAT();
        // distance = getrangefromAT();
         double y = -opMode.gamepad1.left_stick_y; // Remember, Y stick value is reversed
@@ -353,24 +359,22 @@ public class HARDWARECONFIG {
         }
         touchpadwpressed = touchpadpressed;
         double slowmodemultiplier = 0.5;
-        if (opMode.gamepad2.bWasPressed() && !rdown) {
-            rdown = true;
-        }else if (opMode.gamepad2.bWasPressed() && rdown){
-            rdown = false;
+        if (opMode.gamepad2.circleWasPressed()) {
+            rdown = !rdown; Scribe.getInstance().logData("rdown is togled to"+rdown);
+
         }
         if (!rdown){
-            servosub.rscoopdown();
+            servosub.rscoopup();
         }
         if (rdown){
             servosub.rscoopdown();
         }
-        if (opMode.gamepad2.squareWasPressed() && !ldown) {
-            ldown = true;
-        }else if (opMode.gamepad2.squareWasPressed() && ldown){
-            ldown = false;
+        if (opMode.gamepad2.squareWasPressed()) {
+            ldown = !ldown;Scribe.getInstance().logData("ldown is toggled to "+ldown);
         }
+//        Scribe.getInstance().logData(ldown);
         if (!ldown){
-            servosub.lscoopdown();
+            servosub.lscoopup();
         }
         if (ldown){
             servosub.lscoopdown();
@@ -410,13 +414,13 @@ public class HARDWARECONFIG {
         getDetectedColor(telemetry);
 
 
-        if (indicator == 1) {
-            SetGreenLED(false);
-            SetRedLED(true);
-        } else if (indicator == 0) {
-            SetGreenLED(true);
-            SetRedLED(false);
-        }
+//        if (indicator == 1) {
+//            SetGreenLED(false);
+//            SetRedLED(true);
+//        } else if (indicator == 0) {
+//            SetGreenLED(true);
+//            SetRedLED(false);
+//        }
 
 
         if (opMode.gamepad1.left_bumper) {
@@ -435,7 +439,7 @@ public class HARDWARECONFIG {
         }else if (opMode.gamepad2.right_trigger > 0){
             powersub.gunon();
         }else {
-            powersub.gunoff();
+            powersub.gunidle();
         }
         if (opMode.gamepad2.left_bumper) {
             lockit();
@@ -447,20 +451,20 @@ public class HARDWARECONFIG {
             servosub.LELEdown();
         }
 
-        if (opMode.gamepad2.x){
-            servosub.lscoopdown();
-        }else {
-            servosub.lscoopup();
-        }
-        if (opMode.gamepad2.b){
-            servosub.rscoopdown();
-        }else {
-            servosub.rscoopup();
-        }
-        if (opMode.gamepad2.a){
-            servosub.rscoopup();
-            servosub.lscoopup();
-        }
+//        if (opMode.gamepad2.x){
+//            servosub.lscoopdown();
+//        }else {
+//            servosub.lscoopup();
+//        }
+//        if (opMode.gamepad2.b){
+//            servosub.rscoopdown();
+//        }else {
+//            servosub.rscoopup();
+//        }
+//        if (opMode.gamepad2.a){
+//            servosub.rscoopup();
+//            servosub.lscoopup();
+//        }
 
 
 
@@ -483,8 +487,10 @@ public class HARDWARECONFIG {
         frontRightMotor.setPower(frontRightPower);
         backRightMotor.setPower(backRightPower);
 
-        servosub.update();
-        powersub.update();
+        if (imc.hasMovedOnInit()){
+            servosub.update();
+            powersub.update();
+        }
         //armSub.update();
 
         buildtelemetry();
