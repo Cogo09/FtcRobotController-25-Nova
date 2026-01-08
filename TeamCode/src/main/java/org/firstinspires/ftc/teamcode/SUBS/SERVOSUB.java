@@ -217,6 +217,7 @@ public class SERVOSUB {
             this.servosub = servosub;
         }
 
+
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
             for (Runnable func : funcs) {
@@ -226,5 +227,8 @@ public class SERVOSUB {
 
             return false;
         }
+    }
+    public Action servoAction(List<Runnable> funcs){
+        return new ServoAction(this, funcs);
     }
 }

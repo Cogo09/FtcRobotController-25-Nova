@@ -36,6 +36,8 @@ import java.util.List;
 
 public class HARDWARECONFIG {
     boolean slowmode = false;
+    boolean rdown = true;
+    boolean ldown = true;
     Telemetry telemetry = null;
     LinearOpMode opMode = null;
     public SERVOSUB servosub = null;
@@ -351,6 +353,30 @@ public class HARDWARECONFIG {
         }
         touchpadwpressed = touchpadpressed;
         double slowmodemultiplier = 0.5;
+        if (opMode.gamepad2.bWasPressed() && !rdown) {
+            rdown = true;
+        }else if (opMode.gamepad2.bWasPressed() && rdown){
+            rdown = false;
+        }
+        if (!rdown){
+            servosub.rscoopdown();
+        }
+        if (rdown){
+            servosub.rscoopdown();
+        }
+        if (opMode.gamepad2.squareWasPressed() && !ldown) {
+            ldown = true;
+        }else if (opMode.gamepad2.squareWasPressed() && ldown){
+            ldown = false;
+        }
+        if (!ldown){
+            servosub.lscoopdown();
+        }
+        if (ldown){
+            servosub.lscoopdown();
+        }
+
+        touchpadwpressed = touchpadpressed;
 
 
         // Denominator is the largest motor power (absolute value) or 1
@@ -409,7 +435,7 @@ public class HARDWARECONFIG {
         }else if (opMode.gamepad2.right_trigger > 0){
             powersub.gunon();
         }else {
-            powersub.gunmatch();
+            powersub.gunoff();
         }
         if (opMode.gamepad2.left_bumper) {
             lockit();

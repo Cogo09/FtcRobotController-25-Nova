@@ -85,25 +85,65 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     }
 
     //!help
-    public void shooter() {
+    public void ballred() {
         drivefinished = true;
         Actions.runBlocking(
                 new SequentialAction(
                         new SequentialAction(
                                 drive.actionBuilder(startPose)
                                         .lineToXConstantHeading(-15)
+                                        .turnTo(Math.toRadians(146))
                                         .build(),
                                 endAction()
                         ),
                         new SequentialAction(
-                                powersub.gunAction(List.of(() -> powersub.gunon())),
-                                new SleepAction(2),
-                                servosub.ServoAction(List.of(() -> servosub.MELEup())),
+                                powersub.gunAction(List.of(() -> powersub.gunmatch())),
+                                new SleepAction(1.3),
+                                servosub.servoAction(List.of(() -> servosub.RELEup())),
+                                new SleepAction(1.4),
+                                servosub.servoAction(List.of(() -> servosub.RELEdown())),
+                                new SleepAction(.5),
+
+                                servosub.servoAction(List.of(() -> servosub.MELEup())),
                                 new SleepAction(1),
-                                servosub.ServoAction(List.of(() -> servosub.RELEup())),
+                                servosub.servoAction(List.of(() -> servosub.MELEdown())),
+                                servosub.servoAction(List.of(() -> servosub.LELEup())),
+                                new SleepAction(0.5),
+                                servosub.servoAction(List.of(() -> servosub.LELEdown())),
+                                new SleepAction(.5),
+                                powersub.gunAction(List.of(() -> powersub.gunoff())),
+                                endAction()
+
+                        )
+                )
+        );
+    }
+    public void ballblue() {
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToXConstantHeading(-15)
+                                        .turnTo(Math.toRadians(201))
+                                        .build(),
+                                endAction()
+                        ),
+                        new SequentialAction(
+                                powersub.gunAction(List.of(() -> powersub.gunmatch())),
+                                new SleepAction(1.3),
+                                servosub.servoAction(List.of(() -> servosub.RELEup())),
+                                new SleepAction(1.4),
+                                servosub.servoAction(List.of(() -> servosub.RELEdown())),
+                                new SleepAction(.5),
+
+                                servosub.servoAction(List.of(() -> servosub.MELEup())),
                                 new SleepAction(1),
-                                servosub.ServoAction(List.of(() -> servosub.LELEup())),
-                                new SleepAction(1),
+                                servosub.servoAction(List.of(() -> servosub.MELEdown())),
+                                servosub.servoAction(List.of(() -> servosub.LELEup())),
+                                new SleepAction(0.5),
+                                servosub.servoAction(List.of(() -> servosub.LELEdown())),
+                                new SleepAction(.5),
                                 powersub.gunAction(List.of(() -> powersub.gunoff())),
                                 endAction()
 

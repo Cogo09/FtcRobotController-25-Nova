@@ -6,12 +6,11 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.AUTONOMOUS.AUTOREAL;
 import org.firstinspires.ftc.teamcode.HARDWARES.AUTOHARDWARE;
 
 
 @Autonomous
-public class AUTOREAL extends LinearOpMode {
+public class AUTORED extends LinearOpMode {
     AUTOHARDWARE robot = null;
     ///
     ///
@@ -27,10 +26,10 @@ public class AUTOREAL extends LinearOpMode {
     ///
     @Override//
     public void runOpMode() throws InterruptedException {
-        robot = new AUTOHARDWARE(this, hardwareMap, new Pose2d(-52,50,Math.toRadians(140)));
+        robot = new AUTOHARDWARE(this, hardwareMap, new Pose2d(-52,50,Math.toRadians(145)));
         waitForStart();
         if (opModeIsActive()){
-           robot.shooter();
+           robot.ballred();
             //robot.red18();
            blackboard.put(currentpose,robot.drive.localizer.getPose());
         }
