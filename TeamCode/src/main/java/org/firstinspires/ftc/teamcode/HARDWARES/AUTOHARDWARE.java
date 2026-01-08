@@ -85,6 +85,28 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     }
 
     //!help
+    public void tester(){
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToXConstantHeading(-15)
+                                        .turnTo(Math.toRadians(146))
+                                        .build(),
+                                endAction()
+                        ),
+                        new SequentialAction(
+                                drive.actionBuilder(lastPose)
+                                        .lineToXConstantHeading(-13)
+                                        .turnTo(Math.toRadians(90))
+                                        .lineToY(33)
+                                        .build(),
+                                endAction()
+                        )
+                )
+        );
+    }
     public void ballred() {
         drivefinished = true;
         Actions.runBlocking(
@@ -125,7 +147,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                         new SequentialAction(
                                 drive.actionBuilder(startPose)
                                         .lineToXConstantHeading(-15)
-                                        .turnTo(Math.toRadians(201))
+                                        .turnTo(Math.toRadians(221))
                                         .build(),
                                 endAction()
                         ),

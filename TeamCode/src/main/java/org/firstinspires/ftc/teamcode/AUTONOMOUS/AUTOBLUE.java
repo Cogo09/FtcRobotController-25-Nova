@@ -26,7 +26,7 @@ public class AUTOBLUE extends LinearOpMode {
     ///
     @Override//
     public void runOpMode() throws InterruptedException {
-        robot = new AUTOHARDWARE(this, hardwareMap, new Pose2d(-52,-50,Math.toRadians(200)));
+        robot = new AUTOHARDWARE(this, hardwareMap, new Pose2d(-52,-50,Math.toRadians(220)));
         waitForStart();
         if (opModeIsActive()){
             robot.ballblue();
