@@ -5,15 +5,15 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 public class SERVOUTIL {
     public static double leftelevatorservoup = 55;
-    public static double leftelevatorservodown = 5;
+    public static double leftelevatorservodown = 0;
 
     public static double middleelevatorservoup = 60;
-    public static double middleelevatorservodown = 5;
+    public static double middleelevatorservodown = 0;
 
     public static double rightelevatorservoup = 100;
-    public static double rightelevatorservodown = 50;
+    public static double rightelevatorservodown = 45;
 
-    public static double rightscooperup = 30;
+    public static double rightscooperup = 0;
     public static double rightscooperdown = 90;
 
     public static double leftscooperup = 0;

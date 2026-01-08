@@ -120,7 +120,7 @@ public class SERVOSUB {
         leftelevatorservo.setDirection(Servo.Direction.FORWARD);
         middleelevatorservo.setDirection(Servo.Direction.FORWARD);
         rightelevatorservo.setDirection(Servo.Direction.FORWARD);
-        rightscooperservo.setDirection(Servo.Direction.REVERSE);
+        rightscooperservo.setDirection(Servo.Direction.FORWARD);
 //        bootkickerservo.setDirection(Servo.Direction.REVERSE);
 
     }
