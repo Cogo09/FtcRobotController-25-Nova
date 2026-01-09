@@ -105,8 +105,8 @@ public class PowerSUB {
                 gunmotorL.setVelocity(0.72*FlyUTIL.highvelo);
                 break;
             case IDLE:
-                gunmotorR.setVelocity(0.3*FlyUTIL.highvelo);
-                gunmotorL.setVelocity(0.3*FlyUTIL.highvelo);
+                gunmotorR.setVelocity(0.0*FlyUTIL.highvelo);
+                gunmotorL.setVelocity(0.0*FlyUTIL.highvelo);
                 break;
         }
     }

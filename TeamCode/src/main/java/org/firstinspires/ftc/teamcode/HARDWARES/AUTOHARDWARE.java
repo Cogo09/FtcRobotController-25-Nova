@@ -115,7 +115,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                         new SequentialAction(
                                 drive.actionBuilder(startPose)
                                         .lineToXConstantHeading(-15)
-                                        .strafeTo(new Vector2d(-15,8))
+//                                        .strafeTo(new Vector2d(-15,8))
                                         .build(),
                                 endAction()
                         ),

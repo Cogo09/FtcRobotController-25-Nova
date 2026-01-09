@@ -37,7 +37,7 @@ import java.util.List;
 
 public class HARDWARECONFIG {
     boolean slowmode = false;
-    boolean rdown = true;
+    boolean rdown = false;
     boolean ldown = true;
     Telemetry telemetry = null;
     LinearOpMode opMode = null;
