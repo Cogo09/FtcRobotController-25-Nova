@@ -21,7 +21,7 @@ public class PowerSUB {
     private DcMotorEx gunmotorR;
     private DcMotorEx gunmotorL;
 
-    public enum gunSTATE {ON, OFF, REVERSE, MATCH, IDLE}
+    public enum gunSTATE {ON, OFF, REVERSE, MATCH,LEFTSHOT,RIGHTSHOT, IDLE}
 //!help
     private PowerSUB.gunSTATE gunStateVar = PowerSUB.gunSTATE.IDLE;
 
@@ -35,6 +35,8 @@ public class PowerSUB {
     public void gunreverse(){gunStateVar = gunSTATE.REVERSE;}
     public void gunmatch(){gunStateVar = gunSTATE.MATCH;}
     public void gunidle(){gunStateVar = gunSTATE.IDLE;}
+    public void gunleftshot(){gunStateVar = gunSTATE.LEFTSHOT;}
+    public void gunrightshot(){gunStateVar = gunSTATE.RIGHTSHOT;}
 
     public enum intakeSTATE {ON, OFF, REVERSE, IDLE}
 
@@ -90,22 +92,36 @@ public class PowerSUB {
         switch (gunStateVar) {
             case ON:
                 gunmotorR.setVelocity(0.8*FlyUTIL.highvelo);
+
                 gunmotorL.setVelocity(0.8*FlyUTIL.highvelo);
                 break;
             case OFF:
                 gunmotorL.setVelocity(0);
+
                 gunmotorR.setVelocity(0);
                 break;
+            case RIGHTSHOT:
+                gunmotorL.setVelocity(0);
+
+                gunmotorR.setVelocity(0);
+            case LEFTSHOT:
+                gunmotorR.setVelocity(0);
+
+                gunmotorL.setVelocity(0);
+
             case REVERSE:
                 gunmotorL.setVelocity(0.9*FlyUTIL.highvelo);
+
                 gunmotorR.setVelocity(0.9*FlyUTIL.highvelo);
                 break;
             case MATCH:
-                gunmotorR.setVelocity(0.72*FlyUTIL.highvelo);
-                gunmotorL.setVelocity(0.72*FlyUTIL.highvelo);
+                gunmotorR.setVelocity(0.8*FlyUTIL.highvelo);
+
+                gunmotorL.setVelocity(0.8*FlyUTIL.highvelo);
                 break;
             case IDLE:
                 gunmotorR.setVelocity(0.0*FlyUTIL.highvelo);
+
                 gunmotorL.setVelocity(0.0*FlyUTIL.highvelo);
                 break;
         }

@@ -142,8 +142,8 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                 new SequentialAction(
                         new SequentialAction(
                                 drive.actionBuilder(startPose)
-                                        .lineToXConstantHeading(-13)
-                                        .turnTo(Math.toRadians(145))
+                                        .lineToXConstantHeading(-14)
+                                        .turnTo(Math.toRadians(139))
                                         .build(),
                                 endAction()
                         ),
@@ -158,6 +158,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                                 servosub.servoAction(List.of(() -> servosub.MELEup())),
                                 new SleepAction(1),
                                 servosub.servoAction(List.of(() -> servosub.MELEdown())),
+
                                 servosub.servoAction(List.of(() -> servosub.LELEup())),
                                 new SleepAction(0.5),
                                 servosub.servoAction(List.of(() -> servosub.LELEdown())),
@@ -182,7 +183,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                 new SequentialAction(
                         new SequentialAction(
                                 drive.actionBuilder(startPose)
-                                        .lineToXConstantHeading(-13)
+                                        .lineToXConstantHeading(-14)
                                         .turnTo(Math.toRadians(221))
                                         .build(),
                                 endAction()
