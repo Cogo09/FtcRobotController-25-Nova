@@ -201,13 +201,13 @@ public class MeepMeepTesting {
                             .lineToY(10)
                     .turnTo(Math.toRadians(179))
                             .build());
-            myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-52,-50,Math.toRadians(220)))
-
-                    .lineToXConstantHeading(-15)
-                            .turnTo(Math.toRadians(146))
+            myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-52,50,Math.toRadians(140)))
                             .lineToXConstantHeading(-13)
                             .turnTo(Math.toRadians(90))
-                            .lineToY(33)
+                            .lineToY(30)
+
+
+
                     .build());
 
 

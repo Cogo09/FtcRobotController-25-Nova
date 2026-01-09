@@ -86,6 +86,34 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     }
 
     //!help
+    public void farbluenoball(){
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToX(35)
+                                        .turnTo(Math.toRadians(270))
+                                        .build(),
+                                endAction()
+                        )
+                )
+        );
+    }
+    public void farrednoball(){
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToX(35)
+                                        .turnTo(Math.toRadians(90))
+                                        .build(),
+                                endAction()
+                        )
+                )
+        );
+    }
     public void tester(){
         drivefinished = true;
         Actions.runBlocking(
@@ -114,8 +142,8 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                 new SequentialAction(
                         new SequentialAction(
                                 drive.actionBuilder(startPose)
-                                        .lineToXConstantHeading(-15)
-//                                        .strafeTo(new Vector2d(-15,8))
+                                        .lineToXConstantHeading(-13)
+                                        .turnTo(Math.toRadians(145))
                                         .build(),
                                 endAction()
                         ),
@@ -137,6 +165,13 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                                 powersub.gunAction(List.of(() -> powersub.gunoff())),
                                 endAction()
 
+                        ),
+                        new SequentialAction(
+                                drive.actionBuilder(lastPose)
+                                        .turnTo(Math.toRadians(90))
+                                        .lineToY(30)
+                                        .build(),
+                                endAction()
                         )
                 )
         );
@@ -147,7 +182,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                 new SequentialAction(
                         new SequentialAction(
                                 drive.actionBuilder(startPose)
-                                        .lineToXConstantHeading(-15)
+                                        .lineToXConstantHeading(-13)
                                         .turnTo(Math.toRadians(221))
                                         .build(),
                                 endAction()
@@ -170,6 +205,13 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                                 powersub.gunAction(List.of(() -> powersub.gunoff())),
                                 endAction()
 
+                        ),
+                        new SequentialAction(
+                                drive.actionBuilder(lastPose)
+                                        .turnTo(Math.toRadians(270))
+                                        .lineToY(30)
+                                        .build(),
+                                endAction()
                         )
                 )
         );
