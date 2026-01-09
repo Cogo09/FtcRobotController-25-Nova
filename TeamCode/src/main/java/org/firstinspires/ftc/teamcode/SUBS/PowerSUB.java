@@ -97,8 +97,8 @@ public class PowerSUB {
                 gunmotorR.setVelocity(0);
                 break;
             case REVERSE:
-                gunmotorL.setVelocity(FlyUTIL.highvelo);
-                gunmotorR.setVelocity(FlyUTIL.highvelo);
+                gunmotorL.setVelocity(0.9*FlyUTIL.highvelo);
+                gunmotorR.setVelocity(0.9*FlyUTIL.highvelo);
                 break;
             case MATCH:
                 gunmotorR.setVelocity(0.72*FlyUTIL.highvelo);
