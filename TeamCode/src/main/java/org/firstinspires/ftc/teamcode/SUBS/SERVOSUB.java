@@ -55,7 +55,7 @@ public class SERVOSUB {
         RightELEStateVar = RightELEState.IDLE;
     }
 
-    public enum MiddleELEState {UP, DOWN, IDLE}
+    public enum MiddleELEState {UP, DOWN,SLIGHT, IDLE}
 
     private MiddleELEState MiddleELEStateVar = MiddleELEState.IDLE;
 
@@ -66,6 +66,7 @@ public class SERVOSUB {
     public void MELEdown() {
         MiddleELEStateVar = MiddleELEState.DOWN;
     }
+    public void MELEslight(){MiddleELEStateVar = MiddleELEState.SLIGHT;}
 
     public void MELEIDLE() {
         MiddleELEStateVar = MiddleELEState.IDLE;
@@ -189,6 +190,9 @@ public class SERVOSUB {
                 break;
             case UP:
                 setpose(middleelevatorservo, SERVOUTIL.middleelevatorservodown);
+                break;
+            case SLIGHT:
+                setpose(middleelevatorservo,SERVOUTIL.middleelevatorservoupslight);
                 break;
             case IDLE:
 

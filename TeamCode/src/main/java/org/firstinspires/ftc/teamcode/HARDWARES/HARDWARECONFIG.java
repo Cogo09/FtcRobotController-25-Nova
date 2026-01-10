@@ -445,6 +445,9 @@ public class HARDWARECONFIG {
         if (opMode.gamepad2.left_bumper) {
             lockit();
         }
+        if(opMode.gamepad2.right_bumper){
+            servosub.MELEslight();
+        }
 
         if (opMode.gamepad2.dpad_left) {
             servosub.LELEup();

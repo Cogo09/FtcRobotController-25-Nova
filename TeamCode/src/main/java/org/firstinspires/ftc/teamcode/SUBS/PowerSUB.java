@@ -21,7 +21,7 @@ public class PowerSUB {
     private DcMotorEx gunmotorR;
     private DcMotorEx gunmotorL;
 
-    public enum gunSTATE {ON, OFF, REVERSE, MATCH,LEFTSHOT,RIGHTSHOT, IDLE}
+    public enum gunSTATE {ON, OFF, REVERSE, MATCH,LEFTSHOT,RIGHTSHOT,MIDSHOT, IDLE}
 //!help
     private PowerSUB.gunSTATE gunStateVar = PowerSUB.gunSTATE.IDLE;
 
@@ -37,6 +37,7 @@ public class PowerSUB {
     public void gunidle(){gunStateVar = gunSTATE.IDLE;}
     public void gunleftshot(){gunStateVar = gunSTATE.LEFTSHOT;}
     public void gunrightshot(){gunStateVar = gunSTATE.RIGHTSHOT;}
+    public void gunmidshot(){gunStateVar = gunSTATE.MIDSHOT;}
 
     public enum intakeSTATE {ON, OFF, REVERSE, IDLE}
 
@@ -100,6 +101,9 @@ public class PowerSUB {
 
                 gunmotorR.setVelocity(0);
                 break;
+            case MIDSHOT:
+                gunmotorR.setVelocity(0);
+                gunmotorL.setVelocity(0);
             case RIGHTSHOT:
                 gunmotorL.setVelocity(0);
 

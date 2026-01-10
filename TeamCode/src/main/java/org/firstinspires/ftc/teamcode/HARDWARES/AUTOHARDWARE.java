@@ -7,7 +7,6 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -86,7 +85,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     }
 
     //!help
-    public void farbluenoball(){
+    public void farbluenoball() {
         drivefinished = true;
         Actions.runBlocking(
                 new SequentialAction(
@@ -100,7 +99,38 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                 )
         );
     }
-    public void farrednoball(){
+    public void closebluenoball() {
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToXConstantHeading(-13)
+                                        .turnTo(Math.toRadians(180))
+                                        .lineToX(10)
+                                        .build(),
+                                endAction()
+                        )
+                )
+        );
+    }
+    public void closerednoball() {
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToXConstantHeading(-13)
+                                        .turnTo(Math.toRadians(180))
+                                        .lineToX(10)
+                                        .build(),
+                                endAction()
+                        )
+                )
+        );
+    }
+
+    public void farrednoball() {
         drivefinished = true;
         Actions.runBlocking(
                 new SequentialAction(
@@ -114,28 +144,53 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                 )
         );
     }
-    public void tester(){
+
+    public void tester() {
         drivefinished = true;
         Actions.runBlocking(
                 new SequentialAction(
                         new SequentialAction(
                                 drive.actionBuilder(startPose)
-                                        .lineToXConstantHeading(-15)
-                                        .turnTo(Math.toRadians(146))
+                                        .lineToXConstantHeading(-14)
+                                        .turnTo(Math.toRadians(139))
                                         .build(),
                                 endAction()
                         ),
                         new SequentialAction(
+                                powersub.gunAction(List.of(() -> powersub.gunrightshot())),
+                                new SleepAction(1.3),
+                                servosub.servoAction(List.of(() -> servosub.RELEup())),
+                                new SleepAction(1.4),
+                                servosub.servoAction(List.of(() -> servosub.RELEdown())),
+                                new SleepAction(.5),
+                                endAction()),
+                        new SequentialAction(
+                                powersub.gunAction(List.of(() -> powersub.gunmidshot())),
+                                servosub.servoAction(List.of(() -> servosub.MELEup())),
+                                new SleepAction(1),
+                                servosub.servoAction(List.of(() -> servosub.MELEdown())),
+                                endAction()),
+                        new SequentialAction(
+                                powersub.gunAction(List.of(()-> powersub.gunleftshot())),
+                                servosub.servoAction(List.of(() -> servosub.LELEup())),
+                                new SleepAction(0.5),
+                                servosub.servoAction(List.of(() -> servosub.LELEdown())),
+                                new SleepAction(.5),
+                                powersub.gunAction(List.of(() -> powersub.gunoff())),
+                                endAction()
+
+                        ),
+                        new SequentialAction(
                                 drive.actionBuilder(lastPose)
-                                        .lineToXConstantHeading(-13)
                                         .turnTo(Math.toRadians(90))
-                                        .lineToY(33)
+                                        .lineToY(30)
                                         .build(),
                                 endAction()
                         )
                 )
         );
     }
+
     public void ballred() {
         drivefinished = true;
         Actions.runBlocking(
@@ -177,6 +232,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
                 )
         );
     }
+
     public void ballblue() {
         drivefinished = true;
         Actions.runBlocking(
