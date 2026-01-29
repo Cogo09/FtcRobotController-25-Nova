@@ -39,6 +39,7 @@ public class HARDWARECONFIG {
     boolean slowmode = false;
     boolean rdown = false;
     boolean ldown = true;
+    boolean stickdown = true;
     Telemetry telemetry = null;
     LinearOpMode opMode = null;
     public SERVOSUB servosub = null;
@@ -359,6 +360,15 @@ public class HARDWARECONFIG {
         }
         touchpadwpressed = touchpadpressed;
         double slowmodemultiplier = 0.5;
+        if (opMode.gamepad1.rightStickButtonWasPressed()){
+            stickdown = !stickdown; Scribe.getInstance().logData("stickdown is togled to"+stickdown);
+        }
+        if (!stickdown){
+            servosub.MELEdown();
+        }
+        if (stickdown){
+            servosub.MELEslight();
+        }
         if (opMode.gamepad2.circleWasPressed()) {
             rdown = !rdown; Scribe.getInstance().logData("rdown is togled to"+rdown);
 
