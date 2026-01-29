@@ -431,6 +431,11 @@ public class HARDWARECONFIG {
         } else {
             powersub.intakeoff();
         }
+        if (opMode.gamepad1.dpad_down){
+            servosub.LELEdown();
+            servosub.MELEdown();
+            servosub.RELEdown();
+        }
 
 
 
@@ -445,7 +450,7 @@ public class HARDWARECONFIG {
         if (opMode.gamepad2.left_bumper) {
             lockit();
         }
-        if(opMode.gamepad2.right_bumper){
+        if(opMode.gamepad1.a){
             servosub.MELEslight();
         }
 

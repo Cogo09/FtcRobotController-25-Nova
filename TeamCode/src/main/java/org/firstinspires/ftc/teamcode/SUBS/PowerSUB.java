@@ -97,17 +97,17 @@ public class PowerSUB {
                 gunmotorL.setVelocity(0.8*FlyUTIL.highvelo);
                 break;
             case OFF:
-                gunmotorL.setVelocity(0);
+                gunmotorL.setVelocity(0.7);
 
-                gunmotorR.setVelocity(0);
+                gunmotorR.setVelocity(0.7);
                 break;
             case MIDSHOT:
-                gunmotorR.setVelocity(0);
-                gunmotorL.setVelocity(0);
+                gunmotorR.setVelocity(0.8);
+                gunmotorL.setVelocity(0.8);
             case RIGHTSHOT:
-                gunmotorL.setVelocity(0);
+                gunmotorL.setVelocity(0.9);
 
-                gunmotorR.setVelocity(0);
+                gunmotorR.setVelocity(0.9);
             case LEFTSHOT:
                 gunmotorR.setVelocity(0);
 
