@@ -92,9 +92,9 @@ public class PowerSUB {
 
         switch (gunStateVar) {
             case ON:
-                gunmotorR.setVelocity(0.8*FlyUTIL.highvelo);
+                gunmotorR.setVelocity(0.9*FlyUTIL.highvelo);
 
-                gunmotorL.setVelocity(0.8*FlyUTIL.highvelo);
+                gunmotorL.setVelocity(0.9*FlyUTIL.highvelo);
                 break;
             case OFF:
                 gunmotorL.setVelocity(0.7);
@@ -114,14 +114,14 @@ public class PowerSUB {
                 gunmotorL.setVelocity(0);
 
             case REVERSE:
-                gunmotorL.setVelocity(0.9*FlyUTIL.highvelo);
+                gunmotorL.setVelocity(1*FlyUTIL.highvelo);
 
-                gunmotorR.setVelocity(0.9*FlyUTIL.highvelo);
+                gunmotorR.setVelocity(1*FlyUTIL.highvelo);
                 break;
             case MATCH:
-                gunmotorR.setVelocity(0.8*FlyUTIL.highvelo);
+                gunmotorR.setVelocity(0.9*FlyUTIL.highvelo);
 
-                gunmotorL.setVelocity(0.8*FlyUTIL.highvelo);
+                gunmotorL.setVelocity(0.9*FlyUTIL.highvelo);
                 break;
             case IDLE:
                 gunmotorR.setVelocity(0.0*FlyUTIL.highvelo);

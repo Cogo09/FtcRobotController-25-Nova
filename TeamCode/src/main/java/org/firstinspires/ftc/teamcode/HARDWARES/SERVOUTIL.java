@@ -7,7 +7,7 @@ public class SERVOUTIL {
     public static double leftelevatorservoup = 55;
     public static double leftelevatorservodown = 0;
 
-    public static double middleelevatorservoup = 60;
+    public static double middleelevatorservoup = 70;
     public static double middleelevatorservoupslight = 50;
     public static double middleelevatorservodown = 0;
 
