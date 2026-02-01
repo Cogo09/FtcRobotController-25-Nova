@@ -6,7 +6,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -73,7 +73,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     static final double P_TURN_GAIN = 0.02;     // Larger is more responsive, but also less stable.
     static final double P_DRIVE_GAIN = 0.03;     // Larger is more responsive, but also less stable.
     public static final double ARM_EXTEND = 1.0;
-    public static Pose2d lastPose;
+    public Pose2d lastPose;
 
 
     public AUTOHARDWARE(LinearOpMode om, HardwareMap hwmap, Pose2d startPose) {
@@ -85,161 +85,351 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
     }
 
     //!help
-    public void blue18() {
+    public void farbluenoball() {
         drivefinished = true;
         Actions.runBlocking(
                 new SequentialAction(
-                        drive.actionBuilder(startPose)
-                                .turnTo(Math.toRadians(205))
-                                .waitSeconds(2)
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToX(33)
+                                        .build(),
+                                endAction()
+                        )
+                )
+        );
+    }
+    public void closebluenoball() {
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToXConstantHeading(-13)
+                                        .turnTo(Math.toRadians(180))
+                                        .lineToX(10)
+                                        .build(),
+                                endAction()
+                        )
+                )
+        );
+    }
+    public void closerednoball() {
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToXConstantHeading(-13)
+                                        .turnTo(Math.toRadians(180))
+                                        .lineToX(10)
+                                        .build(),
+                                endAction()
+                        )
+                )
+        );
+    }
 
-                                .lineToX(35)
-                                .turnTo(Math.toRadians(270))
-                                .lineToY(-40)
-                                .lineToY(-10)
-                                .turnTo(Math.toRadians(180))
-                                .lineToX(-15)
-                                .turnTo(Math.toRadians(225))
-                                .waitSeconds(2)
-                                //first
-                                .turnTo(Math.toRadians(180))
-                                .lineToX(12)
-                                .turnTo(Math.toRadians(270))
-                                .lineToY(-40)
-                                .lineToY(-10)
-                                .turnTo(Math.toRadians(180))
-                                .lineToX(-15)
-                                .turnTo(Math.toRadians(225))
-                                .waitSeconds(2)
-                                //second
-                                .turnTo(Math.toRadians(180))
-                                .lineToX(0)
-                                .turnTo(Math.toRadians(90))
-                                .lineToY(-54)
-                                .waitSeconds(2)
-                                //clear stack
-                                //.splineTo(new Vector2d(56,56),1)
-//                            .lineToY(10)
-//                            .turnTo(Math.toRadians(180))
-                                .lineToY(-10)
-                                .turnTo(Math.toRadians(180))
-                                .lineToX(-12)
-                                .turnTo(Math.toRadians(270))
-                                .lineToY(-40)
-                                .lineToY(-10)
-                                .turnTo(Math.toRadians(225))
-                                //third
+    public void farrednoball() {
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToX(33)
+                                        .build(),
+                                endAction()
+                        )
+                )
+        );
+    }
 
-                                .splineTo(new Vector2d(56, -56), 1)
-                                .turnTo(Math.toRadians(270))
-                                .build(),
-                        endAction()
+    public void tester() {
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToXConstantHeading(-14)
+                                        .turnTo(Math.toRadians(139))
+                                        .build(),
+                                endAction()
+                        ),
+                        new SequentialAction(
+                                powersub.gunAction(List.of(() -> powersub.gunrightshot())),
+                                new SleepAction(1.3),
+                                servosub.servoAction(List.of(() -> servosub.RELEup())),
+                                new SleepAction(1.4),
+                                servosub.servoAction(List.of(() -> servosub.RELEdown())),
+                                new SleepAction(.5),
+                                endAction()),
+                        new SequentialAction(
+                                powersub.gunAction(List.of(() -> powersub.gunmidshot())),
+                                servosub.servoAction(List.of(() -> servosub.MELEup())),
+                                new SleepAction(1),
+                                servosub.servoAction(List.of(() -> servosub.MELEdown())),
+                                endAction()),
+                        new SequentialAction(
+                                powersub.gunAction(List.of(()-> powersub.gunleftshot())),
+                                servosub.servoAction(List.of(() -> servosub.LELEup())),
+                                new SleepAction(0.5),
+                                servosub.servoAction(List.of(() -> servosub.LELEdown())),
+                                new SleepAction(.5),
+                                powersub.gunAction(List.of(() -> powersub.gunoff())),
+                                endAction()
+
+                        ),
+                        new SequentialAction(
+                                drive.actionBuilder(lastPose)
+                                        .turnTo(Math.toRadians(90))
+                                        .lineToY(30)
+                                        .build(),
+                                endAction()
+                        )
+                )
+        );
+    }
+
+    public void ballred() {
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToXConstantHeading(-14)
+                                        .turnTo(Math.toRadians(142))
+                                        .build(),
+                                endAction()
+                        ),
+                        new SequentialAction(
+                                powersub.gunAction(List.of(() -> powersub.gunmatch())),
+                                new SleepAction(1.3),
+                                servosub.servoAction(List.of(() -> servosub.RELEup())),
+                                new SleepAction(1.4),
+                                servosub.servoAction(List.of(() -> servosub.RELEdown())),
+                                new SleepAction(.5),
+
+                                servosub.servoAction(List.of(() -> servosub.MELEup())),
+                                new SleepAction(1),
+                                servosub.servoAction(List.of(() -> servosub.MELEdown())),
+
+                                servosub.servoAction(List.of(() -> servosub.LELEup())),
+                                new SleepAction(0.5),
+                                servosub.servoAction(List.of(() -> servosub.LELEdown())),
+                                new SleepAction(.5),
+                                powersub.gunAction(List.of(() -> powersub.gunoff())),
+                                endAction()
+
+                        ),
+                        new SequentialAction(
+                                drive.actionBuilder(lastPose)
+                                        .turnTo(Math.toRadians(90))
+                                        .lineToY(30)
+                                        .build(),
+                                endAction()
+                        )
+                )
+        );
+    }
+
+    public void ballblue() {
+        drivefinished = true;
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SequentialAction(
+                                drive.actionBuilder(startPose)
+                                        .lineToXConstantHeading(-14)
+                                        .turnTo(Math.toRadians(221))
+                                        .build(),
+                                endAction()
+                        ),
+                        new SequentialAction(
+                                powersub.gunAction(List.of(() -> powersub.gunmatch())),
+                                new SleepAction(1.3),
+                                servosub.servoAction(List.of(() -> servosub.RELEup())),
+                                new SleepAction(1.4),
+                                servosub.servoAction(List.of(() -> servosub.RELEdown())),
+                                new SleepAction(.5),
+
+                                servosub.servoAction(List.of(() -> servosub.MELEup())),
+                                new SleepAction(1),
+                                servosub.servoAction(List.of(() -> servosub.MELEdown())),
+                                servosub.servoAction(List.of(() -> servosub.LELEup())),
+                                new SleepAction(0.5),
+                                servosub.servoAction(List.of(() -> servosub.LELEdown())),
+                                new SleepAction(.5),
+                                powersub.gunAction(List.of(() -> powersub.gunoff())),
+                                endAction()
+
+                        ),
+                        new SequentialAction(
+                                drive.actionBuilder(lastPose)
+                                        .turnTo(Math.toRadians(270))
+                                        .lineToY(30)
+                                        .build(),
+                                endAction()
+                        )
                 )
         );
     }
 
     public void test() {
         drivefinished = true;
+
         Actions.runBlocking(
                 new SequentialAction(
-                        powersub.gunAction(List.of(() -> powersub.gunon())),
-                        powersub.gunAction(List.of(() -> powersub.gunoff())),
-                        endAction(),
-
                         new SequentialAction(
-                                drive.actionBuilder(startPose)
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(37)
-                                        .turnTo(Math.toRadians(90))
+                                drive.actionBuilder(lastPose)
+                                        .turnTo(Math.toRadians(179))
                                         .build(),
-                                endAction(),
-                                new SequentialAction(
-                                        powersub.gunAction(List.of(() -> powersub.intakeon())),
-                                        new SequentialAction(
-                                                drive.actionBuilder(startPose)
-                                                        .turnTo(Math.toRadians(180))
-                                                        .lineToY(50)
-                                                        .build(),
-                                                endAction()
-                                        )
-
-                                ),
-
+                                endAction()
+                        ),
+                        new SequentialAction(
+                                powersub.gunAction(List.of(() -> powersub.gunon())),
+                                new SleepAction(1),
+                                powersub.gunAction(List.of(() -> powersub.gunoff())),
+                                endAction()
+                        ),
+                        new SequentialAction(
+                                drive.actionBuilder(lastPose)
+                                        .turnTo(Math.toRadians(179))
+                                        .lineToY(-15)
+                                        .waitSeconds(1)
+                                        .build(),
                                 endAction()
                         )
+//                        new SleepAction(1),
+//                        new SequentialAction(
+//                                drive.actionBuilder(new Pose2d(drive.localizer.getPose().position.x, drive.localizer.getPose().position.y, drive.localizer.getPose().heading.real))
+//                                        .turnTo(Math.toRadians(90))
+//                                        .build(),
+//                                endAction()
+//                        )
 
+                )
 
-                ));
+        );
     }
+//!help
 
-    public void red18() {
-        drivefinished = true;
-        Actions.runBlocking(
-                //!this needs help
-                // no update action here
-                new SequentialAction(
-                        drive.actionBuilder(startPose)
-                                .turnTo(Math.toRadians(155))
-                                .build(),
-                        endAction(),
-                        new SequentialAction(powersub.gunAction(List.of(() -> powersub.gunon()))),
-                        new SequentialAction(
-                                drive.actionBuilder(startPose)
+//    public void test() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//
+//                new SequentialAction(
+//
+//
+//                        powersub.gunAction(List.of(() -> powersub.gunon())),
+//                        new SleepAction(1),
+//                        powersub.gunAction(List.of(() -> powersub.gunoff())),
+//                        endAction(),
+//
+//                        new SequentialAction(
+//                                drive.actionBuilder(startPose)
+//                                        .turnTo(Math.toRadians(179))
+//                                        .lineToX(37)
+//                                        .turnTo(Math.toRadians(90))
+//                                        .waitSeconds(3)
+//                                        .build(),
+//                                endAction()
+//                        )
+//                ),
+//                new SequentialAction(
+//                        powersub.gunAction(List.of(() -> powersub.intakeon()))),
+//                endAction(),
+//                new SequentialAction(
+//                        drive.actionBuilder(startPose)
+//                                .turnTo(Math.toRadians(89))
+//                                // .lineToY(48)
+//
+//                                //.lineToY(10)
+//                                .turnTo(Math.toRadians(179))
+//                                .build(),
+//                        endAction()
+//                ),
+//                new SequentialAction(
+//                        powersub.gunAction(List.of(() -> powersub.intakeoff()))),
+//                endAction(),
+//                new SequentialAction(
+//                        drive.actionBuilder(startPose)
+//                                //.lineToX(48)
+//                                .build(),
+//                        endAction()
+//                ),
+//
+//
+//        );
+//    }
 
-                                        .waitSeconds(1)//
-                                        .build(),
-                                endAction(),
-                                new SequentialAction(powersub.gunAction(List.of(() -> powersub.gunoff()))),
-                                new SequentialAction(
-                                        drive.actionBuilder(startPose)
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(37)
-                                        .turnTo(Math.toRadians(90))
-                                        .lineToY(50)
-                                        .lineToY(8)
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(-15)
-                                        .turnTo(Math.toRadians(135))
-                                        .waitSeconds(1)
-                                        //first
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(21)
-                                        .turnTo(Math.toRadians(90))
-                                        .lineToY(45)
-                                        .lineToY(6)
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(-15)
-                                        .turnTo(Math.toRadians(135))
-                                        .waitSeconds(1)
-                                        //second
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(0)
-                                        .turnTo(Math.toRadians(270))
-                                        .lineToY(45)
-                                        .waitSeconds(1)
-                                        //clear stack
-                                        //.splineTo(new Vector2d(56,56),1)
-                                        //                            .lineToY(10)
-                                        //                            .turnTo(Math.toRadians(180))
-                                        .lineToY(10)
-                                        .turnTo(Math.toRadians(180))
-                                        .lineToX(-12)
-                                        .turnTo(Math.toRadians(90))
-                                        .lineToY(40)
-                                        .lineToY(10)
-                                        .turnTo(Math.toRadians(135))
-                                        //third
-
-                                        .splineTo(new Vector2d(56, 56), 1)
-                                        .turnTo(Math.toRadians(180))
-                                        .build(),
-        //preloads
-
-
-        endAction()))
-        //ready everything for op
-                                ));
-    }
+    //.turnTo(Math.toRadians(179))
+//                            .lineToX(37)
+//                            .turnTo(Math.toRadians(90))
+//                            .lineToY(48)
+//                            .lineToY(10)
+//                    .turnTo(Math.toRadians(179))
+//                            .build());
+//    public void red18() {
+//        drivefinished = true;
+//        Actions.runBlocking(
+//                //!this needs help
+//                // no update action here
+//                new SequentialAction(
+//                        drive.actionBuilder(startPose)
+//                                .turnTo(Math.toRadians(155))
+//                                .build(),
+//                        endAction(),
+//                        new SequentialAction(powersub.gunAction(List.of(() -> powersub.gunon()))),
+//                        new SleepAction(1),
+//                        new SequentialAction(powersub.gunAction(List.of(() -> powersub.gunoff()))),
+//                        new SequentialAction(
+//                                drive.actionBuilder(startPose)
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(37)
+//                                        .turnTo(Math.toRadians(90))
+//                                        .lineToY(50)
+//                                        .lineToY(8)
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(-15)
+//                                        .turnTo(Math.toRadians(135))
+//                                        .waitSeconds(1)
+//                                        //first
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(21)
+//                                        .turnTo(Math.toRadians(90))
+//                                        .lineToY(45)
+//                                        .lineToY(6)
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(-15)
+//                                        .turnTo(Math.toRadians(135))
+//                                        .waitSeconds(1)
+//                                        //second
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(0)
+//                                        .turnTo(Math.toRadians(270))
+//                                        .lineToY(45)
+//                                        .waitSeconds(1)
+//                                        //clear stack
+//                                        //.splineTo(new Vector2d(56,56),1)
+//                                        //                            .lineToY(10)
+//                                        //                            .turnTo(Math.toRadians(180))
+//                                        .lineToY(10)
+//                                        .turnTo(Math.toRadians(180))
+//                                        .lineToX(-12)
+//                                        .turnTo(Math.toRadians(90))
+//                                        .lineToY(40)
+//                                        .lineToY(10)
+//                                        .turnTo(Math.toRadians(135))
+//                                        //third
+//
+//                                        .splineTo(new Vector2d(56, 56), 1)
+//                                        .turnTo(Math.toRadians(180))
+//                                        .build(),
+//                                //preloads
+//
+//
+//                                endAction()))
+//                //ready everything for op
+//        );
+//    }
 
 
     //theoretical ^
@@ -520,6 +710,7 @@ public class AUTOHARDWARE extends HARDWARECONFIG {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
             drivefinished = false;
+            lastPose = drive.localizer.getPose();
             return false;
         }
     }

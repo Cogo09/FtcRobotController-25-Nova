@@ -18,7 +18,9 @@ public class SERVOSUB {
     private final Servo leftelevatorservo;
     private final Servo middleelevatorservo;
     private final Servo rightelevatorservo;
-    private final Servo bootkickerservo;
+    private final Servo leftscooperservo;
+    private final Servo rightscooperservo;
+//    private final Servo bootkickerservo;
 
 
     public enum LeftELEState {UP, DOWN, IDLE}
@@ -53,7 +55,7 @@ public class SERVOSUB {
         RightELEStateVar = RightELEState.IDLE;
     }
 
-    public enum MiddleELEState {UP, DOWN, IDLE}
+    public enum MiddleELEState {UP, DOWN,SLIGHT, IDLE}
 
     private MiddleELEState MiddleELEStateVar = MiddleELEState.IDLE;
 
@@ -64,26 +66,47 @@ public class SERVOSUB {
     public void MELEdown() {
         MiddleELEStateVar = MiddleELEState.DOWN;
     }
+    public void MELEslight(){MiddleELEStateVar = MiddleELEState.SLIGHT;}
 
     public void MELEIDLE() {
         MiddleELEStateVar = MiddleELEState.IDLE;
     }
 
+    public enum RightScooperState {UP,DOWN,IDLE}
+
+    private RightScooperState RightScooperStateVar = RightScooperState.IDLE;
+
+    public void rscoopdown(){RightScooperStateVar = RightScooperState.DOWN;}
+
+    public void rscoopup(){RightScooperStateVar = RightScooperState.UP;}
+
+    public void rscoopidle(){RightScooperStateVar = RightScooperState.IDLE;}
+
+    public enum LeftScooperState {UP,DOWN,IDLE}
+
+    private LeftScooperState LeftScooperStateVar = LeftScooperState.IDLE;
+
+    public void lscoopdown(){LeftScooperStateVar = LeftScooperState.DOWN;}
+
+    public void lscoopup(){LeftScooperStateVar = LeftScooperState.UP;}
+
+    public void lscoopidle(){LeftScooperStateVar = LeftScooperState.IDLE;}
+
     public enum BootState {UP, DOWN, IDLE}
 
-    private BootState BootStateVar = BootState.IDLE;
-
-    public void Bootup() {
-        BootStateVar = BootState.UP;
-    }
-
-    public void Bootdown() {
-        BootStateVar = BootState.DOWN;
-    }
-
-    public void BootIDLE() {
-        BootStateVar = BootState.IDLE;
-    }
+//    private BootState BootStateVar = BootState.IDLE;
+//
+//    public void Bootup() {
+//        BootStateVar = BootState.UP;
+//    }
+//
+//    public void Bootdown() {
+//        BootStateVar = BootState.DOWN;
+//    }
+//
+//    public void BootIDLE() {
+//        BootStateVar = BootState.IDLE;
+//    }
 
 
 
@@ -92,17 +115,53 @@ public class SERVOSUB {
         leftelevatorservo = hwMap.get(Servo.class, "leftelevatorservo");
         middleelevatorservo = hwMap.get(Servo.class, "middleelevatorservo");
         rightelevatorservo = hwMap.get(Servo.class, "rightelevatorservo");
-        bootkickerservo = hwMap.get(Servo.class,"bootkickerservo");
+        leftscooperservo = hwMap.get(Servo.class,"leftscooperservo");
+        rightscooperservo = hwMap.get(Servo.class,"rightscooperservo");
+//        bootkickerservo = hwMap.get(Servo.class,"bootkickerservo");
         leftelevatorservo.setDirection(Servo.Direction.FORWARD);
         middleelevatorservo.setDirection(Servo.Direction.FORWARD);
-        rightelevatorservo.setDirection(Servo.Direction.REVERSE);
-        bootkickerservo.setDirection(Servo.Direction.REVERSE);
+        rightelevatorservo.setDirection(Servo.Direction.FORWARD);
+        rightscooperservo.setDirection(Servo.Direction.FORWARD);
+//        bootkickerservo.setDirection(Servo.Direction.REVERSE);
 
     }
 
     public void update() {
         // this is where you put your state machines and all power functions (call this in our main code)l
+//
+//        switch (BootStateVar) {
+//            case UP:
+//                setpose(bootkickerservo,SERVOUTIL.bootkickerup);
+//                break;
+//            case DOWN:
+//                setpose(bootkickerservo,SERVOUTIL.bootkickerdown);
+//                break;
+//            case IDLE:
+//
+//                break;
+//        }
+        switch (RightScooperStateVar){
+            case UP:
+                setpose(rightscooperservo, SERVOUTIL.rightscooperup);
+                break;
+            case DOWN:
+                setpose(rightscooperservo, SERVOUTIL.rightscooperdown);
+                break;
+            case IDLE:
 
+                break;
+        }
+        switch (LeftScooperStateVar){
+            case UP:
+                setpose(leftscooperservo, SERVOUTIL.leftscooperup);
+                break;
+            case DOWN:
+                setpose(leftscooperservo, SERVOUTIL.leftscooperdown);
+                break;
+            case IDLE:
+
+                break;
+        }
         switch (LeftELEStateVar) {
             case UP:
                 setpose(leftelevatorservo, SERVOUTIL.leftelevatorservoup);
@@ -114,22 +173,11 @@ public class SERVOSUB {
 
                 break;
         }
-        switch (BootStateVar) {
-            case UP:
-                setpose(bootkickerservo,SERVOUTIL.bootkickerup);
-                break;
-            case DOWN:
-                setpose(bootkickerservo,SERVOUTIL.bootkickerdown);
-                break;
-            case IDLE:
-
-                break;
-        }
         switch (RightELEStateVar) {
-                case UP:
+                case DOWN:
                 setpose(rightelevatorservo, SERVOUTIL.rightelevatorservoup);
                 break;
-            case DOWN:
+            case UP:
                 setpose(rightelevatorservo, SERVOUTIL.rightelevatorservodown);
                 break;
             case IDLE:
@@ -137,11 +185,14 @@ public class SERVOSUB {
                 break;
         }
         switch (MiddleELEStateVar) {
-            case UP:
+            case DOWN:
                 setpose(middleelevatorservo, SERVOUTIL.middleelevatorservoup);
                 break;
-            case DOWN:
+            case UP:
                 setpose(middleelevatorservo, SERVOUTIL.middleelevatorservodown);
+                break;
+            case SLIGHT:
+                setpose(middleelevatorservo,SERVOUTIL.middleelevatorservoupslight);
                 break;
             case IDLE:
 
@@ -170,6 +221,7 @@ public class SERVOSUB {
             this.servosub = servosub;
         }
 
+
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
             for (Runnable func : funcs) {
@@ -179,5 +231,8 @@ public class SERVOSUB {
 
             return false;
         }
+    }
+    public Action servoAction(List<Runnable> funcs){
+        return new ServoAction(this, funcs);
     }
 }
